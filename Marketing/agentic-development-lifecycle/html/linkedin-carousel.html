@@ -126,7 +126,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 10%;
+      padding: 7% 8% 8%;
       position: relative;
       overflow: hidden;
     }
@@ -185,37 +185,38 @@
       z-index: 2;
     }
     .slide-eyebrow {
-      font-size: .65rem;
+      font-size: clamp(.7rem, 2.6vw, 1rem);
       font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
-      margin-bottom: .75rem;
+      margin-bottom: .6rem;
     }
     .slide.dark .slide-eyebrow { color: var(--cyan); }
     .slide.light-odd .slide-eyebrow, .slide.light-even .slide-eyebrow { color: var(--electric); }
 
     .slide-label {
       display: inline-block;
-      font-size: .65rem;
+      font-size: clamp(.65rem, 2.4vw, .9rem);
       font-weight: 700;
       letter-spacing: .12em;
       text-transform: uppercase;
-      padding: .25rem .65rem;
+      padding: .28rem .75rem;
       border-radius: 4px;
-      margin-bottom: .875rem;
+      margin-bottom: 1rem;
     }
-    .slide.dark .slide-label { background: rgba(255,255,255,.08); color: var(--muted); }
+    .slide.dark .slide-label { background: rgba(255,255,255,.10); color: var(--muted); }
     .slide.light-odd .slide-label, .slide.light-even .slide-label { background: var(--light-blue); color: var(--navy); }
 
     .slide-headline {
       font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -.025em;
+      line-height: 1.1;
+      letter-spacing: -.03em;
       margin-bottom: .75rem;
     }
-    /* Headline sizes vary by slide type */
-    .slide.dark .slide-headline { font-size: clamp(1.4rem, 6vw, 2.1rem); color: var(--white); }
-    .slide.light-odd .slide-headline, .slide.light-even .slide-headline { font-size: clamp(1.25rem, 5vw, 1.85rem); color: var(--midnight); }
+    /* ── LARGE HEADLINES — the whole point of the slide ── */
+    .slide.dark .slide-headline { font-size: clamp(2.75rem, 14vw, 4.75rem); color: var(--white); }
+    .slide.light-odd .slide-headline,
+    .slide.light-even .slide-headline { font-size: clamp(2.5rem, 13vw, 4.25rem); color: var(--midnight); }
 
     .slide-headline .gw {
       background: var(--grad);
@@ -225,9 +226,9 @@
     }
 
     .slide-support {
-      font-size: .8125rem;
+      font-size: clamp(.875rem, 3.6vw, 1.25rem);
       font-weight: 500;
-      line-height: 1.65;
+      line-height: 1.6;
     }
     .slide.dark .slide-support { color: var(--peri); }
     .slide.light-odd .slide-support, .slide.light-even .slide-support { color: var(--gray); }
@@ -236,26 +237,26 @@
     .slide-cta-btn {
       display: inline-flex;
       align-items: center;
-      gap: .4rem;
+      gap: .5rem;
       background: var(--grad);
       color: var(--white);
       font-family: var(--font);
-      font-size: .8125rem;
+      font-size: clamp(.875rem, 3.4vw, 1.125rem);
       font-weight: 700;
-      padding: .6rem 1.25rem;
-      border-radius: 6px;
-      margin-top: 1.25rem;
-      box-shadow: 0 4px 20px rgba(16,62,224,.4);
+      padding: .75rem 1.75rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      box-shadow: 0 4px 24px rgba(16,62,224,.45);
     }
 
     /* LOGO watermark */
     .slide-logo {
       position: absolute;
-      bottom: 7%; right: 7%;
-      font-size: .6rem;
+      bottom: 6%; right: 6%;
+      font-size: clamp(.7rem, 2.8vw, 1rem);
       font-weight: 800;
       letter-spacing: -.01em;
-      opacity: .55;
+      opacity: .5;
       z-index: 2;
     }
     .slide.dark .slide-logo { color: var(--white); }
@@ -265,8 +266,8 @@
     /* Phase number accent (large background numeral) */
     .slide-bg-num {
       position: absolute;
-      top: 5%; right: 5%;
-      font-size: 8rem;
+      top: 4%; right: 4%;
+      font-size: clamp(7rem, 28vw, 11rem);
       font-weight: 800;
       letter-spacing: -.05em;
       line-height: 1;
@@ -275,9 +276,9 @@
       user-select: none;
     }
     .slide.light-odd .slide-bg-num, .slide.light-even .slide-bg-num {
-      color: rgba(7,54,99,.05);
+      color: rgba(7,54,99,.055);
     }
-    .slide.dark .slide-bg-num { color: rgba(255,255,255,.04); }
+    .slide.dark .slide-bg-num { color: rgba(255,255,255,.05); }
 
     /* Wave illustration SVG — injected by JS */
     .slide-wave-svg {
