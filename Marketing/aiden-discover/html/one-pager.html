@@ -1,0 +1,305 @@
+<!-- META TITLE: Aiden Discover — Enterprise AI Intelligence Foundation — One-Pager | Aiden AI -->
+<!-- META DESCRIPTION: Aiden Discover one-pager: plug-and-play semantic knowledge graph, 4-layer AI foundation, multi-modal ingestion. Client-facing leave-behind. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aiden Discover One-Pager | Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:    #073663;
+      --electric:#103EE0;
+      --cyan:    #12DBD5;
+      --midnight:#08244B;
+      --deep:    #061B39;
+      --lblue:   #E0E4FC;
+      --peri:    #BCC9FF;
+      --white:   #FFFFFF;
+      --gray:    #64748B;
+      --muted:   #D0D8E3;
+      --headline:#08244B;
+      --grad:    linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --font:    'Poppins', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: #E8ECF4;
+      display: flex; justify-content: center; align-items: flex-start;
+      padding: 2.5rem 1rem; min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: 100%; max-width: 794px;
+      background: var(--white);
+      box-shadow: 0 8px 60px rgba(7,54,99,.18);
+      border-radius: 4px; overflow: hidden; position: relative;
+    }
+
+    .top-bar { height: 5px; background: var(--grad); }
+
+    /* HEADER */
+    .header {
+      background: var(--midnight); padding: 2.75rem 3rem 2.25rem;
+      position: relative; overflow: hidden;
+    }
+    .header::before {
+      content: ''; position: absolute;
+      top: -40%; right: -10%; width: 55%; height: 200%;
+      background: radial-gradient(ellipse, rgba(16,62,224,.25) 0%, transparent 65%);
+    }
+    .header::after {
+      content: ''; position: absolute;
+      bottom: -50%; left: 5%; width: 40%; height: 160%;
+      background: radial-gradient(ellipse, rgba(18,219,213,.12) 0%, transparent 65%);
+    }
+    .header-inner { position: relative; z-index: 1; }
+    .header-campaign {
+      font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: .6rem;
+    }
+    .header-title {
+      font-size: 1.875rem; font-weight: 800; color: var(--white);
+      line-height: 1.15; letter-spacing: -.03em; margin-bottom: .625rem;
+    }
+    .header-title span {
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .header-sub { font-size: .9375rem; font-weight: 500; color: var(--peri); line-height: 1.5; }
+    .header-meta {
+      margin-top: 1.25rem; font-size: .75rem; color: rgba(208,216,227,.5);
+      font-weight: 500;
+    }
+
+    /* BODY */
+    .body { padding: 2.5rem 3rem; }
+
+    /* SECTIONS */
+    .section { margin-bottom: 2rem; }
+    .section-label {
+      display: flex; align-items: center; gap: .5rem;
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--electric); margin-bottom: .75rem;
+    }
+    .section-label::before { content: ''; flex: 0 0 16px; height: 2px; background: var(--grad); border-radius: 2px; }
+    .section p { font-size: .9rem; color: var(--gray); line-height: 1.75; }
+
+    /* PHASES TABLE */
+    .phases-table { width: 100%; border-collapse: collapse; margin-top: .75rem; }
+    .phases-table tbody tr { border-bottom: 1px solid rgba(7,54,99,.07); }
+    .phases-table tbody tr:last-child { border-bottom: none; }
+    .phases-table td { padding: .6rem .75rem; font-size: .875rem; vertical-align: top; }
+    .phases-table .phase-num {
+      width: 42px; text-align: center; font-weight: 800; font-size: 1rem;
+      letter-spacing: -.04em;
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+      padding-top: .65rem;
+    }
+    .phases-table .phase-name { font-weight: 700; color: var(--midnight); white-space: nowrap; padding-right: 1rem; }
+    .phases-table .phase-desc { color: var(--gray); line-height: 1.6; }
+
+    /* USE CASES LIST */
+    .usecase-list { display: flex; flex-direction: column; gap: .375rem; margin-top: .75rem; }
+    .usecase-item { display: flex; gap: .625rem; align-items: flex-start; }
+    .usecase-dot {
+      flex: 0 0 6px; height: 6px; border-radius: 50%;
+      background: var(--grad); margin-top: .45rem;
+    }
+    .usecase-item p { font-size: .875rem; color: var(--gray); line-height: 1.6; }
+
+    /* WHY BULLETS */
+    .why-list { display: flex; flex-direction: column; gap: .5rem; margin-top: .75rem; }
+    .why-item { display: flex; gap: .625rem; align-items: flex-start; }
+    .why-dot {
+      flex: 0 0 6px; height: 6px; border-radius: 50%;
+      background: var(--grad); margin-top: .45rem;
+    }
+    .why-item p { font-size: .875rem; color: var(--gray); line-height: 1.6; }
+    .why-item strong { color: var(--midnight); }
+
+    /* TWO-COL LAYOUT */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+
+    /* CTA FOOTER */
+    .cta-bar {
+      background: var(--midnight); margin: 0 3rem 3rem;
+      border-radius: 10px; padding: 1.5rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-bar::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 100% at 80% 50%, rgba(18,219,213,.12) 0%, transparent 60%);
+    }
+    .cta-bar-left { position: relative; z-index: 1; }
+    .cta-bar-left h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: .25rem; }
+    .cta-bar-left p { font-size: .8125rem; color: var(--peri); }
+    .cta-bar-right { position: relative; z-index: 1; display: flex; flex-direction: column; gap: .25rem; align-items: flex-end; }
+    .cta-bar-right a { font-size: .875rem; font-weight: 700; color: var(--cyan); }
+    .cta-bar-right span { font-size: .75rem; color: rgba(208,216,227,.5); }
+
+    /* PRINT */
+    @media print {
+      body { background: none; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; max-width: 100%; }
+      @page { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+    <div class="top-bar"></div>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-inner">
+        <p class="header-campaign">Aiden AI &nbsp;|&nbsp; Enterprise AI Intelligence Foundation</p>
+        <h1 class="header-title">
+          Discover. Understand.<br>
+          <span>Activate.</span>
+        </h1>
+        <p class="header-sub">Aiden Discover — the plug-and-play enterprise AI intelligence foundation.</p>
+        <p class="header-meta">Client-Facing Leave-Behind &nbsp;·&nbsp; Campaign: Discover. Understand. Activate.</p>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- THE CHALLENGE -->
+      <div class="section">
+        <div class="section-label">The Challenge</div>
+        <p>
+          Enterprise AI initiatives stall on the same problem: the data foundation isn't ready. Knowledge is fragmented across documents, schemas, recordings, legacy systems, Figma files, and live applications — unstructured, disconnected, and inaccessible to AI reasoning. Building a data layer from scratch takes months. Most organizations can't wait.
+        </p>
+      </div>
+
+      <!-- THE SOLUTION -->
+      <div class="section">
+        <div class="section-label">The Solution</div>
+        <p>
+          Aiden Discover is Aiden AI's plug-and-play discovery and intelligence foundation. A collection of agents that ingests multi-modal enterprise data, transforms it into a semantic knowledge graph, and makes it immediately usable for AI reasoning, insight generation, and downstream action — without a heavy upfront foundation build.
+          <strong style="color:var(--midnight)">Not a search index. A semantic intelligence foundation.</strong>
+        </p>
+      </div>
+
+      <!-- HOW IT WORKS -->
+      <div class="section">
+        <div class="section-label">How It Works</div>
+        <table class="phases-table">
+          <tbody>
+            <tr>
+              <td class="phase-num">01</td>
+              <td class="phase-name">Multi-Modal Ingestion</td>
+              <td class="phase-desc">Prebuilt connectors ingest documents, recordings, schemas, logs, requirements, test cases, Figma, and live URLs automatically</td>
+            </tr>
+            <tr>
+              <td class="phase-num">02</td>
+              <td class="phase-name">Semantic Knowledge Graph</td>
+              <td class="phase-desc">Converts data into a structured graph capturing relationships, dependencies, and business meaning</td>
+            </tr>
+            <tr>
+              <td class="phase-num">03</td>
+              <td class="phase-name">Intelligence &amp; Inference</td>
+              <td class="phase-desc">Purpose-built tools generate insights and support reasoning across large-scale enterprise context</td>
+            </tr>
+            <tr>
+              <td class="phase-num">04</td>
+              <td class="phase-name">Agent Orchestration</td>
+              <td class="phase-desc">Connects to Aiden's multi-agent framework for migration, testing, deployment, and operations</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TWO COL: WHY + USE CASES -->
+      <div class="two-col">
+        <!-- WHY AIDEN DISCOVER -->
+        <div class="section">
+          <div class="section-label">Why Aiden Discover</div>
+          <div class="why-list">
+            <div class="why-item">
+              <div class="why-dot"></div>
+              <p><strong>Multi-modal at scale</strong> — any format, any source, any volume</p>
+            </div>
+            <div class="why-item">
+              <div class="why-dot"></div>
+              <p><strong>Semantic, not just indexed</strong> — captures meaning and relationships</p>
+            </div>
+            <div class="why-item">
+              <div class="why-dot"></div>
+              <p><strong>Plug-and-play</strong> — no heavyweight build required</p>
+            </div>
+            <div class="why-item">
+              <div class="why-dot"></div>
+              <p><strong>Inference-ready</strong> — reasoning and decision support built in</p>
+            </div>
+            <div class="why-item">
+              <div class="why-dot"></div>
+              <p><strong>Connected to action</strong> — direct integration with Aiden's agents</p>
+            </div>
+            <div class="why-item">
+              <div class="why-dot"></div>
+              <p><strong>Enterprise-grade</strong> — governed, auditable, production-scale</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- USE CASES -->
+        <div class="section">
+          <div class="section-label">Use Cases</div>
+          <div class="usecase-list">
+            <div class="usecase-item">
+              <div class="usecase-dot"></div>
+              <p>Legacy modernization</p>
+            </div>
+            <div class="usecase-item">
+              <div class="usecase-dot"></div>
+              <p>Conversational AI &amp; copilots</p>
+            </div>
+            <div class="usecase-item">
+              <div class="usecase-dot"></div>
+              <p>Contextual search &amp; RAG</p>
+            </div>
+            <div class="usecase-item">
+              <div class="usecase-dot"></div>
+              <p>Requirements &amp; test generation</p>
+            </div>
+            <div class="usecase-item">
+              <div class="usecase-dot"></div>
+              <p>Migration &amp; transformation</p>
+            </div>
+            <div class="usecase-item">
+              <div class="usecase-dot"></div>
+              <p>Operational intelligence</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /body -->
+
+    <!-- CTA BAR -->
+    <div class="cta-bar">
+      <div class="cta-bar-left">
+        <h3>Your enterprise knowledge is ready for AI. Is your foundation?</h3>
+        <p>See Aiden Discover in action.</p>
+      </div>
+      <div class="cta-bar-right">
+        <a href="mailto:hello@aiden.ai">hello@aiden.ai</a>
+        <span>aiden.ai &nbsp;|&nbsp; Book a 30-minute conversation</span>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+</body>
+</html>
