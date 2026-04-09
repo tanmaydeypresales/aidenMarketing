@@ -1,0 +1,437 @@
+<!-- META TITLE: Agentic Development Lifecycle — One-Pager | Aiden AI -->
+<!-- META DESCRIPTION: Aiden AI's ADLC one-pager: the enterprise framework for production-scale agentic application engineering. Download or print-ready. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADLC One-Pager | Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #073663;
+      --electric: #103EE0;
+      --cyan: #12DBD5;
+      --midnight: #08244B;
+      --deep: #061B39;
+      --light-blue: #E0E4FC;
+      --peri: #BCC9FF;
+      --off-white: #F8F8F8;
+      --white: #FFFFFF;
+      --gray: #64748B;
+      --muted: #D0D8E3;
+      --headline: #08244B;
+      --grad: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --font: 'Poppins', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: #E8ECF4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2.5rem 1rem;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ONE-PAGER SHEET */
+    .page {
+      width: 100%;
+      max-width: 794px; /* A4 width at 96dpi */
+      background: var(--white);
+      box-shadow: 0 8px 60px rgba(7,54,99,.18);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* TOP ACCENT BAR */
+    .top-bar {
+      height: 5px;
+      background: var(--grad);
+    }
+
+    /* HEADER */
+    .header {
+      background: var(--midnight);
+      padding: 2.5rem 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60%; right: -10%;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse, rgba(16,62,224,.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .header-eyebrow {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: .875rem;
+    }
+    .header-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -.025em;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: .75rem;
+    }
+    .header-title .gw {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header-sub {
+      font-size: .875rem;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 520px;
+    }
+    .header-logo {
+      position: absolute;
+      top: 2rem; right: 3rem;
+      font-size: .9rem;
+      font-weight: 800;
+      color: rgba(255,255,255,.35);
+      letter-spacing: -.01em;
+    }
+    .header-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* BODY */
+    .body-content {
+      padding: 2.5rem 3rem;
+    }
+
+    /* CHALLENGE */
+    .section-block { margin-bottom: 2rem; }
+    .section-heading {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--electric);
+      margin-bottom: .75rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--light-blue);
+    }
+    .challenge-text {
+      font-size: .875rem;
+      color: var(--gray);
+      line-height: 1.75;
+    }
+    .challenge-text strong { color: var(--headline); font-weight: 700; }
+
+    /* INTRO BLOCK */
+    .solution-block {
+      background: var(--off-white);
+      border-radius: 10px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border-left: 3px solid;
+      border-image: var(--grad) 1;
+      position: relative;
+    }
+    .solution-block p {
+      font-size: .9rem;
+      color: var(--headline);
+      line-height: 1.75;
+      font-weight: 500;
+    }
+    .solution-block .accent {
+      font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* PHASE TABLE */
+    .phase-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    .phase-table thead tr {
+      background: var(--midnight);
+    }
+    .phase-table thead th {
+      padding: .7rem 1rem;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+    }
+    .phase-table thead th:first-child { color: var(--cyan); width: 14%; }
+    .phase-table thead th:nth-child(2) { width: 28%; }
+    .phase-table thead th:nth-child(3) { width: 58%; }
+    .phase-table tbody tr:nth-child(odd) { background: var(--off-white); }
+    .phase-table tbody tr:nth-child(even) { background: var(--white); }
+    .phase-table tbody tr { border-bottom: 1px solid rgba(7,54,99,.07); }
+    .phase-table tbody td {
+      padding: .75rem 1rem;
+      font-size: .8125rem;
+      line-height: 1.55;
+    }
+    .phase-table tbody td:first-child {
+      font-weight: 800;
+      font-size: .7rem;
+      letter-spacing: .06em;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .phase-table tbody td:nth-child(2) { font-weight: 700; color: var(--headline); }
+    .phase-table tbody td:nth-child(3) { color: var(--gray); }
+
+    /* SHIFT TABLE */
+    .shift-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(7,54,99,.1);
+      margin-bottom: 2rem;
+    }
+    .shift-col { }
+    .shift-col-header {
+      padding: .75rem 1.25rem;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .shift-col-header.old { background: #F1F1F3; color: var(--gray); }
+    .shift-col-header.new { background: var(--midnight); color: var(--cyan); }
+    .shift-item {
+      padding: .65rem 1.25rem;
+      font-size: .8rem;
+      line-height: 1.55;
+      border-top: 1px solid rgba(7,54,99,.07);
+    }
+    .shift-col.old-col .shift-item { background: var(--white); color: var(--gray); }
+    .shift-col.new-col .shift-item { background: #F7F9FF; color: var(--headline); font-weight: 600; }
+
+    /* WHY BULLETS */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .75rem;
+      margin-bottom: 2rem;
+    }
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .625rem;
+      font-size: .8rem;
+      color: var(--headline);
+      line-height: 1.6;
+    }
+    .why-dot {
+      flex-shrink: 0;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--grad);
+      margin-top: .35rem;
+    }
+
+    /* FOOTER CTA */
+    .footer-cta {
+      background: var(--midnight);
+      padding: 1.75rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-cta-text h3 {
+      font-size: .9375rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: .25rem;
+    }
+    .footer-cta-text p {
+      font-size: .75rem;
+      color: var(--muted);
+    }
+    .footer-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--grad);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: .75rem;
+      font-weight: 700;
+      padding: .6rem 1.25rem;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(16,62,224,.4);
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; max-width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .header { padding: 2rem 1.5rem; }
+      .body-content { padding: 1.5rem; }
+      .footer-cta { padding: 1.5rem; }
+      .shift-block { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .phase-table thead th:nth-child(3),
+      .phase-table tbody td:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-bar"></div>
+
+    <!-- HEADER -->
+    <div class="header">
+      <div class="header-logo">Aiden <span>AI</span></div>
+      <p class="header-eyebrow">Agentic Development Lifecycle · Solution Brief</p>
+      <h1 class="header-title">From Builders<br>to <span class="gw">Creators.</span></h1>
+      <p class="header-sub">Aiden AI's unified framework for production-scale agentic application engineering — from intent to delivery, on a single intelligent platform.</p>
+    </div>
+
+    <!-- BODY -->
+    <div class="body-content">
+
+      <!-- CHALLENGE -->
+      <div class="section-block">
+        <div class="section-heading">The Challenge</div>
+        <p class="challenge-text">Today's enterprises are ready to move from <strong>consuming AI to creating with it</strong>. But the tools haven't kept up. Current AI development environments are technically fragmented, opaque in their decision-making, and unable to support the collaborative, governed delivery that enterprise programs require. The result: impressive pilots that never reach production.</p>
+      </div>
+
+      <!-- SOLUTION CALLOUT -->
+      <div class="solution-block">
+        <p>The <strong>Agentic Development Lifecycle (ADLC)</strong> is Aiden AI's unified framework for building, governing, and deploying enterprise applications — from intent to production — on a <strong>single pane of glass</strong>. Business users, developers, architects, and operators work together, powered by intelligent agents and governed workflows. <span class="accent">Not AI-assisted development. Agentic, outcome-driven application engineering.</span></p>
+      </div>
+
+      <!-- PHASES -->
+      <div class="section-block">
+        <div class="section-heading">The Seven Phases</div>
+        <table class="phase-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Phase</th>
+              <th>What Happens</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>Define Intent</td>
+              <td>Capture requirements, workflows, and business outcomes with AI-guided intake. Align before design begins.</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>Design Systems</td>
+              <td>Architect future-state applications with AI-assisted modeling. Collaborative, visual, cross-team design.</td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Build Intelligently</td>
+              <td>Generate, enhance, and orchestrate application components through agents. Traceable output, no black boxes.</td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>Review &amp; Govern</td>
+              <td>Enforce standards, compliance, and explainability at the point of creation — every decision logged.</td>
+            </tr>
+            <tr>
+              <td>05</td>
+              <td>Test at Scale</td>
+              <td>Automate functional, regression, and behavioral testing enterprise-wide. AI-driven coverage.</td>
+            </tr>
+            <tr>
+              <td>06</td>
+              <td>Operate &amp; Evolve</td>
+              <td>Monitor and continuously improve in production. Performance data feeds back into the lifecycle.</td>
+            </tr>
+            <tr>
+              <td>07</td>
+              <td>Deploy with Confidence</td>
+              <td>Production-ready delivery with full traceability, rollback controls, and zero-surprise deployments.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- THE SHIFT -->
+      <div class="section-block">
+        <div class="section-heading">The Shift</div>
+        <div class="shift-block">
+          <div class="shift-col old-col">
+            <div class="shift-col-header old">The Old Way</div>
+            <div class="shift-item">Reliant on external vendors for every build</div>
+            <div class="shift-item">AI outputs with no governance or audit trail</div>
+            <div class="shift-item">Months from concept to production</div>
+            <div class="shift-item">POC success, production failure</div>
+            <div class="shift-item">Technology adopted, not operationalized</div>
+          </div>
+          <div class="shift-col new-col">
+            <div class="shift-col-header new">The Aiden Way</div>
+            <div class="shift-item">Internal teams as creators and owners</div>
+            <div class="shift-item">Full traceability — every decision logged</div>
+            <div class="shift-item">Accelerated delivery with built-in controls</div>
+            <div class="shift-item">Designed for production from day one</div>
+            <div class="shift-item">AI operationalized at enterprise scale</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WHY AIDEN -->
+      <div class="section-block">
+        <div class="section-heading">Why Aiden AI</div>
+        <div class="why-grid">
+          <div class="why-item"><div class="why-dot"></div><div>Purpose-built for enterprise application development — not adapted from a consumer AI tool</div></div>
+          <div class="why-item"><div class="why-dot"></div><div>Multi-model AI routing — no single-vendor dependency, no lock-in</div></div>
+          <div class="why-item"><div class="why-dot"></div><div>MCP 2.0 native tool orchestration for true agentic capability</div></div>
+          <div class="why-item"><div class="why-dot"></div><div>Human-in-the-loop control at every lifecycle phase</div></div>
+          <div class="why-item"><div class="why-dot"></div><div>Enterprise-grade governance, security, and compliance by design</div></div>
+          <div class="why-item"><div class="why-dot"></div><div>Live in insurance, banking, financial services, and enterprise operations</div></div>
+        </div>
+      </div>
+
+    </div><!-- /body-content -->
+
+    <!-- FOOTER CTA -->
+    <div class="footer-cta">
+      <div class="footer-cta-text">
+        <h3>Ready to operationalize AI across your enterprise?</h3>
+        <p>Talk to Aiden AI about applying the ADLC to your environment. · aiden.ai · hello@aiden.ai</p>
+      </div>
+      <a href="#" class="footer-cta-btn">Book a 30-min conversation →</a>
+    </div>
+
+  </div><!-- /page -->
+</body>
+</html>

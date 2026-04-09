@@ -1,0 +1,659 @@
+<!-- META TITLE: From Builders to Creators — LinkedIn Carousel | Aiden AI -->
+<!-- META DESCRIPTION: 10-slide LinkedIn carousel for the Agentic Development Lifecycle campaign. Preview and export each slide. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Carousel — ADLC | Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:     #073663;
+      --electric: #103EE0;
+      --cyan:     #12DBD5;
+      --midnight: #08244B;
+      --deep:     #061B39;
+      --light-blue: #E0E4FC;
+      --peri:     #BCC9FF;
+      --white:    #FFFFFF;
+      --gray:     #64748B;
+      --muted:    #D0D8E3;
+      --grad:     linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --font:     'Poppins', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: #0E1828;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* UI CHROME */
+    .ui-header {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .ui-brand {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -.02em;
+    }
+    .ui-brand span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .ui-label {
+      font-size: .8125rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .08em;
+    }
+
+    /* NAV BUTTONS */
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 2rem;
+    }
+    .nav-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.18);
+      border: none;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .nav-dot.active { background: var(--cyan); transform: scale(1.3); }
+    .nav-prev, .nav-next {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: .875rem;
+      font-weight: 600;
+      padding: .5rem 1.25rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: auto;
+      transition: background .2s;
+    }
+    .nav-prev { margin-left: 0; }
+    .nav-prev:hover, .nav-next:hover { background: rgba(255,255,255,.14); }
+    .slide-counter {
+      font-size: .8125rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    /* SLIDE WRAPPER */
+    .slide-stage {
+      width: 100%;
+      max-width: 540px;
+      position: relative;
+    }
+    .slide-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      display: none;
+      box-shadow: 0 32px 80px rgba(0,0,0,.55);
+    }
+    .slide-frame.active { display: flex; }
+
+    /* SLIDE INTERNALS */
+    .slide {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 10%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* DARK SLIDES (cover, CTA) */
+    .slide.dark { background: var(--midnight); }
+    .slide.dark::before {
+      content: '';
+      position: absolute;
+      top: -30%; right: -20%;
+      width: 80%; height: 80%;
+      background: radial-gradient(ellipse, rgba(16,62,224,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .slide.dark::after {
+      content: '';
+      position: absolute;
+      bottom: -20%; left: -10%;
+      width: 60%; height: 60%;
+      background: radial-gradient(ellipse, rgba(18,219,213,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* LIGHT ODD SLIDES */
+    .slide.light-odd { background: var(--white); }
+    /* LIGHT EVEN SLIDES */
+    .slide.light-even { background: #EDEEF4; }
+
+    /* GRID OVERLAY */
+    .slide-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,0,0,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,.035) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .slide.dark .slide-grid {
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    }
+
+    /* TOP BAR (accent) */
+    .slide-top-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--grad);
+    }
+
+    /* CONTENT */
+    .slide-content {
+      position: relative;
+      z-index: 2;
+    }
+    .slide-eyebrow {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .slide.dark .slide-eyebrow { color: var(--cyan); }
+    .slide.light-odd .slide-eyebrow, .slide.light-even .slide-eyebrow { color: var(--electric); }
+
+    .slide-label {
+      display: inline-block;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .25rem .65rem;
+      border-radius: 4px;
+      margin-bottom: .875rem;
+    }
+    .slide.dark .slide-label { background: rgba(255,255,255,.08); color: var(--muted); }
+    .slide.light-odd .slide-label, .slide.light-even .slide-label { background: var(--light-blue); color: var(--navy); }
+
+    .slide-headline {
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      margin-bottom: .75rem;
+    }
+    /* Headline sizes vary by slide type */
+    .slide.dark .slide-headline { font-size: clamp(1.4rem, 6vw, 2.1rem); color: var(--white); }
+    .slide.light-odd .slide-headline, .slide.light-even .slide-headline { font-size: clamp(1.25rem, 5vw, 1.85rem); color: var(--midnight); }
+
+    .slide-headline .gw {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .slide-support {
+      font-size: .8125rem;
+      font-weight: 500;
+      line-height: 1.65;
+    }
+    .slide.dark .slide-support { color: var(--peri); }
+    .slide.light-odd .slide-support, .slide.light-even .slide-support { color: var(--gray); }
+
+    /* CTA button on last slide */
+    .slide-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--grad);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: .8125rem;
+      font-weight: 700;
+      padding: .6rem 1.25rem;
+      border-radius: 6px;
+      margin-top: 1.25rem;
+      box-shadow: 0 4px 20px rgba(16,62,224,.4);
+    }
+
+    /* LOGO watermark */
+    .slide-logo {
+      position: absolute;
+      bottom: 7%; right: 7%;
+      font-size: .6rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      opacity: .55;
+      z-index: 2;
+    }
+    .slide.dark .slide-logo { color: var(--white); }
+    .slide.light-odd .slide-logo, .slide.light-even .slide-logo { color: var(--navy); }
+    .slide-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; opacity: 1; }
+
+    /* Phase number accent (large background numeral) */
+    .slide-bg-num {
+      position: absolute;
+      top: 5%; right: 5%;
+      font-size: 8rem;
+      font-weight: 800;
+      letter-spacing: -.05em;
+      line-height: 1;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+    .slide.light-odd .slide-bg-num, .slide.light-even .slide-bg-num {
+      color: rgba(7,54,99,.05);
+    }
+    .slide.dark .slide-bg-num { color: rgba(255,255,255,.04); }
+
+    /* Wave illustration SVG — injected by JS */
+    .slide-wave-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* SLIDE CAPTION (below slide) */
+    .slide-caption {
+      width: 100%;
+      max-width: 540px;
+      margin-top: 1.75rem;
+      padding: 0 .5rem;
+    }
+    .slide-caption h3 {
+      font-size: .9375rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .375rem;
+    }
+    .slide-caption p {
+      font-size: .8125rem;
+      color: rgba(208,216,227,.6);
+      line-height: 1.65;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ui-header">
+    <div class="ui-brand">Aiden <span>AI</span></div>
+    <div class="ui-label">LinkedIn Carousel — ADLC Campaign · 10 Slides</div>
+  </div>
+
+  <div class="nav-bar">
+    <button class="nav-prev" onclick="prevSlide()">← Prev</button>
+    <button class="nav-dot active" onclick="goSlide(0)"></button>
+    <button class="nav-dot" onclick="goSlide(1)"></button>
+    <button class="nav-dot" onclick="goSlide(2)"></button>
+    <button class="nav-dot" onclick="goSlide(3)"></button>
+    <button class="nav-dot" onclick="goSlide(4)"></button>
+    <button class="nav-dot" onclick="goSlide(5)"></button>
+    <button class="nav-dot" onclick="goSlide(6)"></button>
+    <button class="nav-dot" onclick="goSlide(7)"></button>
+    <button class="nav-dot" onclick="goSlide(8)"></button>
+    <button class="nav-dot" onclick="goSlide(9)"></button>
+    <span class="slide-counter" id="slideCounter">1 / 10</span>
+    <button class="nav-next" onclick="nextSlide()">Next →</button>
+  </div>
+
+  <div class="slide-stage">
+
+    <!-- SLIDE 1 — HOOK (DARK) -->
+    <div class="slide-frame active" id="s0">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <p class="slide-eyebrow">Enterprise AI</p>
+          <h2 class="slide-headline">Your teams want<br>to <span class="gw">create.</span></h2>
+          <p class="slide-support">Your AI tools are keeping them as operators.<br>That changes now.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 — PROBLEM (LIGHT ODD) -->
+    <div class="slide-frame" id="s1">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Reality</span>
+          <h2 class="slide-headline">Today's AI tools<br><span class="gw">fragment,</span> not enable.</h2>
+          <p class="slide-support">Technical. Opaque. Built for demos,<br>not enterprise delivery.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 — THE SHIFT (LIGHT EVEN) -->
+    <div class="slide-frame" id="s2">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Shift</span>
+          <h2 class="slide-headline">From vendor dependency<br>to <span class="gw">creator ownership.</span></h2>
+          <p class="slide-support">Aiden AI's ADLC makes your teams<br>the builders of what's next.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 — PHASE 01 (LIGHT ODD) -->
+    <div class="slide-frame" id="s3">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">01</div>
+        <div class="slide-content">
+          <span class="slide-label">01 — Define Intent</span>
+          <h2 class="slide-headline">Start with<br><span class="gw">outcomes,</span><br>not features.</h2>
+          <p class="slide-support">Requirements, workflows, and business goals —<br>captured intelligently, before building begins.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 — PHASE 02+03 (LIGHT EVEN) -->
+    <div class="slide-frame" id="s4">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">02</div>
+        <div class="slide-content">
+          <span class="slide-label">02–03 — Design &amp; Build</span>
+          <h2 class="slide-headline">Architect and build —<br>with <span class="gw">agents,</span><br>not bottlenecks.</h2>
+          <p class="slide-support">AI-assisted modeling. Context-aware code generation.<br>No black boxes.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 — PHASE 04 (LIGHT ODD) -->
+    <div class="slide-frame" id="s5">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">04</div>
+        <div class="slide-content">
+          <span class="slide-label">04 — Review &amp; Govern</span>
+          <h2 class="slide-headline">Governance<br>built <span class="gw">in.</span><br>Not bolted on.</h2>
+          <p class="slide-support">Standards, compliance, explainability —<br>enforced at the point of creation.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 — PHASE 05 (LIGHT EVEN) -->
+    <div class="slide-frame" id="s6">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">05</div>
+        <div class="slide-content">
+          <span class="slide-label">05 — Test at Scale</span>
+          <h2 class="slide-headline">Full coverage.<br>Zero manual <span class="gw">grind.</span></h2>
+          <p class="slide-support">Functional, regression, behavioral —<br>automated across the full application.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 — PHASE 06+07 (LIGHT ODD) -->
+    <div class="slide-frame" id="s7">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">06</div>
+        <div class="slide-content">
+          <span class="slide-label">06–07 — Operate &amp; Deploy</span>
+          <h2 class="slide-headline">Production-ready.<br>Not <span class="gw">production-</span><br><span class="gw">adjacent.</span></h2>
+          <p class="slide-support">Monitor, optimize, and deploy with full traceability<br>and rollback control.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 — PAYOFF (DARK) -->
+    <div class="slide-frame" id="s8">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Outcome</span>
+          <h2 class="slide-headline">One platform.<br>One lifecycle.<br><span class="gw">Zero fragmentation.</span></h2>
+          <p class="slide-support">Define → Design → Build → Govern → Test → Operate → Deploy.<br>All in one place.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 — CTA (DARK) -->
+    <div class="slide-frame" id="s9">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <h2 class="slide-headline">Build the future.<br><span class="gw">Your way.</span></h2>
+          <p class="slide-support">See how Aiden AI operationalizes enterprise AI<br>— end to end.</p>
+          <div class="slide-cta-btn">→ Book a demo</div>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+  </div><!-- /slide-stage -->
+
+  <!-- Slide captions -->
+  <div class="slide-caption" id="slideCaption">
+    <h3>Slide 1 of 10 — Hook</h3>
+    <p>Cover slide. Dark background. Bold contrast hook to capture scroll attention immediately.</p>
+  </div>
+
+  <script>
+    /* ── WAVE ILLUSTRATION GENERATOR ─────────────────────────────────────
+       Replicates the Aiden AI brand wave-mesh pattern (flowing sinusoidal
+       lines, electric-blue → cyan gradient, pinch/spread effect).
+       Injected once per slide on DOMContentLoaded.                       */
+    function buildWaves(slideEl) {
+      const isDark = slideEl.classList.contains('dark');
+      const W = 540, H = 540;
+      const ns = 'http://www.w3.org/2000/svg';
+      const uid = 'wv' + (Math.random() * 1e6 | 0);
+
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('class', 'slide-wave-svg');
+
+      /* ── DEFS: colour gradient + vertical fade-out mask ── */
+      const defs = document.createElementNS(ns, 'defs');
+
+      // Horizontal stroke gradient (matches brand gradient)
+      const wg = document.createElementNS(ns, 'linearGradient');
+      wg.id = uid + 'g';
+      wg.setAttribute('x1','0%'); wg.setAttribute('y1','0%');
+      wg.setAttribute('x2','100%'); wg.setAttribute('y2','0%');
+      const stops = isDark
+        ? [['0%','#5B80EC'],['50%','#2BC9C3'],['100%','#12DBD5']]
+        : [['0%','#103EE0'],['55%','#1A8FD9'],['100%','#12DBD5']];
+      stops.forEach(([off, col]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off);
+        s.setAttribute('stop-color', col);
+        wg.appendChild(s);
+      });
+      defs.appendChild(wg);
+
+      // Vertical fade gradient for mask (opaque top → transparent bottom)
+      const fg = document.createElementNS(ns, 'linearGradient');
+      fg.id = uid + 'f';
+      fg.setAttribute('x1','0%'); fg.setAttribute('y1','0%');
+      fg.setAttribute('x2','0%'); fg.setAttribute('y2','100%');
+      [[0,'white',1],[52,'white',1],[82,'white',0.15],[100,'white',0]].forEach(([off,col,op]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off+'%');
+        s.setAttribute('stop-color', col);
+        s.setAttribute('stop-opacity', op);
+        fg.appendChild(s);
+      });
+      defs.appendChild(fg);
+
+      // Mask using fade gradient
+      const mask = document.createElementNS(ns, 'mask');
+      mask.id = uid + 'm';
+      const mr = document.createElementNS(ns, 'rect');
+      mr.setAttribute('width', W); mr.setAttribute('height', H);
+      mr.setAttribute('fill', `url(#${uid}f)`);
+      mask.appendChild(mr);
+      defs.appendChild(mask);
+      svg.appendChild(defs);
+
+      /* ── WAVE PATHS ── */
+      const g = document.createElementNS(ns, 'g');
+      g.setAttribute('mask', `url(#${uid}m)`);
+
+      const N   = 32;   // number of wave lines
+      const PTS = 110;  // sample points per line
+
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1);  // 0→1
+
+        // Vertical spread across top ~58% of slide
+        const baseY = 6 + t * 300;
+
+        // Pinch envelope: lines near the vertical centre are tightest,
+        // lines at extremes spread wider — mimics brand convergence look
+        const pinch = 0.18 + 0.82 * Math.pow(Math.abs(2 * t - 1), 0.65);
+
+        // Per-line frequency (slight variation creates interference texture)
+        const freq = (2 * Math.PI) / (235 + 70 * Math.sin(i * 0.91));
+
+        // Amplitude — base value scaled by pinch
+        const amp = (11 + 58 * pinch) * (0.65 + 0.35 * Math.cos(i * 1.27));
+
+        // Phase offset so lines interweave (not all in phase)
+        const phase = i * 0.68 + Math.sin(i * 0.37) * 0.4;
+
+        // Build point array
+        const pts = [];
+        for (let j = 0; j <= PTS; j++) {
+          const x = -15 + (W + 30) * (j / PTS);
+          // X-envelope: waves originate from right (converged) and spread left
+          // Subtle — just adds a 30% amplitude boost on the left half
+          const xEnv = 0.72 + 0.28 * Math.max(0, (W * 0.5 - x) / (W * 0.5));
+          const y = baseY + amp * xEnv * Math.sin(freq * x + phase);
+          pts.push([x, y]);
+        }
+
+        // Convert to smooth quadratic bezier (midpoint method)
+        let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+        for (let k = 1; k < pts.length - 1; k++) {
+          const mx = ((pts[k][0] + pts[k+1][0]) / 2).toFixed(1);
+          const my = ((pts[k][1] + pts[k+1][1]) / 2).toFixed(1);
+          d += ` Q${pts[k][0].toFixed(1)},${pts[k][1].toFixed(1)} ${mx},${my}`;
+        }
+        const last = pts[pts.length - 1];
+        d += ` L${last[0].toFixed(1)},${last[1].toFixed(1)}`;
+
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('stroke', `url(#${uid}g)`);
+        path.setAttribute('stroke-width', isDark ? '0.7' : '0.6');
+        path.setAttribute('fill', 'none');
+        // Opacity: lines near pinch extremes are more visible; centre lines subtler
+        const op = isDark
+          ? (0.22 + 0.32 * pinch).toFixed(2)
+          : (0.14 + 0.26 * pinch).toFixed(2);
+        path.setAttribute('opacity', op);
+        g.appendChild(path);
+      }
+
+      svg.appendChild(g);
+      // Insert before all other children (behind content layer)
+      slideEl.insertBefore(svg, slideEl.firstChild);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.slide').forEach(buildWaves);
+    });
+
+    /* ── CAROUSEL NAV ─────────────────────────────────────────────────── */
+    const captions = [
+      { title: 'Slide 1 of 10 — Hook (Cover)', desc: 'Dark background. Bold hook: "Your teams want to create." Gradient on "create." Designed to stop the scroll.' },
+      { title: 'Slide 2 of 10 — The Problem', desc: 'Light background. Names the pain directly: fragmented, opaque AI tools. "Fragment" gets the gradient word treatment.' },
+      { title: 'Slide 3 of 10 — The Shift', desc: 'Light background. Pivots from problem to possibility: creator ownership vs. vendor dependency.' },
+      { title: 'Slide 4 of 10 — Phase 01: Define Intent', desc: 'Light background. Large background numeral "01". Outcome-first language.' },
+      { title: 'Slide 5 of 10 — Phase 02–03: Design & Build', desc: 'Light background. Combines architecture and intelligent build into one high-impact slide.' },
+      { title: 'Slide 6 of 10 — Phase 04: Review & Govern', desc: 'Light background. "Built in. Not bolted on." — the sharpest governance message.' },
+      { title: 'Slide 7 of 10 — Phase 05: Test at Scale', desc: 'Light background. "Full coverage. Zero manual grind." Contrast formula.' },
+      { title: 'Slide 8 of 10 — Phase 06–07: Operate & Deploy', desc: 'Light background. "Production-ready. Not production-adjacent." — addresses the POC gap directly.' },
+      { title: 'Slide 9 of 10 — The Payoff', desc: 'Dark background. Brings the full ADLC lifecycle into one summary line. Gradient on "Zero fragmentation."' },
+      { title: 'Slide 10 of 10 — CTA', desc: 'Dark background. Clean CTA slide. "Build the future. Your way." → Book a demo.' }
+    ];
+
+    let current = 0;
+    const total = 10;
+
+    function updateSlide() {
+      document.querySelectorAll('.slide-frame').forEach((f, i) => {
+        f.classList.toggle('active', i === current);
+      });
+      document.querySelectorAll('.nav-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+      document.getElementById('slideCounter').textContent = `${current + 1} / ${total}`;
+      const cap = captions[current];
+      document.getElementById('slideCaption').innerHTML = `<h3>${cap.title}</h3><p>${cap.desc}</p>`;
+    }
+
+    function nextSlide() {
+      current = (current + 1) % total;
+      updateSlide();
+    }
+    function prevSlide() {
+      current = (current - 1 + total) % total;
+      updateSlide();
+    }
+    function goSlide(n) {
+      current = n;
+      updateSlide();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+    });
+  </script>
+</body>
+</html>

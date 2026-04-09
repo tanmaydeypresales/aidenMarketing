@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large binary files — keep PDFs but skip heavyweight source files
+*.pptx
+*.docx
+*.xlsx
+*.pdf.tmp
+
+# Secrets
+*.key
+*.pem
+.env*

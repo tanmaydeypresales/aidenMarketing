@@ -1,0 +1,1187 @@
+<!-- META TITLE: From Builders to Creators | Aiden AI ADLC -->
+<!-- META DESCRIPTION: Aiden AI's Agentic Development Lifecycle — the enterprise framework for production-scale agentic application engineering. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Builders to Creators | Aiden AI — Agentic Development Lifecycle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --navy:         #073663;
+      --electric:     #103EE0;
+      --cyan:         #12DBD5;
+      --midnight:     #08244B;
+      --midnight-deep:#061B39;
+      --light-blue:   #E0E4FC;
+      --periwinkle:   #BCC9FF;
+      --off-white:    #F8F8F8;
+      --white:        #FFFFFF;
+      --body-gray:    #64748B;
+      --muted:        #D0D8E3;
+      --headline:     #08244B;
+      --gradient:     linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --gradient-soft:linear-gradient(135deg, rgba(16,62,224,.08) 0%, rgba(18,219,213,.08) 100%);
+      --font:         'Poppins', sans-serif;
+    }
+
+    /* ─── RESET & BASE ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font);
+      color: var(--headline);
+      background: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── UTILITY ────────────────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .grad-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: .1s; }
+    .fade-up.delay-2 { transition-delay: .2s; }
+    .fade-up.delay-3 { transition-delay: .3s; }
+    .fade-up.delay-4 { transition-delay: .4s; }
+    .fade-up.delay-5 { transition-delay: .5s; }
+    .fade-up.delay-6 { transition-delay: .6s; }
+    .fade-up.delay-7 { transition-delay: .7s; }
+
+    /* ─── NAV ────────────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(6, 27, 57, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -.02em;
+    }
+    .nav-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gradient);
+      color: var(--white) !important;
+      padding: .5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      font-size: .875rem;
+      transition: opacity .2s !important;
+    }
+    .nav-cta:hover { opacity: .88; }
+
+    /* ─── HERO ───────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: var(--midnight-deep);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 100px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(ellipse at center, rgba(16,62,224,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse at center, rgba(18,219,213,.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    /* Subtle grid overlay */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+    .hero-headline {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-weight: 500;
+      color: var(--periwinkle);
+      line-height: 1.65;
+      max-width: 620px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-body {
+      font-size: .9375rem;
+      color: rgba(208,216,227,.75);
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 2.75rem;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--gradient);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: .9375rem;
+      font-weight: 600;
+      padding: .875rem 2rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 24px rgba(16,62,224,.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(16,62,224,.55);
+    }
+    .btn-primary svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font);
+      font-size: .9375rem;
+      font-weight: 500;
+      padding: .875rem 1.5rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.15);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.35); color: var(--white); }
+
+    /* Hero scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: rgba(208,216,227,.4);
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(18,219,213,.5));
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .4; }
+      50% { opacity: 1; }
+    }
+
+    /* ─── SECTION: GAP ───────────────────────────────────────────────────── */
+    .gap-section {
+      background: var(--white);
+      padding: 100px 0;
+    }
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--electric);
+      margin-bottom: .875rem;
+    }
+    .section-headline {
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -.025em;
+      line-height: 1.15;
+      color: var(--headline);
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1.0625rem;
+      color: var(--body-gray);
+      line-height: 1.75;
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+    .gap-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .gap-card {
+      background: var(--off-white);
+      border: 1px solid rgba(7,54,99,.08);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .gap-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .gap-card:hover::before { opacity: 1; }
+    .gap-card-icon {
+      width: 44px; height: 44px;
+      background: var(--light-blue);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .gap-card-icon svg { width: 22px; height: 22px; color: var(--electric); }
+    .gap-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--headline);
+      margin-bottom: .5rem;
+    }
+    .gap-card p {
+      font-size: .875rem;
+      color: var(--body-gray);
+      line-height: 1.7;
+    }
+    .gap-closing {
+      font-size: 1.1875rem;
+      font-weight: 700;
+      color: var(--headline);
+      border-left: 3px solid;
+      border-image: var(--gradient) 1;
+      padding-left: 1.25rem;
+    }
+
+    /* ─── SECTION: PLATFORM ──────────────────────────────────────────────── */
+    .platform-section {
+      background: var(--midnight);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .platform-section::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse at top right, rgba(16,62,224,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .platform-section .section-label { color: var(--cyan); }
+    .platform-section .section-headline { color: var(--white); }
+    .platform-section .section-sub { color: var(--muted); }
+    .platform-callout {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      padding: 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .platform-callout::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gradient);
+    }
+    .platform-callout p {
+      font-size: 1.3125rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.65;
+    }
+    .platform-callout .accent { color: var(--cyan); }
+
+    /* ─── SECTION: LIFECYCLE (7 PHASES) ─────────────────────────────────── */
+    .lifecycle-section {
+      background: var(--off-white);
+      padding: 100px 0;
+    }
+    .lifecycle-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 4rem;
+    }
+    .lifecycle-header .section-sub { margin-left: auto; margin-right: auto; }
+    .lifecycle-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+      position: relative;
+    }
+    /* Connecting line across all phases */
+    .lifecycle-grid::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: calc(100% / 14);
+      right: calc(100% / 14);
+      height: 2px;
+      background: var(--gradient);
+      z-index: 0;
+    }
+    .phase-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 .75rem;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+    }
+    .phase-number-badge {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--light-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background .3s, border-color .3s, transform .3s;
+      position: relative;
+    }
+    .phase-card:hover .phase-number-badge {
+      background: var(--midnight);
+      border-color: transparent;
+      transform: scale(1.08);
+    }
+    .phase-number-inner {
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: var(--electric);
+      transition: color .3s;
+    }
+    .phase-card:hover .phase-number-inner { color: var(--cyan); }
+    .phase-title {
+      font-size: .8125rem;
+      font-weight: 700;
+      color: var(--headline);
+      margin-bottom: .5rem;
+      line-height: 1.3;
+    }
+    .phase-desc {
+      font-size: .75rem;
+      color: var(--body-gray);
+      line-height: 1.65;
+      display: none;
+    }
+
+    /* Expanded phase detail panel */
+    .phase-detail-panel {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--light-blue);
+      padding: 2.5rem;
+      margin-top: 2.5rem;
+      display: none;
+      grid-column: 1 / -1;
+      position: relative;
+    }
+    .phase-detail-panel.active { display: block; }
+    .phase-detail-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 16px 16px 0 0;
+    }
+    .phase-detail-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .phase-detail-num {
+      font-size: .8125rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .phase-detail-title {
+      font-size: 1.375rem;
+      font-weight: 800;
+      color: var(--headline);
+    }
+    .phase-detail-body {
+      font-size: 1rem;
+      color: var(--body-gray);
+      line-height: 1.8;
+      max-width: 700px;
+    }
+    .phase-detail-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      width: 32px; height: 32px;
+      background: var(--off-white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--body-gray);
+      font-size: 1.1rem;
+      transition: background .2s;
+    }
+    .phase-detail-close:hover { background: var(--light-blue); }
+
+    /* Mobile lifecycle: vertical list */
+    .lifecycle-list { display: none; }
+    .lifecycle-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(7,54,99,.08);
+    }
+    .lifecycle-item:last-child { border-bottom: none; }
+    .lifecycle-item-badge {
+      flex-shrink: 0;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--midnight);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      color: var(--cyan);
+    }
+    .lifecycle-item h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--headline);
+      margin-bottom: .375rem;
+    }
+    .lifecycle-item p {
+      font-size: .875rem;
+      color: var(--body-gray);
+      line-height: 1.7;
+    }
+
+    /* ─── SECTION: THE SHIFT (Comparison) ───────────────────────────────── */
+    .shift-section {
+      background: var(--white);
+      padding: 100px 0;
+    }
+    .shift-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 3rem;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 40px rgba(7,54,99,.08);
+    }
+    .shift-table thead tr {
+      background: var(--midnight);
+    }
+    .shift-table thead th {
+      padding: 1.375rem 2rem;
+      text-align: left;
+      font-size: .8125rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .shift-table thead th:first-child { color: var(--muted); }
+    .shift-table thead th:last-child { color: var(--cyan); }
+    .shift-table thead th:last-child { text-align: right; }
+    .shift-table tbody tr:nth-child(odd) { background: var(--off-white); }
+    .shift-table tbody tr:nth-child(even) { background: var(--white); }
+    .shift-table tbody td {
+      padding: 1.25rem 2rem;
+      font-size: .9375rem;
+      border-bottom: 1px solid rgba(7,54,99,.06);
+    }
+    .shift-table tbody td:first-child { color: var(--body-gray); }
+    .shift-table tbody td:last-child {
+      color: var(--headline);
+      font-weight: 600;
+      text-align: right;
+    }
+    .shift-table tbody td:last-child::before {
+      content: '→  ';
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+    }
+
+    /* ─── SECTION: WHY AIDEN ─────────────────────────────────────────────── */
+    .why-section {
+      background: var(--midnight-deep);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .why-section::after {
+      content: '';
+      position: absolute;
+      bottom: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(18,219,213,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .why-section .section-label { color: var(--cyan); }
+    .why-section .section-headline { color: var(--white); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .why-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: background .3s, border-color .3s;
+    }
+    .why-card:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(18,219,213,.25);
+    }
+    .why-card-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gradient);
+      margin-bottom: 1rem;
+    }
+    .why-card h3 {
+      font-size: .9375rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .why-card p {
+      font-size: .8125rem;
+      color: rgba(208,216,227,.7);
+      line-height: 1.7;
+    }
+
+    /* ─── SECTION: CTA ───────────────────────────────────────────────────── */
+    .cta-section {
+      background: var(--white);
+      padding: 100px 0;
+    }
+    .cta-inner {
+      background: var(--midnight);
+      border-radius: 24px;
+      padding: 5rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient);
+    }
+    .cta-inner::after {
+      content: '';
+      position: absolute;
+      bottom: -120px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(ellipse, rgba(16,62,224,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-eyebrow {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.25rem;
+    }
+    .cta-headline {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -.025em;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .cta-body {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+    }
+    .cta-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--midnight-deep);
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 2.5rem 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-brand {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .footer-brand span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-copy {
+      font-size: .8125rem;
+      color: rgba(208,216,227,.4);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .lifecycle-grid { display: none; }
+      .lifecycle-list { display: block; }
+      .gap-cards { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .gap-cards { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .shift-table thead th, .shift-table tbody td { padding: 1rem 1.25rem; }
+      .cta-inner { padding: 3rem 2rem; }
+      .platform-callout { padding: 2rem 1.5rem; }
+      .platform-callout p { font-size: 1.0625rem; }
+    }
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .shift-table thead th:first-child { display: none; }
+      .shift-table tbody td:first-child { display: none; }
+      .shift-table tbody td:last-child { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">Aiden <span>AI</span></a>
+      <ul class="nav-links">
+        <li><a href="#lifecycle">The ADLC</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#why">Why Aiden</a></li>
+        <li><a href="#cta" class="nav-cta">Book a Demo</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow fade-up">The Future of Enterprise Application Development</p>
+        <h1 class="hero-headline fade-up delay-1">
+          From Builders<br>to <span class="grad-text">Creators.</span>
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          Enterprises no longer want to just consume technology — they want to create it. Aiden AI makes that possible.
+        </p>
+        <p class="hero-body fade-up delay-3">
+          Across industries, organizations are shifting their workforce into "Creator" roles — empowering business and technology teams to build applications and develop capabilities without heavy dependence on external vendors. The current generation of AI tools wasn't designed for this shift. They are fragmented, opaque, and too technical to scale.
+        </p>
+        <div class="hero-actions fade-up delay-4">
+          <a href="#cta" class="btn-primary">
+            See How Aiden Enables Creators
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+          <a href="#lifecycle" class="btn-ghost">Explore the ADLC</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ─── THE GAP ───────────────────────────────────────────────────────── -->
+  <section class="gap-section">
+    <div class="container">
+      <p class="section-label fade-up">The Challenge</p>
+      <h2 class="section-headline fade-up delay-1">Today's AI tools create more<br>complexity, not less.</h2>
+      <p class="section-sub fade-up delay-2">Most enterprise AI environments weren't built for the creator era. They were built for specialists — and they show it.</p>
+      <div class="gap-cards">
+        <div class="gap-card fade-up delay-1">
+          <div class="gap-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <h3>Fragmented &amp; Technical</h3>
+          <p>Specialist skills required across disconnected tools and environments. Every new project rebuilds the same infrastructure from scratch.</p>
+        </div>
+        <div class="gap-card fade-up delay-2">
+          <div class="gap-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
+            </svg>
+          </div>
+          <h3>Opaque Decision-Making</h3>
+          <p>AI-generated outputs arrive with no explainability or audit trail. Governance teams can't approve what they can't see.</p>
+        </div>
+        <div class="gap-card fade-up delay-3">
+          <div class="gap-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>Governance-Deficient</h3>
+          <p>Built for experimentation, not enterprise delivery. Compliance and auditability are afterthoughts — added when it's too late.</p>
+        </div>
+      </div>
+      <p class="gap-closing fade-up">Your teams are innovating. Your platform isn't keeping up.</p>
+    </div>
+  </section>
+
+  <!-- ─── PLATFORM ──────────────────────────────────────────────────────── -->
+  <section class="platform-section" id="platform">
+    <div class="container">
+      <p class="section-label fade-up">The Solution</p>
+      <h2 class="section-headline fade-up delay-1">One platform. End-to-end<br>creation. Zero fragmentation.</h2>
+      <p class="section-sub fade-up delay-2">Introducing the Agentic Development Lifecycle — Aiden AI's unified, enterprise-ready approach to building and modernizing applications from a single pane of glass.</p>
+      <div class="platform-callout fade-up delay-3">
+        <p>Business users, developers, architects, and operators collaborate seamlessly — powered by intelligent agents and governed workflows. <span class="accent">This is not AI-assisted development. This is agentic, outcome-driven application engineering.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LIFECYCLE (7 PHASES) ──────────────────────────────────────────── -->
+  <section class="lifecycle-section" id="lifecycle">
+    <div class="container">
+      <div class="lifecycle-header">
+        <p class="section-label fade-up">The Framework</p>
+        <h2 class="section-headline fade-up delay-1">Seven stages. One<br>continuous lifecycle.</h2>
+        <p class="section-sub fade-up delay-2">Click any phase to explore what happens — and why it matters for production-grade delivery.</p>
+      </div>
+
+      <!-- Desktop: horizontal flow -->
+      <div class="lifecycle-grid fade-up" id="lifecycleGrid">
+        <div class="phase-card" onclick="showPhase(1)">
+          <div class="phase-number-badge"><span class="phase-number-inner">01</span></div>
+          <div class="phase-title">Define Intent</div>
+        </div>
+        <div class="phase-card" onclick="showPhase(2)">
+          <div class="phase-number-badge"><span class="phase-number-inner">02</span></div>
+          <div class="phase-title">Design Systems</div>
+        </div>
+        <div class="phase-card" onclick="showPhase(3)">
+          <div class="phase-number-badge"><span class="phase-number-inner">03</span></div>
+          <div class="phase-title">Build Intelligently</div>
+        </div>
+        <div class="phase-card" onclick="showPhase(4)">
+          <div class="phase-number-badge"><span class="phase-number-inner">04</span></div>
+          <div class="phase-title">Review &amp; Govern</div>
+        </div>
+        <div class="phase-card" onclick="showPhase(5)">
+          <div class="phase-number-badge"><span class="phase-number-inner">05</span></div>
+          <div class="phase-title">Test at Scale</div>
+        </div>
+        <div class="phase-card" onclick="showPhase(6)">
+          <div class="phase-number-badge"><span class="phase-number-inner">06</span></div>
+          <div class="phase-title">Operate &amp; Evolve</div>
+        </div>
+        <div class="phase-card" onclick="showPhase(7)">
+          <div class="phase-number-badge"><span class="phase-number-inner">07</span></div>
+          <div class="phase-title">Deploy with Confidence</div>
+        </div>
+
+        <!-- Phase detail panel -->
+        <div class="phase-detail-panel" id="phaseDetail">
+          <button class="phase-detail-close" onclick="closePhase()">✕</button>
+          <div class="phase-detail-header">
+            <span class="phase-detail-num" id="detailNum"></span>
+            <h3 class="phase-detail-title" id="detailTitle"></h3>
+          </div>
+          <p class="phase-detail-body" id="detailBody"></p>
+        </div>
+      </div>
+
+      <!-- Mobile: vertical list -->
+      <div class="lifecycle-list">
+        <div class="lifecycle-item fade-up">
+          <div class="lifecycle-item-badge">01</div>
+          <div>
+            <h3>Define Intent</h3>
+            <p>Capture requirements, workflows, and business outcomes with AI-guided intake. Business teams and architects align on scope before a single design decision is made.</p>
+          </div>
+        </div>
+        <div class="lifecycle-item fade-up delay-1">
+          <div class="lifecycle-item-badge">02</div>
+          <div>
+            <h3>Design Systems</h3>
+            <p>Architect future-state applications with AI-assisted modeling. Visualize data flows, integration patterns, and system boundaries in a collaborative design environment.</p>
+          </div>
+        </div>
+        <div class="lifecycle-item fade-up delay-2">
+          <div class="lifecycle-item-badge">03</div>
+          <div>
+            <h3>Build Intelligently</h3>
+            <p>Generate, enhance, and orchestrate application components through agents. Developers accelerate delivery; business teams stay in the loop. No black-box code generation.</p>
+          </div>
+        </div>
+        <div class="lifecycle-item fade-up delay-3">
+          <div class="lifecycle-item-badge">04</div>
+          <div>
+            <h3>Review &amp; Govern</h3>
+            <p>Enforce standards, compliance, and explainability at the point of creation — not as a post-production audit. Every decision is traceable, every output is governed.</p>
+          </div>
+        </div>
+        <div class="lifecycle-item fade-up delay-4">
+          <div class="lifecycle-item-badge">05</div>
+          <div>
+            <h3>Test at Scale</h3>
+            <p>Automate functional, regression, and behavioral testing across the full application. AI-driven test coverage reduces manual effort without sacrificing confidence.</p>
+          </div>
+        </div>
+        <div class="lifecycle-item fade-up delay-5">
+          <div class="lifecycle-item-badge">06</div>
+          <div>
+            <h3>Operate &amp; Evolve</h3>
+            <p>Monitor, optimize, and continuously improve applications in production. Performance data feeds directly back into the lifecycle — closing the loop automatically.</p>
+          </div>
+        </div>
+        <div class="lifecycle-item fade-up delay-6">
+          <div class="lifecycle-item-badge">07</div>
+          <div>
+            <h3>Deploy with Confidence</h3>
+            <p>Production-ready delivery with full traceability. From development environment to live production with auditability, rollback controls, and zero-surprise deployments.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── THE SHIFT ─────────────────────────────────────────────────────── -->
+  <section class="shift-section">
+    <div class="container">
+      <p class="section-label fade-up">The Shift</p>
+      <h2 class="section-headline fade-up delay-1">From dependency to ownership.</h2>
+      <p class="section-sub fade-up delay-2">The Agentic Development Lifecycle doesn't just speed up delivery. It fundamentally changes the relationship between your teams and technology.</p>
+      <div class="fade-up delay-3">
+        <table class="shift-table">
+          <thead>
+            <tr>
+              <th>The Old Way</th>
+              <th>The Aiden Way</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reliant on external vendors for every build</td>
+              <td>Internal teams as creators and owners</td>
+            </tr>
+            <tr>
+              <td>AI outputs with no governance or audit trail</td>
+              <td>Full traceability — every decision logged</td>
+            </tr>
+            <tr>
+              <td>Months from concept to production</td>
+              <td>Accelerated delivery with built-in controls</td>
+            </tr>
+            <tr>
+              <td>POC success, production failure</td>
+              <td>Designed for production from day one</td>
+            </tr>
+            <tr>
+              <td>Technology adopted, not operationalized</td>
+              <td>AI operationalized at enterprise scale</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHY AIDEN ─────────────────────────────────────────────────────── -->
+  <section class="why-section" id="why">
+    <div class="container">
+      <p class="section-label fade-up">Why Aiden AI</p>
+      <h2 class="section-headline fade-up delay-1">One platform. One workflow.<br>One pane of glass.</h2>
+      <div class="why-grid">
+        <div class="why-card fade-up delay-1">
+          <div class="why-card-dot"></div>
+          <h3>Purpose-Built for Enterprise</h3>
+          <p>Designed from the ground up for enterprise application development — not adapted from a consumer AI tool.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-card-dot"></div>
+          <h3>Multi-Model AI Routing</h3>
+          <p>No single-model dependency, no vendor lock-in. Route intelligently across leading LLMs based on task and context.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-card-dot"></div>
+          <h3>MCP 2.0 Native</h3>
+          <p>True agentic tool orchestration across the full lifecycle. Every agent, every tool, every phase — connected.</p>
+        </div>
+        <div class="why-card fade-up delay-4">
+          <div class="why-card-dot"></div>
+          <h3>Human-in-the-Loop Control</h3>
+          <p>Governance and human oversight built into every phase of the ADLC. AI accelerates; humans decide.</p>
+        </div>
+        <div class="why-card fade-up delay-5">
+          <div class="why-card-dot"></div>
+          <h3>Enterprise-Grade Security</h3>
+          <p>Compliant, auditable, and production-hardened from day one. Security is architecture, not an add-on.</p>
+        </div>
+        <div class="why-card fade-up delay-6">
+          <div class="why-card-dot"></div>
+          <h3>Proven Enterprise Deployments</h3>
+          <p>Live in insurance, banking, financial services, and enterprise operations. Production AI, not pilot programs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ───────────────────────────────────────────────────────────── -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <p class="cta-eyebrow fade-up">Ready to Make the Shift?</p>
+        <h2 class="cta-headline fade-up delay-1">Build the future.<br><span class="grad-text">Your way.</span></h2>
+        <p class="cta-body fade-up delay-2">Organizations that adopt the Agentic Development Lifecycle don't just accelerate delivery — they shift the nature of their technology teams from operators to creators.</p>
+        <div class="cta-actions fade-up delay-3">
+          <a href="#" class="btn-primary">
+            Talk to Aiden AI
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+          <a href="#" class="btn-ghost">Explore the ADLC Platform</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">Aiden <span>AI</span></div>
+      <p class="footer-copy">© 2026 Aiden AI Private Limited. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ─── SCRIPTS ───────────────────────────────────────────────────────── -->
+  <script>
+    // Phase data
+    const phases = {
+      1: {
+        num: '01 — DEFINE INTENT',
+        title: 'Define Intent',
+        body: 'Capture requirements, workflows, and business outcomes with AI-guided intake. Business teams and architects align on scope before a single design decision is made. Every agent charter, tool boundary, and constraint is documented — creating the foundation every subsequent phase depends on.'
+      },
+      2: {
+        num: '02 — DESIGN SYSTEMS',
+        title: 'Design Systems',
+        body: 'Architect future-state applications with AI-assisted modeling. Visualize data flows, integration patterns, and system boundaries in a collaborative design environment. Business users and architects co-design the solution — no translation layer required between intent and architecture.'
+      },
+      3: {
+        num: '03 — BUILD INTELLIGENTLY',
+        title: 'Build Intelligently',
+        body: 'Generate, enhance, and orchestrate application components through agents. Developers accelerate delivery while business teams remain in the loop. No black-box code generation — every output is traceable to a requirement, every decision is explainable.'
+      },
+      4: {
+        num: '04 — REVIEW & GOVERN',
+        title: 'Review & Govern',
+        body: 'Enforce standards, compliance, and explainability at the point of creation — not as a post-production audit. Every decision is traceable, every output is governed. Compliance teams get the auditability they need; delivery teams get the speed they need. No compromise.'
+      },
+      5: {
+        num: '05 — TEST AT SCALE',
+        title: 'Test at Scale',
+        body: 'Automate functional, regression, and behavioral testing across the full application. AI-driven test coverage reduces manual effort without sacrificing confidence. Agentic testing validates reasoning correctness, tool usage, and edge-case handling — not just code execution.'
+      },
+      6: {
+        num: '06 — OPERATE & EVOLVE',
+        title: 'Operate & Evolve',
+        body: 'Monitor, optimize, and continuously improve applications in production. Performance data feeds directly back into the lifecycle — closing the loop automatically. AI that doesn\'t improve gets abandoned. AI built on the ADLC gets smarter with your business.'
+      },
+      7: {
+        num: '07 — DEPLOY WITH CONFIDENCE',
+        title: 'Deploy with Confidence',
+        body: 'Production-ready delivery with full traceability. From development environment to live production with auditability, rollback controls, and zero-surprise deployments. The ADLC is designed for production from phase one — not retrofitted for it after the fact.'
+      }
+    };
+
+    let activePhase = null;
+
+    function showPhase(num) {
+      const panel = document.getElementById('phaseDetail');
+      const data = phases[num];
+
+      document.getElementById('detailNum').textContent = data.num;
+      document.getElementById('detailTitle').textContent = data.title;
+      document.getElementById('detailBody').textContent = data.body;
+
+      if (activePhase === num) {
+        closePhase();
+        return;
+      }
+
+      activePhase = num;
+      panel.classList.add('active');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      // Highlight active phase card
+      document.querySelectorAll('.phase-card').forEach((c, i) => {
+        const badge = c.querySelector('.phase-number-badge');
+        if (i === num - 1) {
+          badge.style.background = 'var(--midnight)';
+          badge.style.borderColor = 'transparent';
+        } else {
+          badge.style.background = '';
+          badge.style.borderColor = '';
+        }
+      });
+    }
+
+    function closePhase() {
+      activePhase = null;
+      document.getElementById('phaseDetail').classList.remove('active');
+      document.querySelectorAll('.phase-card .phase-number-badge').forEach(b => {
+        b.style.background = '';
+        b.style.borderColor = '';
+      });
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
