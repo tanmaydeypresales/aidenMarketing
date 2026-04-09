@@ -513,37 +513,54 @@ Two files in `Marketing/<campaign-name>/html/`:
 - All brand styles (fonts, gradients, wave SVGs) inlined — fully self-contained
 - The wave illustration SVG must be embedded as static markup (not JS-generated) so it renders in headless browsers
 
-**Step 2** — Write a Python PDF export script at `Marketing/<campaign-name>/export-pdf.py`:
+**Step 2** — Write a Python PDF export script at `Marketing/<campaign-name>/export-pdf.py` that exports **both** the carousel and the one-pager in a single browser session:
 
 ```python
 #!/usr/bin/env python3
 """
-Export LinkedIn carousel to PDF.
+Export LinkedIn carousel (1080x1080) and one-pager (A4) to PDF.
 Requires: pip install playwright
 First run: python -m playwright install chromium
 """
 import asyncio
 from pathlib import Path
-from playwright.async_api import async_playwright
 
-SCRIPT_DIR = Path(__file__).parent
-HTML_FILE  = SCRIPT_DIR / "html" / "linkedin-carousel-print.html"
-PDF_OUT    = SCRIPT_DIR / "html" / "linkedin-carousel.pdf"
+SCRIPT_DIR       = Path(__file__).parent
+CAROUSEL_HTML    = SCRIPT_DIR / "html" / "linkedin-carousel-print.html"
+CAROUSEL_PDF     = SCRIPT_DIR / "html" / "linkedin-carousel.pdf"
+ONE_PAGER_HTML   = SCRIPT_DIR / "html" / "one-pager.html"
+ONE_PAGER_PDF    = SCRIPT_DIR / "html" / "one-pager.pdf"
 
 async def main():
+    from playwright.async_api import async_playwright
     async with async_playwright() as p:
         browser = await p.chromium.launch()
-        page    = await browser.new_page(viewport={"width": 1080, "height": 1080})
-        await page.goto(f"file://{HTML_FILE.resolve()}", wait_until="networkidle")
+
+        # 1. Carousel — 1080x1080 px per page
+        page = await browser.new_page(viewport={"width": 1080, "height": 1080})
+        await page.goto(f"file://{CAROUSEL_HTML.resolve()}", wait_until="networkidle")
+        await page.wait_for_timeout(800)
         await page.pdf(
-            path=str(PDF_OUT),
-            width="1080px",
-            height="1080px",
+            path=str(CAROUSEL_PDF),
+            width="1080px", height="1080px",
             print_background=True,
             margin={"top":"0","bottom":"0","left":"0","right":"0"},
         )
+        print(f"OK Carousel PDF: {CAROUSEL_PDF}")
+
+        # 2. One-pager — A4
+        page = await browser.new_page(viewport={"width": 794, "height": 1123})
+        await page.goto(f"file://{ONE_PAGER_HTML.resolve()}", wait_until="networkidle")
+        await page.wait_for_timeout(800)
+        await page.pdf(
+            path=str(ONE_PAGER_PDF),
+            format="A4",
+            print_background=True,
+            margin={"top":"0","bottom":"0","left":"0","right":"0"},
+        )
+        print(f"OK One-pager PDF: {ONE_PAGER_PDF}")
+
         await browser.close()
-        print(f"✓ PDF saved: {PDF_OUT}")
 
 asyncio.run(main())
 ```
@@ -570,6 +587,58 @@ If Playwright is not available, provide these manual browser instructions:
 | Fonts | Embedded via Google Fonts (or system fallback Poppins) |
 | Bleed | None — content fills edge to edge |
 | File size target | < 5 MB (avoid rasterising SVG illustrations) |
+
+---
+
+## One-Pager PDF — MANDATORY
+
+**Every time a one-pager is generated, a PDF must also be produced.** No user prompt required — it is part of the one-pager deliverable.
+
+### What to produce
+
+Two files in `Marketing/<campaign-name>/html/`:
+- `one-pager.html` — screen-optimised version (already generated)
+- `one-pager.pdf` — single-page A4 PDF, print-ready for client distribution
+
+### How to generate the PDF
+
+The `one-pager.html` already contains `@page` CSS. Export it via Playwright — add this function to `export-pdf.py` (same script as the carousel):
+
+```python
+ONE_PAGER_HTML = SCRIPT_DIR / "html" / "one-pager.html"
+ONE_PAGER_PDF  = SCRIPT_DIR / "html" / "one-pager.pdf"
+
+async def export_one_pager(browser):
+    page = await browser.new_page(viewport={"width": 794, "height": 1123})
+    await page.goto(f"file://{ONE_PAGER_HTML.resolve()}", wait_until="networkidle")
+    await page.wait_for_timeout(800)
+    await page.pdf(
+        path=str(ONE_PAGER_PDF),
+        format="A4",
+        print_background=True,
+        margin={"top": "0", "bottom": "0", "left": "0", "right": "0"},
+    )
+    print(f"OK One-pager PDF saved: {ONE_PAGER_PDF}")
+```
+
+Call `export_one_pager(browser)` inside the same `async with async_playwright()` block as the carousel export so both are produced in a single browser session.
+
+### Fallback (no Playwright)
+
+1. Open `one-pager.html` in Chrome
+2. Ctrl+P → Save as PDF
+3. Paper size: A4, margins: None, Background graphics: ON
+4. Save as `one-pager.pdf` in the `html/` folder
+
+### One-pager PDF spec
+
+| Property | Value |
+|----------|-------|
+| Page size | A4 (794 × 1123 px at 96 dpi) |
+| Pages | 1 (single leave-behind) |
+| Backgrounds | Printed (dark header must render) |
+| Fonts | Poppins via Google Fonts |
+| File size target | < 2 MB |
 
 ---
 
@@ -623,9 +692,11 @@ def shorten(url):
         return r.read().decode().strip()
 
 urls = {
-    "Landing Page": "https://<username>.github.io/<repo>/Marketing/<campaign-name>/html/landing-page.html",
+    "Landing Page":     "https://<username>.github.io/<repo>/Marketing/<campaign-name>/html/landing-page.html",
     "Carousel Preview": "https://<username>.github.io/<repo>/Marketing/<campaign-name>/html/linkedin-carousel.html",
-    "One-Pager": "https://<username>.github.io/<repo>/Marketing/<campaign-name>/html/one-pager.html",
+    "Carousel PDF":     "https://<username>.github.io/<repo>/Marketing/<campaign-name>/html/linkedin-carousel.pdf",
+    "One-Pager":        "https://<username>.github.io/<repo>/Marketing/<campaign-name>/html/one-pager.html",
+    "One-Pager PDF":    "https://<username>.github.io/<repo>/Marketing/<campaign-name>/html/one-pager.pdf",
 }
 
 for name, url in urls.items():
@@ -759,8 +830,9 @@ Marketing/<campaign-name>/
 │   ├── linkedin-carousel-print.html    ← print-optimised, for PDF export
 │   ├── linkedin-carousel.pdf           ← MANDATORY: 1080×1080 PDF, one page per slide
 │   ├── one-pager.html                  ← generated via frontend-design skill
+│   ├── one-pager.pdf                   ← MANDATORY: A4 PDF, print-ready leave-behind
 │   └── email-copy.html                 ← generated via frontend-design skill
-├── export-pdf.py                       ← Playwright PDF export script
+├── export-pdf.py                       ← Playwright PDF export script (carousel + one-pager)
 ├── metadata/
 │   └── asset-metadata.json
 └── qa/
@@ -815,6 +887,7 @@ Then confirm the status of the two mandatory delivery steps:
 | Step | Status |
 |------|--------|
 | LinkedIn carousel PDF (1080×1080, all slides) | ✓ Generated / ⚠ Pending — run `export-pdf.py` |
+| One-pager PDF (A4, print-ready) | ✓ Generated / ⚠ Pending — run `export-pdf.py` |
 | Landing page deployed to GitHub Pages | ✓ Live at `https://...` / ⚠ Pending — see deploy steps |
 | Short links generated | ✓ See `short-links.md` / ⚠ Pending — run after deploy |
 
