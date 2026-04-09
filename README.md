@@ -25,6 +25,9 @@ A library of Claude Code skills that power the end-to-end RFP response pipeline.
 | 8 | `pptx-design-system-SKILL.md` | Aiden AI visual identity, colors, typography, card styles | `/rfp-deck` |
 | 9 | `animated-diagram-SKILL.md` | Animated GIF architecture diagrams (Pillow + imageio) | `/rfp-animated-diagram` |
 | 10 | `rfp-commands-SKILL.md` | Master command set defining all 13 `/rfp-*` commands | All commands |
+| 11 | `marketing-copy-SKILL.md` | 9-step marketing copy workflow, 12-dimension QA scoring, content plan, HTML generation | `/marketing` |
+| 12 | `aiden-ai-branding-guidelines.md` | Official brand system: colors, Poppins typography, logo rules, gradient technique, WCAG compliance | Visual assets |
+| 13 | `linkedin-visual-text-SKILL.md` | LinkedIn carousel/image text: 5 Laws, word limits, arc structure, Aiden AI content patterns | LinkedIn posts |
 
 ## Pipeline Commands
 
@@ -89,6 +92,9 @@ aiden-rfp-skills/
     support-estimator-SKILL.md
     pptx-design-system-SKILL.md
     animated-diagram-SKILL.md
+    marketing-copy-SKILL.md
+    aiden-ai-branding-guidelines.md
+    linkedin-visual-text-SKILL.md
 ```
 
 ## Team

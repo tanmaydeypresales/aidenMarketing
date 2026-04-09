@@ -44,6 +44,18 @@ Always load and apply the following skills when relevant:
 - **File**: `Skills/pptx-design-system-SKILL.md`
 - **When to use**: Every time you generate a PowerPoint using python-pptx. Contains the standard Aiden AI color palette, typography scale, layout patterns, card/table styles, and reusable helper functions extracted from production proposals. Ensures consistent, professional output across all decks.
 
+### Marketing Copy Studio Skill
+- **File**: `Skills/marketing-copy-SKILL.md`
+- **When to use**: Any marketing, brand, or content creation task. Triggers: website copy, landing pages, email campaigns, LinkedIn posts, white papers, executive briefs, one-pagers, sales sheets, case studies, brand messaging, product descriptions, or any request tagged "marketing", "copy", "brand", or "campaign". Follows a 9-step workflow (brief → copy → quality scoring → improvement → content plan → HTML → repo package). Quality gate: auto-improves any dimension scoring <4; only marks "Publish Ready" at 4.3+ overall. Command: `/marketing` or `/marketing-copy`.
+
+### Aiden AI Brand Guidelines
+- **File**: `Skills/aiden-ai-branding-guidelines.md`
+- **When to use**: Every time you produce or direct visual marketing content — LinkedIn carousels, email sharables, client-facing graphics, infographics, slide decks, banners, or any design involving color, font, layout, or logo decisions. Governs HOW content looks. Always load alongside the Marketing Copy Studio skill.
+
+### LinkedIn Visual Text Skill
+- **File**: `Skills/linkedin-visual-text-SKILL.md`
+- **When to use**: Whenever writing text that appears ON a LinkedIn image or carousel slide (not the caption). Governs the 5 Laws, word limits per element, carousel arc structure (Hook → Problem → Content → CTA), and Aiden AI-specific content patterns. Always combine with the Marketing Copy Studio and Brand Guidelines skills.
+
 ## File Organization
 
 - `RFP/` — All RFP-related files organized by client name
