@@ -1,0 +1,624 @@
+<!-- META TITLE: AI-Powered Data Migration Platform | Aiden AI -->
+<!-- META DESCRIPTION: Aiden AI's agentic data migration platform automates discovery, mapping, execution, and governance — delivering 50–70% less migration effort at enterprise scale. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Powered Data Migration Platform | Aiden AI</title>
+  <meta name="description" content="Aiden AI's agentic data migration platform automates discovery, mapping, execution, and governance — delivering 50–70% less migration effort at enterprise scale." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:         #073663;
+      --electric:     #103EE0;
+      --cyan:         #12DBD5;
+      --midnight:     #08244B;
+      --midnight-deep:#061B39;
+      --light-blue:   #E0E4FC;
+      --periwinkle:   #BCC9FF;
+      --off-white:    #F8F8F8;
+      --white:        #FFFFFF;
+      --body-gray:    #64748B;
+      --muted:        #D0D8E3;
+      --headline:     #08244B;
+      --gradient:     linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --gradient-soft:linear-gradient(135deg, rgba(16,62,224,.08) 0%, rgba(18,219,213,.08) 100%);
+      --font:         'Poppins', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font); color: var(--headline); background: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    .grad-text {
+      background: var(--gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: .1s; }
+    .fade-up.delay-2 { transition-delay: .2s; }
+    .fade-up.delay-3 { transition-delay: .3s; }
+    .fade-up.delay-4 { transition-delay: .4s; }
+    .fade-up.delay-5 { transition-delay: .5s; }
+    .fade-up.delay-6 { transition-delay: .6s; }
+
+    /* ─── NAV ────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,27,57,.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between; height: 68px;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: -.02em; }
+    .nav-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links li a { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.7); transition: color .2s; }
+    .nav-links li a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gradient); color: var(--white); font-family: var(--font);
+      font-size: .875rem; font-weight: 700; padding: .5rem 1.25rem;
+      border-radius: 6px; border: none; cursor: pointer;
+      box-shadow: 0 2px 16px rgba(16,62,224,.35);
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--midnight-deep);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 120px 0 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(16,62,224,.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(18,219,213,.10) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 840px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .8125rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 24px; height: 2px; background: var(--gradient); border-radius: 2px;
+    }
+    .hero-headline {
+      font-size: clamp(2.5rem, 6vw, 4.25rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.03em;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 500; color: var(--periwinkle); line-height: 1.5;
+      margin-bottom: 1.25rem; max-width: 640px;
+    }
+    .hero-body {
+      font-size: 1rem; color: rgba(208,216,227,.7);
+      line-height: 1.75; max-width: 640px; margin-bottom: 2.5rem;
+    }
+    .hero-cta-group { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gradient); color: var(--white);
+      font-family: var(--font); font-size: 1rem; font-weight: 700;
+      padding: .875rem 2rem; border-radius: 8px; border: none; cursor: pointer;
+      box-shadow: 0 4px 28px rgba(16,62,224,.45); transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(16,62,224,.55); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: transparent; color: var(--white);
+      font-family: var(--font); font-size: 1rem; font-weight: 600;
+      padding: .875rem 2rem; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.25); cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.45); }
+
+    /* stat band inside hero */
+    .hero-stat-band {
+      margin-top: 4rem;
+      display: flex; gap: 3rem; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 2.5rem;
+    }
+    .hero-stat { display: flex; flex-direction: column; gap: .25rem; }
+    .hero-stat-num {
+      font-size: 2.5rem; font-weight: 800; letter-spacing: -.04em;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-stat-label { font-size: .875rem; font-weight: 500; color: rgba(208,216,227,.65); }
+
+    /* ─── SECTION BASE ────────────────────────────────── */
+    section { padding: 6rem 0; }
+    .section-eyebrow {
+      font-size: .8125rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--electric); margin-bottom: 1rem;
+    }
+    .section-headline {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.03em;
+      color: var(--midnight); margin-bottom: 1.25rem;
+    }
+    .section-sub {
+      font-size: 1.125rem; font-weight: 500;
+      color: var(--electric); margin-bottom: 1rem;
+    }
+    .section-body {
+      font-size: 1.0625rem; color: var(--body-gray); line-height: 1.8;
+      max-width: 720px;
+    }
+
+    /* ─── PROBLEM ─────────────────────────────────────── */
+    .problem { background: var(--off-white); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 768px) { .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .problem-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .problem-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--white); border: 1px solid rgba(7,54,99,.08);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+    }
+    .problem-icon {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px;
+      background: var(--gradient-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .problem-item-body h4 { font-size: .9375rem; font-weight: 700; color: var(--midnight); margin-bottom: .25rem; }
+    .problem-item-body p { font-size: .875rem; color: var(--body-gray); line-height: 1.65; }
+    .problem-callout {
+      background: var(--midnight); color: var(--white);
+      border-radius: 16px; padding: 2.5rem; margin-top: 2rem;
+    }
+    .problem-callout p { font-size: 1.125rem; font-weight: 500; line-height: 1.7; color: rgba(188,201,255,.85); }
+    .problem-callout strong { color: var(--white); }
+
+    /* ─── PLATFORM ────────────────────────────────────── */
+    .platform { background: var(--white); }
+    .platform-intro { max-width: 720px; margin-bottom: 3.5rem; }
+    .platform-bold {
+      margin-top: 2rem; padding: 1.5rem 2rem;
+      border-left: 4px solid var(--electric);
+      background: var(--gradient-soft);
+      border-radius: 0 12px 12px 0;
+    }
+    .platform-bold p { font-size: 1.0625rem; font-weight: 600; color: var(--midnight); font-style: italic; }
+
+    /* ─── FIVE PHASES ─────────────────────────────────── */
+    .phases { background: var(--off-white); }
+    .phases-grid { display: flex; flex-direction: column; gap: 1px; background: rgba(7,54,99,.08); border-radius: 16px; overflow: hidden; margin-top: 3rem; }
+    .phase-row {
+      display: grid; grid-template-columns: 80px 1fr;
+      background: var(--white); gap: 0;
+      transition: background .2s;
+    }
+    .phase-row:hover { background: #FAFBFF; }
+    .phase-num {
+      background: var(--midnight);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 800; letter-spacing: -.04em;
+      background: var(--gradient); color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; padding: 1.75rem 0;
+      position: relative;
+    }
+    .phase-num::after {
+      content: ''; position: absolute; right: 0; top: 20%; bottom: 20%;
+      width: 1px; background: rgba(7,54,99,.08);
+    }
+    .phase-body { padding: 1.75rem 2rem; }
+    .phase-body h3 { font-size: 1.0625rem; font-weight: 700; color: var(--midnight); margin-bottom: .375rem; }
+    .phase-body p { font-size: .9375rem; color: var(--body-gray); line-height: 1.7; }
+
+    /* ─── OUTCOMES ────────────────────────────────────── */
+    .outcomes { background: var(--midnight); }
+    .outcomes .section-headline { color: var(--white); }
+    .outcomes .section-body { color: rgba(208,216,227,.75); }
+    .outcomes-table {
+      width: 100%; border-collapse: collapse; margin-top: 3rem;
+      border-radius: 12px; overflow: hidden;
+    }
+    .outcomes-table thead tr { background: rgba(255,255,255,.06); }
+    .outcomes-table thead th {
+      padding: 1rem 1.5rem; text-align: left;
+      font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(208,216,227,.6);
+    }
+    .outcomes-table tbody tr { border-top: 1px solid rgba(255,255,255,.06); transition: background .2s; }
+    .outcomes-table tbody tr:hover { background: rgba(255,255,255,.04); }
+    .outcomes-table tbody td {
+      padding: 1.25rem 1.5rem; font-size: .9375rem; line-height: 1.6;
+    }
+    .outcomes-table td:first-child { font-weight: 600; color: var(--white); }
+    .outcomes-table td:last-child { color: rgba(188,201,255,.85); }
+    .outcomes-table td .stat-chip {
+      display: inline-flex; align-items: center;
+      background: var(--gradient); color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 800; font-size: 1.125rem;
+    }
+    .outcomes-note {
+      margin-top: 1.5rem; font-size: .875rem;
+      color: rgba(208,216,227,.5); font-style: italic;
+    }
+
+    /* ─── WHY AIDEN ───────────────────────────────────── */
+    .why { background: var(--off-white); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .why-grid { grid-template-columns: 1fr; } }
+    .why-card {
+      background: var(--white); border: 1px solid rgba(7,54,99,.08);
+      border-radius: 12px; padding: 1.75rem; transition: box-shadow .25s, transform .25s;
+    }
+    .why-card:hover { box-shadow: 0 8px 32px rgba(7,54,99,.1); transform: translateY(-3px); }
+    .why-card-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--gradient); display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1rem;
+    }
+    .why-card h3 { font-size: 1rem; font-weight: 700; color: var(--midnight); margin-bottom: .5rem; }
+    .why-card p { font-size: .9rem; color: var(--body-gray); line-height: 1.65; }
+
+    /* ─── CTA ─────────────────────────────────────────── */
+    .cta-section {
+      background: var(--midnight-deep);
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(16,62,224,.2) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at 80% 80%, rgba(18,219,213,.1) 0%, transparent 60%);
+    }
+    .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 720px; margin: 0 auto; }
+    .cta-section .section-headline { color: var(--white); }
+    .cta-section .section-body { color: rgba(208,216,227,.75); margin: 0 auto; }
+    .cta-btn-group { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: #040F1F; padding: 3rem 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-size: 1.2rem; font-weight: 800; color: rgba(255,255,255,.85); letter-spacing: -.02em; }
+    .footer-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-info { font-size: .875rem; color: rgba(255,255,255,.35); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .875rem; color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-links a:hover { color: rgba(255,255,255,.8); }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ──────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="nav-logo">Aiden <span>AI</span></div>
+        <ul class="nav-links">
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#phases">Five Phases</a></li>
+          <li><a href="#outcomes">Outcomes</a></li>
+          <li><a href="#why">Why Aiden</a></li>
+        </ul>
+        <button class="nav-cta">Book a Demo</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-eyebrow fade-up">AI-Powered Data Migration</div>
+        <h1 class="hero-headline fade-up delay-1">
+          Move from Legacy<br>to Modern —<br>
+          <span class="grad-text">Faster, Safer, Smarter.</span>
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          Data migration has always been the hardest part of modernization.<br>
+          Aiden AI makes it the easiest.
+        </p>
+        <p class="hero-body fade-up delay-3">
+          Traditional migration is expensive, fragile, and manual — built on weeks of schema analysis, hand-crafted mappings,
+          and error-prone execution cycles. It consumes your best engineers and still delivers risk. Aiden AI's agentic platform
+          replaces that approach with intelligent automation: from source discovery to production deployment, every stage is orchestrated by AI.
+        </p>
+        <div class="hero-cta-group fade-up delay-4">
+          <button class="btn-primary">See the Platform in Action &#8594;</button>
+          <button class="btn-secondary">Book a 30-min Walkthrough</button>
+        </div>
+        <div class="hero-stat-band fade-up delay-5">
+          <div class="hero-stat">
+            <span class="hero-stat-num">50–70%</span>
+            <span class="hero-stat-label">Less migration effort</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">5</span>
+            <span class="hero-stat-label">AI-led lifecycle phases</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">1</span>
+            <span class="hero-stat-label">Unified platform</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">0</span>
+            <span class="hero-stat-label">Fragmented toolchain</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROBLEM ────────────────────────────────────────── -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div>
+          <p class="section-eyebrow fade-up">The Problem</p>
+          <h2 class="section-headline fade-up delay-1">Traditional migration breaks down at scale.</h2>
+          <p class="section-body fade-up delay-2">
+            Every enterprise knows the pattern: a migration project scoped at 6 months, budgeted for a small team,
+            that runs 18 months, burns out the people involved, and still delivers incomplete data quality.
+            The cause is structural.
+          </p>
+          <div class="problem-callout fade-up delay-3">
+            <p>The tools available today <strong>weren't designed</strong> for the complexity enterprises are actually facing.
+            Legacy migration approaches don't scale, don't self-correct, and don't give leadership the confidence they need.</p>
+          </div>
+        </div>
+        <div class="problem-list fade-up delay-2">
+          <div class="problem-item">
+            <div class="problem-icon">&#128269;</div>
+            <div class="problem-item-body">
+              <h4>Manual schema analysis</h4>
+              <p>Weeks of effort before a single record moves. Every table, constraint, and relationship catalogued by hand.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#9881;</div>
+            <div class="problem-item-body">
+              <h4>Hand-built mapping logic</h4>
+              <p>Fragile, undocumented, impossible to maintain. One schema change breaks the entire downstream flow.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#8987;</div>
+            <div class="problem-item-body">
+              <h4>Sequential execution</h4>
+              <p>No parallelism, no intelligence, no recovery. One failure halts the project until engineers intervene.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#9888;</div>
+            <div class="problem-item-body">
+              <h4>Late-stage validation</h4>
+              <p>Defects discovered after go-live, not before. Rework is expensive, deadlines slip, trust erodes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PLATFORM ───────────────────────────────────────── -->
+  <section class="platform" id="platform">
+    <div class="container">
+      <div class="platform-intro">
+        <p class="section-eyebrow fade-up">The Platform</p>
+        <h2 class="section-headline fade-up delay-1">From manual effort to intelligent automation.</h2>
+        <p class="section-sub fade-up delay-2">Introducing Aiden AI's Data Migration Platform.</p>
+        <p class="section-body fade-up delay-3">
+          Aiden AI reengineers the migration lifecycle from the ground up — replacing manual analysis and fragile tooling
+          with a single, AI-led platform that operates across the entire migration journey. AI agents handle discovery, design,
+          mapping, execution, and governance — so your engineers focus on outcomes, not operations.
+        </p>
+        <div class="platform-bold fade-up delay-4">
+          <p>"This is not a migration accelerator. This is a migration platform — designed for production scale, not proof of concept."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FIVE PHASES ─────────────────────────────────────── -->
+  <section class="phases" id="phases">
+    <div class="container">
+      <p class="section-eyebrow fade-up">The Five Phases</p>
+      <h2 class="section-headline fade-up delay-1">Five stages. One intelligent platform.</h2>
+      <div class="phases-grid">
+        <div class="phase-row fade-up delay-1">
+          <div class="phase-num">01</div>
+          <div class="phase-body">
+            <h3>Automated Source Discovery</h3>
+            <p>AI agents analyze legacy data stores, schemas, and relationships automatically — eliminating weeks of manual assessment. Every table, field, constraint, and relationship is catalogued, classified, and prepared for migration design before a human reviews a single line.</p>
+          </div>
+        </div>
+        <div class="phase-row fade-up delay-2">
+          <div class="phase-num">02</div>
+          <div class="phase-body">
+            <h3>Context-Aware Target Design</h3>
+            <p>Target schemas are intelligently generated based on business context, historical data patterns, and modernization goals — not guesswork. The result is a future-state data model aligned to how your business actually works, not just how your legacy system was structured.</p>
+          </div>
+        </div>
+        <div class="phase-row fade-up delay-3">
+          <div class="phase-num">03</div>
+          <div class="phase-body">
+            <h3>AI-Assisted Mapping &amp; Transformation</h3>
+            <p>Automatically create and optimise mapping rules, transformation logic, and data quality validations. What would take a data engineer days to build manually is generated, reviewed, and refined in hours — with full traceability from source to target.</p>
+          </div>
+        </div>
+        <div class="phase-row fade-up delay-4">
+          <div class="phase-num">04</div>
+          <div class="phase-body">
+            <h3>Pipeline Generation &amp; Resilient Execution</h3>
+            <p>Auto-generate migration pipelines with built-in orchestration, batching, and scheduling. Large-volume execution handles retry mechanisms, failure recovery, and performance optimisation — designed to run at enterprise scale without requiring manual intervention at every step.</p>
+          </div>
+        </div>
+        <div class="phase-row fade-up delay-5">
+          <div class="phase-num">05</div>
+          <div class="phase-body">
+            <h3>Data Quality, Validation &amp; Governance</h3>
+            <p>Ensure accuracy with continuous validation, reconciliation, and anomaly detection running throughout migration — not just at the end. Every step is tracked, explainable, and compliant. Full audit trails, explainability logs, and governance alignment are built in from the start.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OUTCOMES ────────────────────────────────────────── -->
+  <section class="outcomes" id="outcomes">
+    <div class="container">
+      <p class="section-eyebrow fade-up" style="color:var(--cyan)">Business Outcomes</p>
+      <h2 class="section-headline fade-up delay-1">Measurable impact.<br>Not migration theatre.</h2>
+      <p class="section-body fade-up delay-2">
+        Aiden AI's platform is designed to deliver outcomes, not just outputs. These aren't estimates — they're the result of replacing manual processes with AI-led automation across every phase of the migration lifecycle.
+      </p>
+      <table class="outcomes-table fade-up delay-3">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Migration effort reduction</td>
+            <td><span class="stat-chip">50–70%</span> less manual work</td>
+          </tr>
+          <tr>
+            <td>Data defects and rework</td>
+            <td>Significant reduction vs. traditional approach</td>
+          </tr>
+          <tr>
+            <td>Time to production</td>
+            <td>Accelerated modernization timelines</td>
+          </tr>
+          <tr>
+            <td>Operational risk</td>
+            <td>Lower — through intelligent validation and monitoring</td>
+          </tr>
+          <tr>
+            <td>Governance readiness</td>
+            <td>Built in — every step auditable and compliant</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="outcomes-note fade-up delay-4">
+        Results vary based on legacy estate complexity. Metrics derived from Aiden AI platform deployments in insurance, banking, financial services, and enterprise operations.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── WHY AIDEN ────────────────────────────────────────── -->
+  <section class="why" id="why">
+    <div class="container">
+      <p class="section-eyebrow fade-up">Why Aiden AI</p>
+      <h2 class="section-headline fade-up delay-1">One platform. One approach. Complete migration.</h2>
+      <p class="section-body fade-up delay-2">
+        Unlike traditional tools or fragmented AI utilities, Aiden provides a single, unified platform — combining AI agents, migration tooling, and enterprise-grade governance into one seamless experience.
+      </p>
+      <div class="why-grid">
+        <div class="why-card fade-up delay-1">
+          <div class="why-card-icon">&#127381;</div>
+          <h3>Single unified platform</h3>
+          <p>No fragmented toolchain, no integration overhead. One platform covers every phase of the migration lifecycle.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-card-icon">&#129302;</div>
+          <h3>AI agents across all five phases</h3>
+          <p>Not just one part of the lifecycle. AI-led intelligence from source discovery through production validation.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-card-icon">&#9889;</div>
+          <h3>Production-grade pipeline generation</h3>
+          <p>No manual pipeline authoring required. Auto-built, resilient, enterprise-scale execution out of the box.</p>
+        </div>
+        <div class="why-card fade-up delay-1">
+          <div class="why-card-icon">&#128275;</div>
+          <h3>Enterprise governance by design</h3>
+          <p>Compliant, auditable, explainable — built in from the start, not retrofitted at the end.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-card-icon">&#127760;</div>
+          <h3>Multi-model AI routing</h3>
+          <p>No vendor lock-in. The right model for the right task — with full control over AI decision-making.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-card-icon">&#127942;</div>
+          <h3>Proven in production</h3>
+          <p>Deployed in insurance, banking, financial services, and enterprise operations at scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ──────────────────────────────────────────────── -->
+  <section class="cta-section" id="contact" style="padding:6rem 0;">
+    <div class="container">
+      <div class="cta-inner">
+        <p class="section-eyebrow fade-up" style="color:var(--cyan);justify-content:center;display:flex;">Get Started</p>
+        <h2 class="section-headline fade-up delay-1" style="color:var(--white);text-align:center;">Your legacy estate<br>won't migrate itself.</h2>
+        <p class="section-body fade-up delay-2" style="text-align:center;">
+          Organisations that modernize with Aiden don't just move data faster — they move with confidence. Production-scale migration, built-in governance, and measurable outcomes from day one.
+        </p>
+        <div class="cta-btn-group fade-up delay-3">
+          <button class="btn-primary">Talk to Aiden AI &#8594;</button>
+          <button class="btn-secondary">See a Live Demo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Aiden <span>AI</span></div>
+        <div class="footer-info">aiden.ai &nbsp;|&nbsp; hello@aiden.ai</div>
+        <div class="footer-links">
+          <a href="#">Platform</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
