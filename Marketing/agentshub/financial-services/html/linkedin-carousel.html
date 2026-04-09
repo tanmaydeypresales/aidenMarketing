@@ -1,0 +1,494 @@
+<!-- META TITLE: Financial Intelligence Automated — LinkedIn Carousel | AgentsHub by Aiden AI -->
+<!-- META DESCRIPTION: 10-slide LinkedIn carousel for the AI-Powered Financial Intelligence Platform campaign. Four agents, four functions, one platform. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Carousel — Financial Services | AgentsHub by Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:     #073663;
+      --electric: #103EE0;
+      --cyan:     #12DBD5;
+      --midnight: #08244B;
+      --deep:     #061B39;
+      --light-blue: #E0E4FC;
+      --peri:     #BCC9FF;
+      --white:    #FFFFFF;
+      --gray:     #64748B;
+      --muted:    #D0D8E3;
+      --grad:     linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --font:     'Poppins', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: #0E1828;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* UI CHROME */
+    .ui-header {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .ui-brand { font-size: 1.1rem; font-weight: 800; color: var(--white); letter-spacing: -.02em; }
+    .ui-brand span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .ui-label { font-size: .8125rem; font-weight: 600; color: var(--muted); letter-spacing: .08em; }
+
+    /* NAV */
+    .nav-bar {
+      display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+      width: 100%; max-width: 900px; margin-bottom: 2rem;
+    }
+    .nav-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,.18); border: none; cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .nav-dot.active { background: var(--cyan); transform: scale(1.3); }
+    .nav-prev, .nav-next {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      color: var(--white); font-family: var(--font); font-size: .875rem; font-weight: 600;
+      padding: .5rem 1.25rem; border-radius: 6px; cursor: pointer; transition: background .2s;
+    }
+    .nav-prev { margin-left: 0; }
+    .nav-next { margin-left: auto; }
+    .nav-prev:hover, .nav-next:hover { background: rgba(255,255,255,.14); }
+    .slide-counter { font-size: .8125rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; }
+
+    /* SLIDE WRAPPER */
+    .slide-stage { width: 100%; max-width: 540px; position: relative; }
+    .slide-frame {
+      width: 100%; aspect-ratio: 1 / 1; border-radius: 20px; overflow: hidden;
+      position: relative; display: none; box-shadow: 0 32px 80px rgba(0,0,0,.55);
+    }
+    .slide-frame.active { display: flex; }
+
+    /* SLIDE */
+    .slide {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 7% 8% 8%; position: relative; overflow: hidden;
+    }
+
+    /* DARK */
+    .slide.dark { background: var(--midnight); }
+    .slide.dark::before {
+      content: ''; position: absolute; top: -30%; right: -20%;
+      width: 80%; height: 80%;
+      background: radial-gradient(ellipse, rgba(16,62,224,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .slide.dark::after {
+      content: ''; position: absolute; bottom: -20%; left: -10%;
+      width: 60%; height: 60%;
+      background: radial-gradient(ellipse, rgba(18,219,213,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide.light-odd  { background: var(--white); }
+    .slide.light-even { background: #EDEEF4; }
+
+    /* GRID */
+    .slide-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px), linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .slide.dark .slide-grid {
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    }
+
+    /* TOP BAR */
+    .slide-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--grad); }
+
+    /* WAVE SVG */
+    .slide-wave-svg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1; overflow: hidden;
+    }
+
+    /* CONTENT */
+    .slide-content { position: relative; z-index: 2; }
+    .slide-eyebrow {
+      font-size: clamp(.7rem, 2.6vw, 1rem); font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; margin-bottom: .6rem;
+    }
+    .slide.dark .slide-eyebrow { color: var(--cyan); }
+    .slide.light-odd .slide-eyebrow, .slide.light-even .slide-eyebrow { color: var(--electric); }
+
+    .slide-label {
+      display: inline-block; font-size: clamp(.65rem, 2.4vw, .9rem);
+      font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      padding: .28rem .75rem; border-radius: 4px; margin-bottom: 1rem;
+    }
+    .slide.dark .slide-label { background: rgba(255,255,255,.10); color: var(--muted); }
+    .slide.light-odd .slide-label, .slide.light-even .slide-label { background: var(--light-blue); color: var(--navy); }
+
+    .slide-headline { font-weight: 800; line-height: 1.1; letter-spacing: -.03em; margin-bottom: .75rem; }
+    .slide.dark .slide-headline { font-size: clamp(2.75rem, 14vw, 4.75rem); color: var(--white); }
+    .slide.light-odd .slide-headline,
+    .slide.light-even .slide-headline { font-size: clamp(2.5rem, 13vw, 4.25rem); color: var(--midnight); }
+
+    .slide-headline .gw {
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .slide-support { font-size: clamp(.875rem, 3.6vw, 1.25rem); font-weight: 500; line-height: 1.6; }
+    .slide.dark .slide-support { color: var(--peri); }
+    .slide.light-odd .slide-support, .slide.light-even .slide-support { color: var(--gray); }
+
+    /* CTA */
+    .slide-cta-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--grad); color: var(--white); font-family: var(--font);
+      font-size: clamp(.875rem, 3.4vw, 1.125rem); font-weight: 700;
+      padding: .75rem 1.75rem; border-radius: 8px; margin-top: 1.5rem;
+      box-shadow: 0 4px 24px rgba(16,62,224,.45);
+    }
+
+    /* LOGO */
+    .slide-logo {
+      position: absolute; bottom: 6%; right: 6%;
+      font-size: clamp(.7rem, 2.8vw, 1rem); font-weight: 800;
+      letter-spacing: -.01em; opacity: .5; z-index: 2;
+    }
+    .slide.dark .slide-logo { color: var(--white); }
+    .slide.light-odd .slide-logo, .slide.light-even .slide-logo { color: var(--navy); }
+    .slide-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* BG NUM */
+    .slide-bg-num {
+      position: absolute; top: 4%; right: 4%;
+      font-size: clamp(7rem, 28vw, 11rem); font-weight: 800;
+      letter-spacing: -.05em; line-height: 1; z-index: 0;
+      pointer-events: none; user-select: none;
+    }
+    .slide.light-odd .slide-bg-num, .slide.light-even .slide-bg-num { color: rgba(7,54,99,.055); }
+    .slide.dark .slide-bg-num { color: rgba(255,255,255,.05); }
+
+    /* CAPTION */
+    .slide-caption { width: 100%; max-width: 540px; margin-top: 1.75rem; padding: 0 .5rem; }
+    .slide-caption h3 { font-size: .9375rem; font-weight: 700; color: var(--white); margin-bottom: .375rem; }
+    .slide-caption p { font-size: .8125rem; color: rgba(208,216,227,.6); line-height: 1.65; }
+  </style>
+</head>
+<body>
+
+  <div class="ui-header">
+    <div class="ui-brand">Aiden <span>AI</span></div>
+    <div class="ui-label">LinkedIn Carousel — Financial Services · 10 Slides</div>
+  </div>
+
+  <div class="nav-bar">
+    <button class="nav-prev" onclick="prevSlide()">&#8592; Prev</button>
+    <button class="nav-dot active" onclick="goSlide(0)"></button>
+    <button class="nav-dot" onclick="goSlide(1)"></button>
+    <button class="nav-dot" onclick="goSlide(2)"></button>
+    <button class="nav-dot" onclick="goSlide(3)"></button>
+    <button class="nav-dot" onclick="goSlide(4)"></button>
+    <button class="nav-dot" onclick="goSlide(5)"></button>
+    <button class="nav-dot" onclick="goSlide(6)"></button>
+    <button class="nav-dot" onclick="goSlide(7)"></button>
+    <button class="nav-dot" onclick="goSlide(8)"></button>
+    <button class="nav-dot" onclick="goSlide(9)"></button>
+    <span class="slide-counter" id="slideCounter">1 / 10</span>
+    <button class="nav-next" onclick="nextSlide()">Next &#8594;</button>
+  </div>
+
+  <div class="slide-stage">
+
+    <!-- SLIDE 1 — HOOK (DARK) -->
+    <div class="slide-frame active" id="s0">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <p class="slide-eyebrow">Financial Services</p>
+          <h2 class="slide-headline">Financial intelligence.<br>Fully <span class="gw">automated.</span></h2>
+          <p class="slide-support">Four AI agents. Four critical functions.<br>One unified platform.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 — PROBLEM (LIGHT ODD) -->
+    <div class="slide-frame" id="s1">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Reality</span>
+          <h2 class="slide-headline">Your best advisors<br>are buried in <span class="gw">operations.</span></h2>
+          <p class="slide-support">Manual processes are costing you<br>clients, speed, and revenue.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 — THE SHIFT (LIGHT EVEN) -->
+    <div class="slide-frame" id="s2">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Platform</span>
+          <h2 class="slide-headline">AI that doesn't<br>just assist —<br>it <span class="gw">acts.</span></h2>
+          <p class="slide-support">AgentsHub deploys autonomous agents<br>that run your workflows end to end.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 — WEALTH (LIGHT ODD) -->
+    <div class="slide-frame" id="s3">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">01</div>
+        <div class="slide-content">
+          <span class="slide-label">01 — Wealth Management</span>
+          <h2 class="slide-headline">Every client.<br>Every opportunity.<br><span class="gw">Captured.</span></h2>
+          <p class="slide-support">Wealth Intelligence Agent — portfolio<br>rebalancing, tax optimisation, 360° client<br>insight. 60% time saved per advisor.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 — CREDIT (LIGHT EVEN) -->
+    <div class="slide-frame" id="s4">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">02</div>
+        <div class="slide-content">
+          <span class="slide-label">02 — Credit Decisioning</span>
+          <h2 class="slide-headline">Weeks to<br>hours.<br><span class="gw">Automated.</span></h2>
+          <p class="slide-support">Credit Intelligence Agent — spreading,<br>stress testing, memo drafting.<br>70% faster decisions.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 — CLIENT SERVICE (LIGHT ODD) -->
+    <div class="slide-frame" id="s5">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">03</div>
+        <div class="slide-content">
+          <span class="slide-label">03 — Client Service</span>
+          <h2 class="slide-headline">Resolve before<br>they <span class="gw">complain.</span></h2>
+          <p class="slide-support">Client Experience Agent — omnichannel<br>triage, proactive issue detection.<br>92% CSAT score.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 — FINCRIME (LIGHT EVEN) -->
+    <div class="slide-frame" id="s6">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">04</div>
+        <div class="slide-content">
+          <span class="slide-label">04 — FinCrime</span>
+          <h2 class="slide-headline">Find the<br>real threats.<br><span class="gw">Faster.</span></h2>
+          <p class="slide-support">Financial Crime Detection Agent — AI monitoring,<br>AML, SAR drafting.<br>80% fewer false positives.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 — OUTCOMES (DARK) -->
+    <div class="slide-frame" id="s7">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Outcomes</span>
+          <h2 class="slide-headline"><span class="gw">80%</span> fewer false positives.<br><span class="gw">70%</span> faster credit.<br><span class="gw">92%</span> CSAT.</h2>
+          <p class="slide-support">Four agents. Measurable results<br>across every function.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 — UNIFICATION (LIGHT ODD) -->
+    <div class="slide-frame" id="s8">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">One Platform</span>
+          <h2 class="slide-headline">One platform.<br>Four agents.<br><span class="gw">Complete</span> intelligence.</h2>
+          <p class="slide-support">Wealth. Credit. Service. FinCrime.<br>All connected. All autonomous.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 — CTA (DARK) -->
+    <div class="slide-frame" id="s9">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <h2 class="slide-headline">Transform your<br>financial services.<br><span class="gw">Today.</span></h2>
+          <p class="slide-support">See how AgentsHub handles your<br>most critical operations.</p>
+          <div class="slide-cta-btn">&#8594; Book a demo</div>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+  </div><!-- /slide-stage -->
+
+  <div class="slide-caption" id="slideCaption">
+    <h3>Slide 1 of 10 — Hook (Cover)</h3>
+    <p>Dark cover. Bold hook: "Financial intelligence. Fully automated." — Four AI agents, one unified platform.</p>
+  </div>
+
+  <script>
+    /* ── WAVE ILLUSTRATION GENERATOR ────────────────────────────────────── */
+    function buildWaves(slideEl) {
+      const isDark = slideEl.classList.contains('dark');
+      const W = 540, H = 540;
+      const ns = 'http://www.w3.org/2000/svg';
+      const uid = 'wv' + (Math.random() * 1e6 | 0);
+
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('class', 'slide-wave-svg');
+
+      const defs = document.createElementNS(ns, 'defs');
+
+      const wg = document.createElementNS(ns, 'linearGradient');
+      wg.id = uid + 'g';
+      wg.setAttribute('x1','0%'); wg.setAttribute('y1','0%');
+      wg.setAttribute('x2','100%'); wg.setAttribute('y2','0%');
+      const stops = isDark
+        ? [['0%','#5B80EC'],['50%','#2BC9C3'],['100%','#12DBD5']]
+        : [['0%','#103EE0'],['55%','#1A8FD9'],['100%','#12DBD5']];
+      stops.forEach(([off, col]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off);
+        s.setAttribute('stop-color', col);
+        wg.appendChild(s);
+      });
+      defs.appendChild(wg);
+
+      const fg = document.createElementNS(ns, 'linearGradient');
+      fg.id = uid + 'f';
+      fg.setAttribute('x1','0%'); fg.setAttribute('y1','0%');
+      fg.setAttribute('x2','0%'); fg.setAttribute('y2','100%');
+      [[0,'white',1],[52,'white',1],[82,'white',0.15],[100,'white',0]].forEach(([off,col,op]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off+'%');
+        s.setAttribute('stop-color', col);
+        s.setAttribute('stop-opacity', op);
+        fg.appendChild(s);
+      });
+      defs.appendChild(fg);
+
+      const mask = document.createElementNS(ns, 'mask');
+      mask.id = uid + 'm';
+      const mr = document.createElementNS(ns, 'rect');
+      mr.setAttribute('width', W); mr.setAttribute('height', H);
+      mr.setAttribute('fill', `url(#${uid}f)`);
+      mask.appendChild(mr);
+      defs.appendChild(mask);
+      svg.appendChild(defs);
+
+      const g = document.createElementNS(ns, 'g');
+      g.setAttribute('mask', `url(#${uid}m)`);
+
+      const N = 32, PTS = 110;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1);
+        const baseY = 6 + t * 300;
+        const pinch = 0.18 + 0.82 * Math.pow(Math.abs(2 * t - 1), 0.65);
+        const freq = (2 * Math.PI) / (235 + 70 * Math.sin(i * 0.91));
+        const amp = (11 + 58 * pinch) * (0.65 + 0.35 * Math.cos(i * 1.27));
+        const phase = i * 0.68 + Math.sin(i * 0.37) * 0.4;
+        const pts = [];
+        for (let j = 0; j <= PTS; j++) {
+          const x = -15 + (W + 30) * (j / PTS);
+          const xEnv = 0.72 + 0.28 * Math.max(0, (W * 0.5 - x) / (W * 0.5));
+          const y = baseY + amp * xEnv * Math.sin(freq * x + phase);
+          pts.push([x, y]);
+        }
+        let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+        for (let k = 1; k < pts.length - 1; k++) {
+          const mx = ((pts[k][0] + pts[k+1][0]) / 2).toFixed(1);
+          const my = ((pts[k][1] + pts[k+1][1]) / 2).toFixed(1);
+          d += ` Q${pts[k][0].toFixed(1)},${pts[k][1].toFixed(1)} ${mx},${my}`;
+        }
+        const last = pts[pts.length - 1];
+        d += ` L${last[0].toFixed(1)},${last[1].toFixed(1)}`;
+
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('stroke', `url(#${uid}g)`);
+        path.setAttribute('stroke-width', isDark ? '0.7' : '0.6');
+        path.setAttribute('fill', 'none');
+        const op = isDark
+          ? (0.22 + 0.32 * pinch).toFixed(2)
+          : (0.14 + 0.26 * pinch).toFixed(2);
+        path.setAttribute('opacity', op);
+        g.appendChild(path);
+      }
+      svg.appendChild(g);
+      slideEl.insertBefore(svg, slideEl.firstChild);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.slide').forEach(buildWaves);
+    });
+
+    /* ── CAROUSEL NAV ─────────────────────────────────────────────────── */
+    const captions = [
+      { title: 'Slide 1 of 10 — Hook (Cover)', desc: 'Dark. Bold hook: "Financial intelligence. Fully automated." Four AI agents, four critical functions, one unified platform.' },
+      { title: 'Slide 2 of 10 — The Reality', desc: 'Light. Names the pain: advisors buried in operations, manual processes costing clients, speed, and revenue.' },
+      { title: 'Slide 3 of 10 — The Platform', desc: 'Light. Pivots to solution: AgentsHub deploys autonomous agents that run financial services workflows end to end.' },
+      { title: 'Slide 4 of 10 — Wealth Management', desc: 'Light. Wealth Intelligence Agent — portfolio rebalancing, opportunity capture, 360° client insight. 60% time saved.' },
+      { title: 'Slide 5 of 10 — Credit Decisioning', desc: 'Light. Credit Intelligence Agent — spreading, stress testing, memo drafting automated. 70% faster decisions.' },
+      { title: 'Slide 6 of 10 — Client Service', desc: 'Light. Client Experience Agent — omnichannel triage, proactive issue detection. 92% CSAT.' },
+      { title: 'Slide 7 of 10 — FinCrime', desc: 'Light. Financial Crime Detection Agent — AI monitoring, AML, SAR drafting. 80% fewer false positives.' },
+      { title: 'Slide 8 of 10 — Outcomes', desc: 'Dark. Hard stats headline: 80% fewer FPs, 70% faster credit, 92% CSAT — measurable results across every function.' },
+      { title: 'Slide 9 of 10 — One Platform', desc: 'Light. Unification message: one platform, four agents, complete financial intelligence — Wealth, Credit, Service, FinCrime.' },
+      { title: 'Slide 10 of 10 — CTA', desc: 'Dark. Clean close: "Transform your financial services. Today." Book a demo.' }
+    ];
+
+    let current = 0;
+    const total = 10;
+
+    function updateSlide() {
+      document.querySelectorAll('.slide-frame').forEach((f, i) => f.classList.toggle('active', i === current));
+      document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      document.getElementById('slideCounter').textContent = `${current + 1} / ${total}`;
+      const cap = captions[current];
+      document.getElementById('slideCaption').innerHTML = `<h3>${cap.title}</h3><p>${cap.desc}</p>`;
+    }
+
+    function nextSlide() { current = (current + 1) % total; updateSlide(); }
+    function prevSlide() { current = (current - 1 + total) % total; updateSlide(); }
+    function goSlide(n) { current = n; updateSlide(); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prevSlide();
+    });
+  </script>
+</body>
+</html>

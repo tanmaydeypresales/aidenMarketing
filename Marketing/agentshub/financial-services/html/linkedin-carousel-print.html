@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!-- Print-optimised carousel — 1080x1080 px per page — for PDF export via Playwright -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>LinkedIn Carousel — Financial Services — Print | AgentsHub by Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    @page { size: 1080px 1080px; margin: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 32px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { margin: 0; padding: 0; background: #fff; font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    .sp {
+      width: 1080px; height: 1080px;
+      position: relative; overflow: hidden;
+      page-break-after: always;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 76px 86px 86px;
+    }
+    .sp:last-child { page-break-after: auto; }
+
+    .sp.dark       { background: #08244B; }
+    .sp.light-odd  { background: #FFFFFF; }
+    .sp.light-even { background: #EDEEF4; }
+
+    .sp.dark::before {
+      content: ''; position: absolute; top: -30%; right: -20%;
+      width: 80%; height: 80%;
+      background: radial-gradient(ellipse, rgba(16,62,224,.22) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .sp.dark::after {
+      content: ''; position: absolute; bottom: -20%; left: -10%;
+      width: 55%; height: 55%;
+      background: radial-gradient(ellipse, rgba(18,219,213,.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .top-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 8px;
+      background: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+    }
+
+    .wave-svg {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 1; overflow: hidden;
+    }
+
+    .sc { position: relative; z-index: 2; }
+
+    .ey {
+      font-size: .5rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; margin-bottom: .55rem;
+    }
+    .dark .ey { color: #12DBD5; }
+    .light-odd .ey, .light-even .ey { color: #103EE0; }
+
+    .lbl {
+      display: inline-block; font-size: .46rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: .25rem .7rem; border-radius: 4px; margin-bottom: .8rem;
+    }
+    .dark .lbl { background: rgba(255,255,255,.10); color: #D0D8E3; }
+    .light-odd .lbl, .light-even .lbl { background: #E0E4FC; color: #073663; }
+
+    .hl {
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.03em; margin-bottom: .65rem;
+    }
+    .dark .hl { font-size: 2.375rem; color: #FFFFFF; }
+    .light-odd .hl, .light-even .hl { font-size: 2.125rem; color: #08244B; }
+
+    .gw {
+      background: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .sup { font-size: .625rem; font-weight: 500; line-height: 1.6; }
+    .dark .sup { color: #BCC9FF; }
+    .light-odd .sup, .light-even .sup { color: #64748B; }
+
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      color: #FFFFFF; font-family: 'Poppins', sans-serif;
+      font-size: .625rem; font-weight: 700;
+      padding: .6rem 1.4rem; border-radius: 8px; margin-top: 1.1rem;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    }
+
+    .bgnum {
+      position: absolute; top: 4%; right: 4%;
+      font-size: 8.5rem; font-weight: 800;
+      letter-spacing: -.05em; line-height: 1;
+      z-index: 0; pointer-events: none; user-select: none;
+    }
+    .light-odd .bgnum, .light-even .bgnum { color: rgba(7,54,99,.055); }
+    .dark .bgnum { color: rgba(255,255,255,.05); }
+
+    .logo {
+      position: absolute; bottom: 6%; right: 6%;
+      font-size: .46rem; font-weight: 800;
+      letter-spacing: -.01em; opacity: .5; z-index: 3;
+    }
+    .dark .logo { color: #FFFFFF; }
+    .light-odd .logo, .light-even .logo { color: #073663; }
+    .logo span {
+      background: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1 — HOOK -->
+  <div class="sp dark" id="p0">
+    <div class="top-bar"></div>
+    <div class="sc">
+      <p class="ey">Financial Services</p>
+      <h2 class="hl">Financial intelligence.<br>Fully <span class="gw">automated.</span></h2>
+      <p class="sup">Four AI agents. Four critical functions.<br>One unified platform.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 2 — THE REALITY -->
+  <div class="sp light-odd" id="p1">
+    <div class="top-bar"></div>
+    <div class="sc">
+      <span class="lbl">The Reality</span>
+      <h2 class="hl">Your best advisors<br>are buried in <span class="gw">operations.</span></h2>
+      <p class="sup">Manual processes are costing you<br>clients, speed, and revenue.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 3 — THE PLATFORM -->
+  <div class="sp light-even" id="p2">
+    <div class="top-bar"></div>
+    <div class="sc">
+      <span class="lbl">The Platform</span>
+      <h2 class="hl">AI that doesn't<br>just assist —<br>it <span class="gw">acts.</span></h2>
+      <p class="sup">AgentsHub deploys autonomous agents<br>that run your workflows end to end.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 4 — WEALTH -->
+  <div class="sp light-odd" id="p3">
+    <div class="top-bar"></div>
+    <div class="bgnum">01</div>
+    <div class="sc">
+      <span class="lbl">01 — Wealth Management</span>
+      <h2 class="hl">Every client.<br>Every opportunity.<br><span class="gw">Captured.</span></h2>
+      <p class="sup">Wealth Intelligence Agent — portfolio<br>rebalancing, tax optimisation, 360° client<br>insight. 60% time saved per advisor.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 5 — CREDIT -->
+  <div class="sp light-even" id="p4">
+    <div class="top-bar"></div>
+    <div class="bgnum">02</div>
+    <div class="sc">
+      <span class="lbl">02 — Credit Decisioning</span>
+      <h2 class="hl">Weeks to<br>hours.<br><span class="gw">Automated.</span></h2>
+      <p class="sup">Credit Intelligence Agent — spreading,<br>stress testing, memo drafting.<br>70% faster decisions.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 6 — CLIENT SERVICE -->
+  <div class="sp light-odd" id="p5">
+    <div class="top-bar"></div>
+    <div class="bgnum">03</div>
+    <div class="sc">
+      <span class="lbl">03 — Client Service</span>
+      <h2 class="hl">Resolve before<br>they <span class="gw">complain.</span></h2>
+      <p class="sup">Client Experience Agent — omnichannel<br>triage, proactive issue detection.<br>92% CSAT score.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 7 — FINCRIME -->
+  <div class="sp light-even" id="p6">
+    <div class="top-bar"></div>
+    <div class="bgnum">04</div>
+    <div class="sc">
+      <span class="lbl">04 — FinCrime</span>
+      <h2 class="hl">Find the<br>real threats.<br><span class="gw">Faster.</span></h2>
+      <p class="sup">Financial Crime Detection Agent — AI monitoring,<br>AML, SAR drafting.<br>80% fewer false positives.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 8 — OUTCOMES -->
+  <div class="sp dark" id="p7">
+    <div class="top-bar"></div>
+    <div class="sc">
+      <span class="lbl">The Outcomes</span>
+      <h2 class="hl"><span class="gw">80%</span> fewer false positives.<br><span class="gw">70%</span> faster credit.<br><span class="gw">92%</span> CSAT.</h2>
+      <p class="sup">Four agents. Measurable results<br>across every function.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 9 — ONE PLATFORM -->
+  <div class="sp light-odd" id="p8">
+    <div class="top-bar"></div>
+    <div class="sc">
+      <span class="lbl">One Platform</span>
+      <h2 class="hl">One platform.<br>Four agents.<br><span class="gw">Complete</span> intelligence.</h2>
+      <p class="sup">Wealth. Credit. Service. FinCrime.<br>All connected. All autonomous.</p>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <!-- SLIDE 10 — CTA -->
+  <div class="sp dark" id="p9">
+    <div class="top-bar"></div>
+    <div class="sc">
+      <h2 class="hl">Transform your<br>financial services.<br><span class="gw">Today.</span></h2>
+      <p class="sup">See how AgentsHub handles your<br>most critical operations.</p>
+      <div class="cta-btn">&#8594; Book a demo</div>
+    </div>
+    <div class="logo">Aiden <span>AI</span></div>
+  </div>
+
+  <script>
+    /* ── WAVE GENERATOR (same as interactive version) ── */
+    function buildWaves(slideEl) {
+      const isDark = slideEl.classList.contains('dark');
+      const W = 1080, H = 1080;
+      const ns = 'http://www.w3.org/2000/svg';
+      const uid = 'wv' + (Math.random() * 1e6 | 0);
+
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('class', 'wave-svg');
+
+      const defs = document.createElementNS(ns, 'defs');
+
+      const wg = document.createElementNS(ns, 'linearGradient');
+      wg.id = uid + 'g';
+      wg.setAttribute('x1','0%'); wg.setAttribute('y1','0%');
+      wg.setAttribute('x2','100%'); wg.setAttribute('y2','0%');
+      const stops = isDark
+        ? [['0%','#5B80EC'],['50%','#2BC9C3'],['100%','#12DBD5']]
+        : [['0%','#103EE0'],['55%','#1A8FD9'],['100%','#12DBD5']];
+      stops.forEach(([off, col]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off); s.setAttribute('stop-color', col);
+        wg.appendChild(s);
+      });
+      defs.appendChild(wg);
+
+      const fg = document.createElementNS(ns, 'linearGradient');
+      fg.id = uid + 'f';
+      fg.setAttribute('x1','0%'); fg.setAttribute('y1','0%');
+      fg.setAttribute('x2','0%'); fg.setAttribute('y2','100%');
+      [[0,'white',1],[52,'white',1],[82,'white',0.15],[100,'white',0]].forEach(([off,col,op]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off+'%'); s.setAttribute('stop-color', col);
+        s.setAttribute('stop-opacity', op);
+        fg.appendChild(s);
+      });
+      defs.appendChild(fg);
+
+      const mask = document.createElementNS(ns, 'mask');
+      mask.id = uid + 'm';
+      const mr = document.createElementNS(ns, 'rect');
+      mr.setAttribute('width', W); mr.setAttribute('height', H);
+      mr.setAttribute('fill', `url(#${uid}f)`);
+      mask.appendChild(mr);
+      defs.appendChild(mask);
+      svg.appendChild(defs);
+
+      const g = document.createElementNS(ns, 'g');
+      g.setAttribute('mask', `url(#${uid}m)`);
+
+      const N = 32, PTS = 110;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1);
+        const baseY = 12 + t * 600;
+        const pinch = 0.18 + 0.82 * Math.pow(Math.abs(2 * t - 1), 0.65);
+        const freq = (2 * Math.PI) / (470 + 140 * Math.sin(i * 0.91));
+        const amp = (22 + 116 * pinch) * (0.65 + 0.35 * Math.cos(i * 1.27));
+        const phase = i * 0.68 + Math.sin(i * 0.37) * 0.4;
+        const pts = [];
+        for (let j = 0; j <= PTS; j++) {
+          const x = -30 + (W + 60) * (j / PTS);
+          const xEnv = 0.72 + 0.28 * Math.max(0, (W * 0.5 - x) / (W * 0.5));
+          const y = baseY + amp * xEnv * Math.sin(freq * x + phase);
+          pts.push([x, y]);
+        }
+        let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+        for (let k = 1; k < pts.length - 1; k++) {
+          const mx = ((pts[k][0] + pts[k+1][0]) / 2).toFixed(1);
+          const my = ((pts[k][1] + pts[k+1][1]) / 2).toFixed(1);
+          d += ` Q${pts[k][0].toFixed(1)},${pts[k][1].toFixed(1)} ${mx},${my}`;
+        }
+        const last = pts[pts.length - 1];
+        d += ` L${last[0].toFixed(1)},${last[1].toFixed(1)}`;
+
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('stroke', `url(#${uid}g)`);
+        path.setAttribute('stroke-width', isDark ? '1.4' : '1.2');
+        path.setAttribute('fill', 'none');
+        const op = isDark
+          ? (0.22 + 0.32 * pinch).toFixed(2)
+          : (0.14 + 0.26 * pinch).toFixed(2);
+        path.setAttribute('opacity', op);
+        g.appendChild(path);
+      }
+      svg.appendChild(g);
+      slideEl.insertBefore(svg, slideEl.firstChild);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.sp').forEach(buildWaves);
+    });
+  </script>
+</body>
+</html>

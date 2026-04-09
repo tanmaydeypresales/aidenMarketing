@@ -1,0 +1,189 @@
+<!-- META TITLE: AI for Business — Coming Soon Industries | AgentsHub by Aiden AI -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI for Business — Expanding | AgentsHub by Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #073663; --electric: #103EE0; --cyan: #12DBD5;
+      --midnight: #08244B; --deep: #061B39; --light-blue: #E0E4FC;
+      --peri: #BCC9FF; --white: #FFFFFF; --gray: #64748B;
+      --grad: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --font: 'Poppins', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--deep); color: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(6,27,57,.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: -.02em; }
+    .nav-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 120px 0 80px; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(16,62,224,.2) 0%, transparent 65%), radial-gradient(ellipse 40% 40% at 20% 80%, rgba(18,219,213,.1) 0%, transparent 60%); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 60px 60px; }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(18,219,213,.12); border: 1px solid rgba(18,219,213,.25); border-radius: 100px; padding: .4rem 1rem; font-size: .8rem; font-weight: 600; color: var(--cyan); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2rem; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 1.5rem; }
+    .hero p { font-size: 1.125rem; color: rgba(188,201,255,.8); line-height: 1.75; max-width: 600px; margin-bottom: 2.5rem; }
+
+    /* ACTIVE INDUSTRIES */
+    .section { padding: 5rem 0; }
+    .section-label { font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem; }
+    .section-title { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -.03em; margin-bottom: .75rem; }
+    .section-sub { font-size: 1rem; color: rgba(188,201,255,.7); max-width: 640px; margin-bottom: 3rem; }
+
+    .active-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    @media (max-width: 640px) { .active-grid { grid-template-columns: 1fr; } }
+
+    .active-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; transition: border-color .25s, background .25s; }
+    .active-card:hover { background: rgba(255,255,255,.07); border-color: rgba(18,219,213,.3); }
+    .active-card-top { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+    .active-card-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .active-card-industry { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(208,216,227,.6); }
+    .active-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: .625rem; }
+    .active-card p { font-size: .9rem; color: rgba(188,201,255,.7); line-height: 1.7; margin-bottom: 1.25rem; }
+    .active-card-count { font-size: .8rem; font-weight: 600; color: rgba(208,216,227,.5); }
+    .active-card-count strong { color: var(--cyan); }
+    .card-arrow { display: inline-flex; align-items: center; gap: .375rem; font-size: .875rem; font-weight: 700; color: var(--cyan); margin-top: .75rem; }
+
+    /* COMING SOON */
+    .coming-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    @media (max-width: 800px) { .coming-grid { grid-template-columns: 1fr; } }
+
+    .coming-card { background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07); border-radius: 14px; padding: 1.75rem; position: relative; overflow: hidden; }
+    .coming-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--grad); opacity: .4; }
+    .coming-badge { display: inline-block; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: .2rem .7rem; border-radius: 100px; background: rgba(255,255,255,.07); color: rgba(208,216,227,.5); margin-bottom: 1rem; }
+    .coming-icon { font-size: 2rem; margin-bottom: .75rem; opacity: .5; }
+    .coming-card h3 { font-size: 1.125rem; font-weight: 700; color: rgba(255,255,255,.7); margin-bottom: .5rem; }
+    .coming-card p { font-size: .875rem; color: rgba(188,201,255,.5); line-height: 1.65; }
+
+    /* CTA */
+    .cta { background: var(--midnight); padding: 5rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,.06); }
+    .cta h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: .75rem; }
+    .cta p { color: rgba(188,201,255,.7); font-size: 1rem; margin-bottom: 2rem; }
+    .btn { display: inline-flex; align-items: center; gap: .5rem; background: var(--grad); color: var(--white); font-family: var(--font); font-size: 1rem; font-weight: 700; padding: .875rem 2rem; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 4px 24px rgba(16,62,224,.4); }
+
+    footer { background: #040F1F; padding: 2.5rem 0; border-top: 1px solid rgba(255,255,255,.05); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-size: 1.1rem; font-weight: 800; color: rgba(255,255,255,.7); }
+    .footer-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-info { font-size: .85rem; color: rgba(255,255,255,.3); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <div class="nav-logo">Aiden <span>AI</span></div>
+        <div style="font-size:.85rem;font-weight:600;color:rgba(255,255,255,.5);">AgentsHub — AI for Business</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">&#9670; AI for Business</div>
+        <h1>Enterprise AI.<br><span class="grad-text">Built for Every Industry.</span></h1>
+        <p>
+          AgentsHub by Aiden AI deploys purpose-built AI agents across every critical business function —
+          Insurance, Financial Services, Talent &amp; HR, Healthcare, Manufacturing, and beyond.
+          Autonomous. Governed. Production-scale.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVE INDUSTRIES -->
+  <section class="section" style="background:rgba(255,255,255,.015);">
+    <div class="container">
+      <p class="section-label">Live Now</p>
+      <h2 class="section-title">Production-Ready <span class="grad-text">Industry Platforms</span></h2>
+      <p class="section-sub">Full AI agent suites — deployed, tested, and running at enterprise scale in these industries today.</p>
+      <div class="active-grid">
+        <div class="active-card">
+          <div class="active-card-top">
+            <div class="active-card-dot" style="background:#2CC9A2;"></div>
+            <div class="active-card-industry">Insurance</div>
+          </div>
+          <h3>AI-Powered Insurance Intelligence Platform</h3>
+          <p>Six specialized AI agents covering submission intake, underwriting, broker management, policy administration, claims processing, and compliance — end to end.</p>
+          <div class="active-card-count"><strong>6</strong> AI Agents &nbsp;|&nbsp; <strong>6</strong> Insurance Functions</div>
+          <div class="card-arrow">View Insurance Platform &#8594;</div>
+        </div>
+        <div class="active-card">
+          <div class="active-card-top">
+            <div class="active-card-dot" style="background:#24C0E5;"></div>
+            <div class="active-card-industry">Financial Services</div>
+          </div>
+          <h3>AI-Powered Financial Intelligence Platform</h3>
+          <p>Four specialized AI agents for wealth management, credit decisioning, client service, and financial crime detection — one unified financial services platform.</p>
+          <div class="active-card-count"><strong>4</strong> AI Agents &nbsp;|&nbsp; <strong>4</strong> Core Functions</div>
+          <div class="card-arrow">View Financial Services Platform &#8594;</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING SOON -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Coming Next</p>
+      <h2 class="section-title">Expanding to More Industries</h2>
+      <p class="section-sub">Aiden AI is building purpose-built AI agent platforms for these industries. Early access available — register your interest below.</p>
+      <div class="coming-grid">
+        <div class="coming-card">
+          <div class="coming-badge">Coming Soon</div>
+          <div class="coming-icon">&#128101;</div>
+          <h3>Talent &amp; HR</h3>
+          <p>AI agents for recruitment intelligence, workforce planning, performance management, and employee experience — transforming people operations at scale.</p>
+        </div>
+        <div class="coming-card">
+          <div class="coming-badge">Coming Soon</div>
+          <div class="coming-icon">&#127973;</div>
+          <h3>Healthcare</h3>
+          <p>AI agents for clinical documentation, patient journey management, revenue cycle automation, and care pathway optimization — built for regulated healthcare environments.</p>
+        </div>
+        <div class="coming-card">
+          <div class="coming-badge">Coming Soon</div>
+          <div class="coming-icon">&#9881;</div>
+          <h3>Manufacturing</h3>
+          <p>AI agents for predictive maintenance, supply chain intelligence, quality control automation, and production optimization — engineered for complex manufacturing operations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to deploy <span class="grad-text">enterprise AI</span>?</h2>
+      <p>Talk to Aiden AI about your industry and the right agent platform for your business.</p>
+      <button class="btn">Register Interest &#8594;</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Aiden <span>AI</span></div>
+        <div class="footer-info">agentshub.aeden.ai &nbsp;|&nbsp; hello@aiden.ai</div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

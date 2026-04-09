@@ -1,0 +1,764 @@
+<!-- META TITLE: AI-Powered Financial Intelligence Platform | AgentsHub by Aiden AI -->
+<!-- META DESCRIPTION: Four specialized AI agents for wealth management, credit decisioning, client service, and financial crime. One unified financial services platform by Aiden AI. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Powered Financial Intelligence Platform | AgentsHub by Aiden AI</title>
+  <meta name="description" content="Four specialized AI agents for wealth management, credit decisioning, client service, and financial crime. One unified financial services platform by Aiden AI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:         #073663;
+      --electric:     #103EE0;
+      --cyan:         #12DBD5;
+      --midnight:     #08244B;
+      --midnight-deep:#061B39;
+      --light-blue:   #E0E4FC;
+      --periwinkle:   #BCC9FF;
+      --off-white:    #F8F8F8;
+      --white:        #FFFFFF;
+      --body-gray:    #64748B;
+      --muted:        #D0D8E3;
+      --headline:     #08244B;
+      --gradient:     linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --gradient-soft:linear-gradient(135deg, rgba(16,62,224,.08) 0%, rgba(18,219,213,.08) 100%);
+      --font:         'Poppins', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font); color: var(--headline); background: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    .grad-text {
+      background: var(--gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: .1s; }
+    .fade-up.delay-2 { transition-delay: .2s; }
+    .fade-up.delay-3 { transition-delay: .3s; }
+    .fade-up.delay-4 { transition-delay: .4s; }
+    .fade-up.delay-5 { transition-delay: .5s; }
+    .fade-up.delay-6 { transition-delay: .6s; }
+
+    /* ─── NAV ────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,27,57,.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between; height: 68px;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: -.02em; }
+    .nav-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links li a { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.7); transition: color .2s; }
+    .nav-links li a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gradient); color: var(--white); font-family: var(--font);
+      font-size: .875rem; font-weight: 700; padding: .5rem 1.25rem;
+      border-radius: 6px; border: none; cursor: pointer;
+      box-shadow: 0 2px 16px rgba(16,62,224,.35);
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--midnight-deep);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 120px 0 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(16,62,224,.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(18,219,213,.10) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 860px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .8125rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 24px; height: 2px; background: var(--gradient); border-radius: 2px;
+    }
+    .hero-headline {
+      font-size: clamp(2.5rem, 6vw, 4.25rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.03em;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 500; color: var(--periwinkle); line-height: 1.5;
+      margin-bottom: 1.25rem; max-width: 700px;
+    }
+    .hero-body {
+      font-size: 1rem; color: rgba(208,216,227,.7);
+      line-height: 1.75; max-width: 660px; margin-bottom: 2.5rem;
+    }
+    .hero-cta-group { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gradient); color: var(--white);
+      font-family: var(--font); font-size: 1rem; font-weight: 700;
+      padding: .875rem 2rem; border-radius: 8px; border: none; cursor: pointer;
+      box-shadow: 0 4px 28px rgba(16,62,224,.45); transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(16,62,224,.55); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: transparent; color: var(--white);
+      font-family: var(--font); font-size: 1rem; font-weight: 600;
+      padding: .875rem 2rem; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.25); cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.45); }
+
+    /* stat band inside hero */
+    .hero-stat-band {
+      margin-top: 4rem;
+      display: flex; gap: 3rem; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 2.5rem;
+    }
+    .hero-stat { display: flex; flex-direction: column; gap: .25rem; }
+    .hero-stat-num {
+      font-size: 2.5rem; font-weight: 800; letter-spacing: -.04em;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-stat-label { font-size: .875rem; font-weight: 500; color: rgba(208,216,227,.65); }
+
+    /* ─── SECTION BASE ────────────────────────────────── */
+    section { padding: 6rem 0; }
+    .section-eyebrow {
+      font-size: .8125rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--electric); margin-bottom: 1rem;
+    }
+    .section-headline {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.03em;
+      color: var(--midnight); margin-bottom: 1.25rem;
+    }
+    .section-sub {
+      font-size: 1.125rem; font-weight: 500;
+      color: var(--electric); margin-bottom: 1rem;
+    }
+    .section-body {
+      font-size: 1.0625rem; color: var(--body-gray); line-height: 1.8;
+      max-width: 720px;
+    }
+
+    /* ─── PROBLEM ─────────────────────────────────────── */
+    .problem { background: var(--off-white); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 768px) { .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .problem-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .problem-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--white); border: 1px solid rgba(7,54,99,.08);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+    }
+    .problem-icon {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px;
+      background: var(--gradient-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .problem-item-body h4 { font-size: .9375rem; font-weight: 700; color: var(--midnight); margin-bottom: .25rem; }
+    .problem-item-body p { font-size: .875rem; color: var(--body-gray); line-height: 1.65; }
+    .problem-callout {
+      background: var(--midnight); color: var(--white);
+      border-radius: 16px; padding: 2.5rem; margin-top: 2rem;
+    }
+    .problem-callout p { font-size: 1.125rem; font-weight: 500; line-height: 1.7; color: rgba(188,201,255,.85); }
+    .problem-callout strong { color: var(--white); }
+
+    /* ─── PLATFORM / SOLUTIONS ────────────────────────── */
+    .platform { background: var(--white); }
+    .platform-intro { max-width: 720px; margin-bottom: 3.5rem; }
+    .platform-bold {
+      margin-top: 2rem; padding: 1.5rem 2rem;
+      border-left: 4px solid var(--electric);
+      background: var(--gradient-soft);
+      border-radius: 0 12px 12px 0;
+    }
+    .platform-bold p { font-size: 1.0625rem; font-weight: 600; color: var(--midnight); font-style: italic; }
+
+    /* ─── SOLUTION CARDS ──────────────────────────────── */
+    .solutions { background: var(--off-white); }
+    .solutions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .solutions-grid { grid-template-columns: 1fr; } }
+    .solution-card {
+      background: var(--white); border: 1px solid rgba(7,54,99,.08);
+      border-radius: 16px; padding: 2rem; position: relative; overflow: hidden;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .solution-card:hover { box-shadow: 0 12px 48px rgba(7,54,99,.12); transform: translateY(-4px); }
+    .solution-card-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    }
+    .solution-card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; margin-top: .5rem; }
+    .solution-card-icon {
+      flex-shrink: 0; width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.375rem;
+    }
+    .solution-card-meta { flex: 1; }
+    .solution-card-agent {
+      font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--body-gray); margin-bottom: .3rem;
+    }
+    .solution-card-title { font-size: 1.125rem; font-weight: 800; color: var(--midnight); }
+    .solution-card-body { font-size: .9375rem; color: var(--body-gray); line-height: 1.7; margin-bottom: 1.25rem; }
+    .solution-card-bullets { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.5rem; }
+    .solution-card-bullet {
+      display: flex; gap: .625rem; align-items: flex-start;
+    }
+    .bullet-dot {
+      flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; margin-top: .45rem;
+    }
+    .solution-card-bullet p { font-size: .875rem; color: var(--body-gray); line-height: 1.6; }
+    .solution-stats { display: flex; gap: 1.25rem; flex-wrap: wrap; border-top: 1px solid rgba(7,54,99,.07); padding-top: 1.25rem; }
+    .solution-stat { display: flex; flex-direction: column; gap: .15rem; }
+    .solution-stat-num { font-size: 1.25rem; font-weight: 800; letter-spacing: -.03em; }
+    .solution-stat-label { font-size: .75rem; font-weight: 500; color: var(--body-gray); }
+
+    /* ─── OUTCOMES ────────────────────────────────────── */
+    .outcomes { background: var(--midnight); }
+    .outcomes .section-headline { color: var(--white); }
+    .outcomes .section-body { color: rgba(208,216,227,.75); }
+    .outcomes-table {
+      width: 100%; border-collapse: collapse; margin-top: 3rem;
+      border-radius: 12px; overflow: hidden;
+    }
+    .outcomes-table thead tr { background: rgba(255,255,255,.06); }
+    .outcomes-table thead th {
+      padding: 1rem 1.5rem; text-align: left;
+      font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(208,216,227,.6);
+    }
+    .outcomes-table tbody tr { border-top: 1px solid rgba(255,255,255,.06); transition: background .2s; }
+    .outcomes-table tbody tr:hover { background: rgba(255,255,255,.04); }
+    .outcomes-table tbody td {
+      padding: 1.25rem 1.5rem; font-size: .9375rem; line-height: 1.6;
+    }
+    .outcomes-table td:first-child { font-weight: 600; color: var(--white); }
+    .outcomes-table td:last-child { color: rgba(188,201,255,.85); }
+    .outcomes-table td .stat-chip {
+      display: inline-flex; align-items: center;
+      background: var(--gradient); color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 800; font-size: 1.125rem;
+    }
+    .outcomes-note {
+      margin-top: 1.5rem; font-size: .875rem;
+      color: rgba(208,216,227,.5); font-style: italic;
+    }
+
+    /* ─── WHY AIDEN ───────────────────────────────────── */
+    .why { background: var(--off-white); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .why-grid { grid-template-columns: 1fr; } }
+    .why-card {
+      background: var(--white); border: 1px solid rgba(7,54,99,.08);
+      border-radius: 12px; padding: 1.75rem; transition: box-shadow .25s, transform .25s;
+    }
+    .why-card:hover { box-shadow: 0 8px 32px rgba(7,54,99,.1); transform: translateY(-3px); }
+    .why-card-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--gradient); display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1rem;
+    }
+    .why-card h3 { font-size: 1rem; font-weight: 700; color: var(--midnight); margin-bottom: .5rem; }
+    .why-card p { font-size: .9rem; color: var(--body-gray); line-height: 1.65; }
+
+    /* ─── CTA ─────────────────────────────────────────── */
+    .cta-section {
+      background: var(--midnight-deep);
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(16,62,224,.2) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at 80% 80%, rgba(18,219,213,.1) 0%, transparent 60%);
+    }
+    .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 720px; margin: 0 auto; }
+    .cta-section .section-headline { color: var(--white); }
+    .cta-section .section-body { color: rgba(208,216,227,.75); margin: 0 auto; }
+    .cta-btn-group { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: #040F1F; padding: 3rem 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-size: 1.2rem; font-weight: 800; color: rgba(255,255,255,.85); letter-spacing: -.02em; }
+    .footer-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-info { font-size: .875rem; color: rgba(255,255,255,.35); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .875rem; color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-links a:hover { color: rgba(255,255,255,.8); }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ──────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="nav-logo">Aiden <span>AI</span></div>
+        <ul class="nav-links">
+          <li><a href="#solutions">Solutions</a></li>
+          <li><a href="#outcomes">Outcomes</a></li>
+          <li><a href="#why">Why AgentsHub</a></li>
+        </ul>
+        <button class="nav-cta">Book a Demo</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-eyebrow fade-up">AgentsHub — Financial Services</div>
+        <h1 class="hero-headline fade-up delay-1">
+          Wealth. Credit. Service. FinCrime.<br>
+          <span class="grad-text">Intelligently Automated.</span>
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          Four specialized AI agents. One unified financial services platform.<br>
+          Every function, every client, every risk — intelligently managed.
+        </p>
+        <p class="hero-body fade-up delay-3">
+          Financial services firms face compounding pressures: manual wealth advisory processes limit scale, credit decisions take weeks instead of hours, client service is reactive and costly, and financial crime is outpacing compliance teams. Legacy systems and fragmented tools leave firms exposed — on performance, on risk, and on regulation. AgentsHub changes all of that.
+        </p>
+        <div class="hero-cta-group fade-up delay-4">
+          <button class="btn-primary">Book a Demo &#8594;</button>
+          <button class="btn-secondary">Explore the Platform</button>
+        </div>
+        <div class="hero-stat-band fade-up delay-5">
+          <div class="hero-stat">
+            <span class="hero-stat-num">80%</span>
+            <span class="hero-stat-label">Fewer false positives</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">70%</span>
+            <span class="hero-stat-label">Faster credit decisions</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">92%</span>
+            <span class="hero-stat-label">CSAT across service</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">4</span>
+            <span class="hero-stat-label">Purpose-built AI agents</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROBLEM ────────────────────────────────────────── -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div>
+          <p class="section-eyebrow fade-up">The Problem</p>
+          <h2 class="section-headline fade-up delay-1">Financial services is running on the wrong tools.</h2>
+          <p class="section-body fade-up delay-2">
+            Compounding pressures across every function — from front office to compliance — are exposing the limits of legacy systems and fragmented point solutions. The cost is measured in lost clients, missed risk, and regulatory exposure.
+          </p>
+          <div class="problem-callout fade-up delay-3">
+            <p>The tools available today <strong>weren't designed</strong> for the intelligence, speed, and scale that modern financial services requires. Manual processes don't scale. Reactive service doesn't retain. And siloed compliance doesn't protect.</p>
+          </div>
+        </div>
+        <div class="problem-list fade-up delay-2">
+          <div class="problem-item">
+            <div class="problem-icon">&#128200;</div>
+            <div class="problem-item-body">
+              <h4>Manual wealth advisory at scale</h4>
+              <p>Advisors buried in portfolio admin — unable to proactively manage clients or identify growth opportunities across their full book.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#9201;</div>
+            <div class="problem-item-body">
+              <h4>Credit decisions measured in weeks</h4>
+              <p>Manual financial spreading, fragmented risk models, and slow memo drafting leave credit teams unable to meet client timelines.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#128172;</div>
+            <div class="problem-item-body">
+              <h4>Reactive, costly client service</h4>
+              <p>Service teams handling routine queries manually — unable to get ahead of issues before they become complaints or churn.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#9888;</div>
+            <div class="problem-item-body">
+              <h4>Financial crime outpacing compliance</h4>
+              <p>Legacy transaction monitoring drowning teams in false positives. SAR drafting done by hand. Investigators overwhelmed and underequipped.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PLATFORM ───────────────────────────────────────── -->
+  <section class="platform" id="platform">
+    <div class="container">
+      <div class="platform-intro">
+        <p class="section-eyebrow fade-up">The Platform</p>
+        <h2 class="section-headline fade-up delay-1">From fragmented tools to unified intelligence.</h2>
+        <p class="section-sub fade-up delay-2">Introducing AgentsHub — AI-Powered Financial Intelligence.</p>
+        <p class="section-body fade-up delay-3">
+          AgentsHub deploys four purpose-built AI agents across the most critical financial services functions — wealth management, credit decisioning, client service, and financial crime. Each agent operates autonomously within its domain. Together, they share context, surface cross-functional intelligence, and deliver outcomes that no single tool can match.
+        </p>
+        <div class="platform-bold fade-up delay-4">
+          <p>"This is not an AI assistant. This is an autonomous financial intelligence platform — designed to act, not just advise."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SOLUTIONS ──────────────────────────────────────── -->
+  <section class="solutions" id="solutions">
+    <div class="container">
+      <p class="section-eyebrow fade-up">Four Agents. Four Functions.</p>
+      <h2 class="section-headline fade-up delay-1">Complete financial services intelligence.</h2>
+
+      <div class="solutions-grid">
+
+        <!-- WEALTH MANAGEMENT -->
+        <div class="solution-card fade-up delay-1">
+          <div class="solution-card-accent" style="background: linear-gradient(89deg, #24C0E5, #103EE0);"></div>
+          <div class="solution-card-header">
+            <div class="solution-card-icon" style="background: rgba(36,192,229,.12);">&#128176;</div>
+            <div class="solution-card-meta">
+              <p class="solution-card-agent">Wealth Intelligence Agent</p>
+              <h3 class="solution-card-title">Wealth Management Advisor</h3>
+            </div>
+          </div>
+          <p class="solution-card-body">Autonomous wealth advisor platform detecting opportunities, rebalancing portfolios, optimising tax, and managing corporate actions — continuously operating across the advisor's full book of business.</p>
+          <div class="solution-card-bullets">
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #24C0E5;"></div>
+              <p>AI analyzes portfolio, identifies gaps, and surfaces growth opportunities across every client</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #24C0E5;"></div>
+              <p>ML models predict client needs, next-best-actions, and portfolio performance under scenarios</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #24C0E5;"></div>
+              <p>360° client profile: goals, risk appetite, and portfolio performance — built and updated autonomously</p>
+            </div>
+          </div>
+          <div class="solution-stats">
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #24C0E5;">60%</span>
+              <span class="solution-stat-label">Time Saved</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #24C0E5;">3x</span>
+              <span class="solution-stat-label">AUM Opportunities</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #24C0E5;">95%</span>
+              <span class="solution-stat-label">Accuracy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CREDIT DECISIONING -->
+        <div class="solution-card fade-up delay-2">
+          <div class="solution-card-accent" style="background: linear-gradient(89deg, #003781, #103EE0);"></div>
+          <div class="solution-card-header">
+            <div class="solution-card-icon" style="background: rgba(0,55,129,.10);">&#127981;</div>
+            <div class="solution-card-meta">
+              <p class="solution-card-agent">Credit Intelligence Agent</p>
+              <h3 class="solution-card-title">Intelligent Credit Decisioning</h3>
+            </div>
+          </div>
+          <p class="solution-card-body">AI-powered credit decision platform automating financial spreading, risk scoring, stress testing, and credit memo drafting — from first submission to committee-ready documentation.</p>
+          <div class="solution-card-bullets">
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #003781;"></div>
+              <p>Multi-scenario stress testing models credit exposure under adverse macro and industry conditions</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #003781;"></div>
+              <p>LLM-powered drafting of credit memos, risk commentary, and committee-ready documentation</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #003781;"></div>
+              <p>Faster credit underwriting and approval workflows with superior risk intelligence</p>
+            </div>
+          </div>
+          <div class="solution-stats">
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #103EE0;">70%</span>
+              <span class="solution-stat-label">Faster Decisions</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #103EE0;">40%</span>
+              <span class="solution-stat-label">Cost Reduction</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #103EE0;">95%</span>
+              <span class="solution-stat-label">Risk Accuracy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CLIENT SERVICE HUB -->
+        <div class="solution-card fade-up delay-3">
+          <div class="solution-card-accent" style="background: linear-gradient(89deg, #2CC9A2, #12DBD5);"></div>
+          <div class="solution-card-header">
+            <div class="solution-card-icon" style="background: rgba(44,201,162,.12);">&#128101;</div>
+            <div class="solution-card-meta">
+              <p class="solution-card-agent">Client Experience Intelligence Agent</p>
+              <h3 class="solution-card-title">Enterprise Client Service Hub</h3>
+            </div>
+          </div>
+          <p class="solution-card-body">Omnichannel service intelligence platform — routing, resolving, and proactively managing client interactions with AI-powered personalisation and autonomous service workflows.</p>
+          <div class="solution-card-bullets">
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #2CC9A2;"></div>
+              <p>AI resolves routine enquiries autonomously across channels, reducing agent workload and wait times</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #2CC9A2;"></div>
+              <p>AI identifies service failures and client dissatisfaction before they escalate into complaints</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #2CC9A2;"></div>
+              <p>Omnichannel service orchestration with AI triage, routing, and proactive outreach</p>
+            </div>
+          </div>
+          <div class="solution-stats">
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #2CC9A2;">65%</span>
+              <span class="solution-stat-label">Faster Resolution</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #2CC9A2;">40%</span>
+              <span class="solution-stat-label">Cost per Ticket</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #2CC9A2;">92%</span>
+              <span class="solution-stat-label">CSAT Score</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINCRIME -->
+        <div class="solution-card fade-up delay-4">
+          <div class="solution-card-accent" style="background: linear-gradient(89deg, #ef4444, #103EE0);"></div>
+          <div class="solution-card-header">
+            <div class="solution-card-icon" style="background: rgba(239,68,68,.10);">&#128274;</div>
+            <div class="solution-card-meta">
+              <p class="solution-card-agent">Financial Crime Detection Agent</p>
+              <h3 class="solution-card-title">FinCrime Intelligence Platform</h3>
+            </div>
+          </div>
+          <p class="solution-card-body">Next-generation financial crime platform deploying AI transaction monitoring, AML detection, and automated SAR drafting — covering the full financial crime lifecycle from detection to regulatory reporting.</p>
+          <div class="solution-card-bullets">
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #ef4444;"></div>
+              <p>AI-powered monitoring engine screening millions of transactions per second across all payment rails</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #ef4444;"></div>
+              <p>Behavioural analytics and network analysis detecting complex layering, structuring, and emerging typologies</p>
+            </div>
+            <div class="solution-card-bullet">
+              <div class="bullet-dot" style="background: #ef4444;"></div>
+              <p>LLM-powered SAR drafting with structured narrative generation and regulatory compliance</p>
+            </div>
+          </div>
+          <div class="solution-stats">
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #ef4444;">80%</span>
+              <span class="solution-stat-label">False Positive Reduction</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #ef4444;">60%</span>
+              <span class="solution-stat-label">Faster Investigation</span>
+            </div>
+            <div class="solution-stat">
+              <span class="solution-stat-num" style="color: #ef4444;">99%</span>
+              <span class="solution-stat-label">Coverage</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OUTCOMES ────────────────────────────────────────── -->
+  <section class="outcomes" id="outcomes">
+    <div class="container">
+      <p class="section-eyebrow fade-up" style="color:var(--cyan)">Business Outcomes</p>
+      <h2 class="section-headline fade-up delay-1">Measurable impact<br>across every function.</h2>
+      <p class="section-body fade-up delay-2">
+        AgentsHub is built to deliver outcomes, not dashboards. These are the results of replacing manual financial services processes with autonomous AI agents operating at enterprise scale.
+      </p>
+      <table class="outcomes-table fade-up delay-3">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Wealth management efficiency</td>
+            <td><span class="stat-chip">60%</span> time saved per advisor</td>
+          </tr>
+          <tr>
+            <td>Credit decision speed</td>
+            <td><span class="stat-chip">70%</span> faster underwriting cycles</td>
+          </tr>
+          <tr>
+            <td>Client satisfaction</td>
+            <td><span class="stat-chip">92%</span> CSAT across service interactions</td>
+          </tr>
+          <tr>
+            <td>FinCrime false positives</td>
+            <td><span class="stat-chip">80%</span> reduction in false alert volume</td>
+          </tr>
+          <tr>
+            <td>Investigation speed</td>
+            <td><span class="stat-chip">60%</span> faster regulatory investigations</td>
+          </tr>
+          <tr>
+            <td>Operational cost</td>
+            <td><span class="stat-chip">40%</span> cost reduction per function</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="outcomes-note fade-up delay-4">
+        Metrics derived from AgentsHub deployments in banking, wealth management, and financial services operations at enterprise scale.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── WHY AGENTSHUB ────────────────────────────────────── -->
+  <section class="why" id="why">
+    <div class="container">
+      <p class="section-eyebrow fade-up">Why AgentsHub</p>
+      <h2 class="section-headline fade-up delay-1">Purpose-built. Production-ready.<br>Proven in financial services.</h2>
+      <p class="section-body fade-up delay-2">
+        Unlike generic AI tools or fragmented point solutions, AgentsHub delivers four purpose-built agents — each with deep domain intelligence, working in concert across a unified platform.
+      </p>
+      <div class="why-grid">
+        <div class="why-card fade-up delay-1">
+          <div class="why-card-icon">&#127919;</div>
+          <h3>Four purpose-built agents</h3>
+          <p>Each agent is designed for one critical function — wealth, credit, service, or FinCrime — with domain intelligence built in from day one.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-card-icon">&#129302;</div>
+          <h3>Autonomous operation</h3>
+          <p>Agents act, not just assist. Workflows run end-to-end without requiring human intervention at each step.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-card-icon">&#9889;</div>
+          <h3>Production-grade, enterprise-scale</h3>
+          <p>Deployed in live banking and financial services environments. Not a pilot. Not a prototype. Production scale from day one.</p>
+        </div>
+        <div class="why-card fade-up delay-1">
+          <div class="why-card-icon">&#128275;</div>
+          <h3>Built-in compliance and audit trail</h3>
+          <p>Every agent decision is logged, explainable, and audit-ready. Regulatory reporting is built in, not bolted on.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-card-icon">&#127760;</div>
+          <h3>Multi-agent coordination</h3>
+          <p>Each agent shares context across functions — so your wealth, credit, service, and compliance intelligence works together, not in silos.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-card-icon">&#127942;</div>
+          <h3>Proven in financial services</h3>
+          <p>Deployed and validated in banking, wealth management, and financial services operations — with measurable outcomes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ──────────────────────────────────────────────── -->
+  <section class="cta-section" id="contact" style="padding:6rem 0;">
+    <div class="container">
+      <div class="cta-inner">
+        <p class="section-eyebrow fade-up" style="color:var(--cyan);justify-content:center;display:flex;">Get Started</p>
+        <h2 class="section-headline fade-up delay-1" style="color:var(--white);text-align:center;">Transform your financial<br>services operations.</h2>
+        <p class="section-body fade-up delay-2" style="text-align:center;">
+          Organisations that deploy AgentsHub don't just automate processes — they build a competitive edge. Four agents, one platform, complete financial intelligence.
+        </p>
+        <div class="cta-btn-group fade-up delay-3">
+          <button class="btn-primary">Book a Demo &#8594;</button>
+          <button class="btn-secondary">Explore AgentsHub</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Aiden <span>AI</span></div>
+        <div class="footer-info">agentshub.aeden.ai &nbsp;|&nbsp; hello@aiden.ai</div>
+        <div class="footer-links">
+          <a href="#">Platform</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

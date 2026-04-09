@@ -1,0 +1,702 @@
+<!-- META TITLE: AI-Powered Insurance Intelligence Platform | AgentsHub by Aiden AI -->
+<!-- META DESCRIPTION: AgentsHub deploys six specialized AI agents across every stage of the insurance lifecycle — submission to settlement — delivering 60–80% operational efficiency gains. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-Powered Insurance Intelligence Platform | AgentsHub by Aiden AI</title>
+  <meta name="description" content="AgentsHub deploys six specialized AI agents across every stage of the insurance lifecycle — submission to settlement — delivering 60–80% operational efficiency gains." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:         #073663;
+      --electric:     #103EE0;
+      --cyan:         #12DBD5;
+      --midnight:     #08244B;
+      --midnight-deep:#061B39;
+      --light-blue:   #E0E4FC;
+      --periwinkle:   #BCC9FF;
+      --off-white:    #F8F8F8;
+      --white:        #FFFFFF;
+      --body-gray:    #64748B;
+      --muted:        #D0D8E3;
+      --headline:     #08244B;
+      --gradient:     linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --gradient-soft:linear-gradient(135deg, rgba(16,62,224,.08) 0%, rgba(18,219,213,.08) 100%);
+      --font:         'Poppins', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--font); color: var(--headline); background: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+    .grad-text {
+      background: var(--gradient);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: .1s; }
+    .fade-up.delay-2 { transition-delay: .2s; }
+    .fade-up.delay-3 { transition-delay: .3s; }
+    .fade-up.delay-4 { transition-delay: .4s; }
+    .fade-up.delay-5 { transition-delay: .5s; }
+    .fade-up.delay-6 { transition-delay: .6s; }
+
+    /* ─── NAV ────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,27,57,.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between; height: 68px;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: -.02em; }
+    .nav-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links li a { font-size: .875rem; font-weight: 500; color: rgba(255,255,255,.7); transition: color .2s; }
+    .nav-links li a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gradient); color: var(--white); font-family: var(--font);
+      font-size: .875rem; font-weight: 700; padding: .5rem 1.25rem;
+      border-radius: 6px; border: none; cursor: pointer;
+      box-shadow: 0 2px 16px rgba(16,62,224,.35);
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--midnight-deep);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding: 120px 0 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(16,62,224,.18) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(18,219,213,.10) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 840px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .8125rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 24px; height: 2px; background: var(--gradient); border-radius: 2px;
+    }
+    .hero-headline {
+      font-size: clamp(2.5rem, 6vw, 4.25rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.03em;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      font-weight: 500; color: var(--periwinkle); line-height: 1.5;
+      margin-bottom: 1.25rem; max-width: 640px;
+    }
+    .hero-body {
+      font-size: 1rem; color: rgba(208,216,227,.7);
+      line-height: 1.75; max-width: 640px; margin-bottom: 2.5rem;
+    }
+    .hero-cta-group { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gradient); color: var(--white);
+      font-family: var(--font); font-size: 1rem; font-weight: 700;
+      padding: .875rem 2rem; border-radius: 8px; border: none; cursor: pointer;
+      box-shadow: 0 4px 28px rgba(16,62,224,.45); transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(16,62,224,.55); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: transparent; color: var(--white);
+      font-family: var(--font); font-size: 1rem; font-weight: 600;
+      padding: .875rem 2rem; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.25); cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.45); }
+
+    .hero-stat-band {
+      margin-top: 4rem;
+      display: flex; gap: 3rem; flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 2.5rem;
+    }
+    .hero-stat { display: flex; flex-direction: column; gap: .25rem; }
+    .hero-stat-num {
+      font-size: 2.5rem; font-weight: 800; letter-spacing: -.04em;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-stat-label { font-size: .875rem; font-weight: 500; color: rgba(208,216,227,.65); }
+
+    /* ─── SECTION BASE ────────────────────────────────── */
+    section { padding: 6rem 0; }
+    .section-eyebrow {
+      font-size: .8125rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--electric); margin-bottom: 1rem;
+    }
+    .section-headline {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.03em;
+      color: var(--midnight); margin-bottom: 1.25rem;
+    }
+    .section-sub {
+      font-size: 1.125rem; font-weight: 500;
+      color: var(--electric); margin-bottom: 1rem;
+    }
+    .section-body {
+      font-size: 1.0625rem; color: var(--body-gray); line-height: 1.8;
+      max-width: 720px;
+    }
+
+    /* ─── PROBLEM ─────────────────────────────────────── */
+    .problem { background: var(--off-white); }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 768px) { .problem-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .problem-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .problem-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: var(--white); border: 1px solid rgba(7,54,99,.08);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+    }
+    .problem-icon {
+      flex-shrink: 0; width: 36px; height: 36px; border-radius: 8px;
+      background: var(--gradient-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .problem-item-body h4 { font-size: .9375rem; font-weight: 700; color: var(--midnight); margin-bottom: .25rem; }
+    .problem-item-body p { font-size: .875rem; color: var(--body-gray); line-height: 1.65; }
+    .problem-callout {
+      background: var(--midnight); color: var(--white);
+      border-radius: 16px; padding: 2.5rem; margin-top: 2rem;
+    }
+    .problem-callout p { font-size: 1.125rem; font-weight: 500; line-height: 1.7; color: rgba(188,201,255,.85); }
+    .problem-callout strong { color: var(--white); }
+
+    /* ─── PLATFORM ────────────────────────────────────── */
+    .platform { background: var(--white); }
+    .platform-intro { max-width: 720px; margin-bottom: 3.5rem; }
+    .platform-bold {
+      margin-top: 2rem; padding: 1.5rem 2rem;
+      border-left: 4px solid var(--electric);
+      background: var(--gradient-soft);
+      border-radius: 0 12px 12px 0;
+    }
+    .platform-bold p { font-size: 1.0625rem; font-weight: 600; color: var(--midnight); font-style: italic; }
+
+    /* ─── SIX AGENTS ──────────────────────────────────── */
+    .agents { background: var(--off-white); }
+    .agents-grid { display: flex; flex-direction: column; gap: 1px; background: rgba(7,54,99,.08); border-radius: 16px; overflow: hidden; margin-top: 3rem; }
+    .agent-row {
+      display: grid; grid-template-columns: 80px 1fr;
+      background: var(--white); gap: 0;
+      transition: background .2s;
+    }
+    .agent-row:hover { background: #FAFBFF; }
+    .agent-num {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 800; letter-spacing: -.04em;
+      background: var(--gradient); color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; padding: 1.75rem 0;
+      position: relative;
+    }
+    .agent-num::after {
+      content: ''; position: absolute; right: 0; top: 20%; bottom: 20%;
+      width: 1px; background: rgba(7,54,99,.08);
+    }
+    .agent-body { padding: 1.75rem 2rem; }
+    .agent-body-top { display: flex; align-items: center; gap: 1rem; margin-bottom: .5rem; flex-wrap: wrap; }
+    .agent-body h3 { font-size: 1.0625rem; font-weight: 700; color: var(--midnight); }
+    .agent-chip {
+      font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: .2rem .65rem; border-radius: 4px; color: var(--white);
+    }
+    .agent-body p { font-size: .9375rem; color: var(--body-gray); line-height: 1.7; }
+    .agent-stats { display: flex; gap: 1.5rem; margin-top: .75rem; flex-wrap: wrap; }
+    .agent-stat {
+      font-size: .8125rem; font-weight: 700;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* ─── OUTCOMES ────────────────────────────────────── */
+    .outcomes { background: var(--midnight); }
+    .outcomes .section-headline { color: var(--white); }
+    .outcomes .section-body { color: rgba(208,216,227,.75); }
+    .outcomes-table {
+      width: 100%; border-collapse: collapse; margin-top: 3rem;
+      border-radius: 12px; overflow: hidden;
+    }
+    .outcomes-table thead tr { background: rgba(255,255,255,.06); }
+    .outcomes-table thead th {
+      padding: 1rem 1.5rem; text-align: left;
+      font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(208,216,227,.6);
+    }
+    .outcomes-table tbody tr { border-top: 1px solid rgba(255,255,255,.06); transition: background .2s; }
+    .outcomes-table tbody tr:hover { background: rgba(255,255,255,.04); }
+    .outcomes-table tbody td {
+      padding: 1.25rem 1.5rem; font-size: .9375rem; line-height: 1.6;
+    }
+    .outcomes-table td:first-child { font-weight: 600; color: var(--white); }
+    .outcomes-table td:last-child { color: rgba(188,201,255,.85); }
+    .outcomes-table td .stat-chip {
+      display: inline-flex; align-items: center;
+      background: var(--gradient); color: transparent;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 800; font-size: 1.125rem;
+    }
+    .outcomes-note {
+      margin-top: 1.5rem; font-size: .875rem;
+      color: rgba(208,216,227,.5); font-style: italic;
+    }
+
+    /* ─── WHY AIDEN ───────────────────────────────────── */
+    .why { background: var(--off-white); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .why-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .why-grid { grid-template-columns: 1fr; } }
+    .why-card {
+      background: var(--white); border: 1px solid rgba(7,54,99,.08);
+      border-radius: 12px; padding: 1.75rem; transition: box-shadow .25s, transform .25s;
+    }
+    .why-card:hover { box-shadow: 0 8px 32px rgba(7,54,99,.1); transform: translateY(-3px); }
+    .why-card-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--gradient); display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 1rem;
+    }
+    .why-card h3 { font-size: 1rem; font-weight: 700; color: var(--midnight); margin-bottom: .5rem; }
+    .why-card p { font-size: .9rem; color: var(--body-gray); line-height: 1.65; }
+
+    /* ─── CTA ─────────────────────────────────────────── */
+    .cta-section {
+      background: var(--midnight-deep);
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(16,62,224,.2) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 60% at 80% 80%, rgba(18,219,213,.1) 0%, transparent 60%);
+    }
+    .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 720px; margin: 0 auto; }
+    .cta-section .section-headline { color: var(--white); }
+    .cta-section .section-body { color: rgba(208,216,227,.75); margin: 0 auto; }
+    .cta-btn-group { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: #040F1F; padding: 3rem 0;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-size: 1.2rem; font-weight: 800; color: rgba(255,255,255,.85); letter-spacing: -.02em; }
+    .footer-logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-info { font-size: .875rem; color: rgba(255,255,255,.35); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .875rem; color: rgba(255,255,255,.4); transition: color .2s; }
+    .footer-links a:hover { color: rgba(255,255,255,.8); }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ──────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <div class="nav-logo">Aiden <span>AI</span></div>
+        <ul class="nav-links">
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#agents">Six Agents</a></li>
+          <li><a href="#outcomes">Outcomes</a></li>
+          <li><a href="#why">Why AgentsHub</a></li>
+        </ul>
+        <button class="nav-cta">Book a Demo</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-eyebrow fade-up">AI-Powered Insurance Intelligence</div>
+        <h1 class="hero-headline fade-up delay-1">
+          From Submission<br>to Settlement —<br>
+          <span class="grad-text">Intelligently.</span>
+        </h1>
+        <p class="hero-sub fade-up delay-2">
+          Six AI agents. One unified platform.<br>Every stage of the insurance lifecycle — automated.
+        </p>
+        <p class="hero-body fade-up delay-3">
+          Traditional insurance operations are built on fragmented systems, manual processes, and siloed data.
+          Submission backlogs, slow underwriting cycles, broker friction, and compliance overhead drain profitability
+          and slow growth. AgentsHub delivers an AI-native operations layer that works across every function —
+          not one that replaces each system one by one.
+        </p>
+        <div class="hero-cta-group fade-up delay-4">
+          <button class="btn-primary">See AgentsHub in Action &#8594;</button>
+          <button class="btn-secondary">Book a Demo</button>
+        </div>
+        <div class="hero-stat-band fade-up delay-5">
+          <div class="hero-stat">
+            <span class="hero-stat-num">6</span>
+            <span class="hero-stat-label">Specialized AI agents</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">70%</span>
+            <span class="hero-stat-label">Faster submission triage</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">80%</span>
+            <span class="hero-stat-label">Fraud detection improvement</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">100%</span>
+            <span class="hero-stat-label">Auditable, every step</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROBLEM ────────────────────────────────────────── -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div>
+          <p class="section-eyebrow fade-up">The Problem</p>
+          <h2 class="section-headline fade-up delay-1">Insurance operations are drowning in manual processes.</h2>
+          <p class="section-body fade-up delay-2">
+            Fragmented systems, siloed data, and manual workflows block every stage of the insurance lifecycle —
+            from triage done by hand to pricing driven by intuition to claims reviewed by committee.
+            The cost is real: slower cycles, higher operational overhead, and growing compliance risk.
+          </p>
+          <div class="problem-callout fade-up delay-3">
+            <p>The industry needs an <strong>AI-native operations layer</strong> that works across every function —
+            not one that replaces each system one by one, or adds another point solution to an already fragmented stack.</p>
+          </div>
+        </div>
+        <div class="problem-list fade-up delay-2">
+          <div class="problem-item">
+            <div class="problem-icon">&#128240;</div>
+            <div class="problem-item-body">
+              <h4>Submission backlogs</h4>
+              <p>Manual triage delays intake, misroutes submissions, and lets high-value opportunities slip through the cracks.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#9201;</div>
+            <div class="problem-item-body">
+              <h4>Slow underwriting cycles</h4>
+              <p>Risk decisions that should take hours take days. Pricing driven by intuition, not data, erodes portfolio performance.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#128081;</div>
+            <div class="problem-item-body">
+              <h4>Broker friction</h4>
+              <p>Disconnected quoting, manual reconciliation, and delayed commissions damage broker relationships and revenue.</p>
+            </div>
+          </div>
+          <div class="problem-item">
+            <div class="problem-icon">&#9888;</div>
+            <div class="problem-item-body">
+              <h4>Compliance overhead</h4>
+              <p>Manual KYC/AML reviews, sanction screening gaps, and incomplete audit trails expose the business to regulatory risk.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PLATFORM ───────────────────────────────────────── -->
+  <section class="platform" id="platform">
+    <div class="container">
+      <div class="platform-intro">
+        <p class="section-eyebrow fade-up">The Platform</p>
+        <h2 class="section-headline fade-up delay-1">AI-native insurance operations, end to end.</h2>
+        <p class="section-sub fade-up delay-2">Introducing AgentsHub — the Insurance Intelligence Platform by Aiden AI.</p>
+        <p class="section-body fade-up delay-3">
+          AgentsHub deploys six specialized AI agents across your full insurance lifecycle — Submission Hub, Underwriting Workbench,
+          Broker Solution, Policy Administration, Claims Management, and Risk &amp; Compliance. Each agent handles its domain with
+          deep domain intelligence. Together, they create a coordinated operations layer that no single-point solution can match.
+        </p>
+        <div class="platform-bold fade-up delay-4">
+          <p>"This is not an underwriting tool or a claims accelerator. This is an end-to-end insurance intelligence platform — built for production scale, not a pilot."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SIX AGENTS ─────────────────────────────────────── -->
+  <section class="agents" id="agents">
+    <div class="container">
+      <p class="section-eyebrow fade-up">Six Agents. Six Functions.</p>
+      <h2 class="section-headline fade-up delay-1">Every stage of the insurance lifecycle — automated.</h2>
+      <div class="agents-grid">
+
+        <div class="agent-row fade-up delay-1">
+          <div class="agent-num">01</div>
+          <div class="agent-body">
+            <div class="agent-body-top">
+              <h3>Submission Hub</h3>
+              <span class="agent-chip" style="background:#2CC9A2;">Intake &amp; Triage Agent</span>
+            </div>
+            <p>Intelligent submission intake with automated triage and priority routing. AI-powered OCR and NLP extract key fields from ACORD forms, loss runs, and supplementals with 98%+ accuracy. ML-driven scoring routes submissions to the right underwriter based on appetite, capacity, expertise, and workload balance — while intelligent matching identifies duplicates across all channels.</p>
+            <div class="agent-stats">
+              <span class="agent-stat">98% OCR Accuracy</span>
+              <span class="agent-stat">70% Faster Triage</span>
+              <span class="agent-stat">24/7 Processing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-row fade-up delay-2">
+          <div class="agent-num">02</div>
+          <div class="agent-body">
+            <div class="agent-body-top">
+              <h3>Underwriting Workbench</h3>
+              <span class="agent-chip" style="background:#24C0E5;">UW Risk Agent</span>
+            </div>
+            <p>AI-powered risk assessment platform delivering automated scoring, intelligent pricing, and real-time decision support. Domain-aware reasoning calibrates premiums against portfolio targets and market conditions. Intelligent triage routes borderline cases to specialist underwriters with pre-built dossiers, and automated policy creation with pre-validated data ensures instant document generation.</p>
+            <div class="agent-stats">
+              <span class="agent-stat">60% Faster Decisions</span>
+              <span class="agent-stat">40% Cost Reduction</span>
+              <span class="agent-stat">99.9% Compliance</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-row fade-up delay-3">
+          <div class="agent-num">03</div>
+          <div class="agent-body">
+            <div class="agent-body-top">
+              <h3>Broker Solution</h3>
+              <span class="agent-chip" style="background:#003781;">Broker Intelligence Agent</span>
+            </div>
+            <p>Unified broker portal powered by AI-driven insights and real-time quote comparison across carriers. AI-powered multi-carrier quote comparison delivers optimal coverage options in seconds. Real-time commission tracking, automated reconciliation, and predictive revenue forecasting are paired with personalized market intelligence tailored to each broker's book of business.</p>
+            <div class="agent-stats">
+              <span class="agent-stat">3x Faster Quoting</span>
+              <span class="agent-stat">35% Revenue Growth</span>
+              <span class="agent-stat">100% Commission Accuracy</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-row fade-up delay-4">
+          <div class="agent-num">04</div>
+          <div class="agent-body">
+            <div class="agent-body-top">
+              <h3>Policy Administration</h3>
+              <span class="agent-chip" style="background:#5FBC55;">Policy Lifecycle Agent</span>
+            </div>
+            <p>Automated policy lifecycle management covering issuance, endorsement, renewal, and cancellation. Proactive renewal management with risk re-assessment and dynamic pricing recommendations. Intelligent mid-term adjustment processing validates coverage changes and recalculates premiums in seconds, while streamlined cancellation workflows handle pro-rata calculations and automated refunds.</p>
+            <div class="agent-stats">
+              <span class="agent-stat">80% Automation Rate</span>
+              <span class="agent-stat">Real-time Processing</span>
+              <span class="agent-stat">Zero Manual Errors</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-row fade-up delay-5">
+          <div class="agent-num">05</div>
+          <div class="agent-body">
+            <div class="agent-body-top">
+              <h3>Claims Management</h3>
+              <span class="agent-chip" style="background:#a78bfa;">Claims Processing Agent</span>
+            </div>
+            <p>End-to-end claims processing orchestrated by specialized AI agents — from first notice of loss through settlement. Multi-layered fraud analytics powered by graph networks and behavioral scoring detect anomalies in real time. Dynamic settlement algorithms balance fair payouts with cost efficiency, with straight-through processing for low-complexity claims reducing cycle times dramatically.</p>
+            <div class="agent-stats">
+              <span class="agent-stat">65% Faster Settlement</span>
+              <span class="agent-stat">80% Fraud Detection</span>
+              <span class="agent-stat">95% Customer Satisfaction</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-row fade-up delay-6">
+          <div class="agent-num">06</div>
+          <div class="agent-body">
+            <div class="agent-body-top">
+              <h3>Risk &amp; Compliance</h3>
+              <span class="agent-chip" style="background:#f59e0b;">KYC/AML Compliance Agent</span>
+            </div>
+            <p>Continuous regulatory monitoring, automated KYC/AML checks, and sanction screening at scale. Real-time validation against business rules and regulatory requirements reduces manual review burden by 75%. Real-time sanction screening with instant alerting ensures zero gaps, while complete audit trails cover every decision, every action, end to end.</p>
+            <div class="agent-stats">
+              <span class="agent-stat">75% Less Manual Review</span>
+              <span class="agent-stat">Real-time Screening</span>
+              <span class="agent-stat">100% Audit Trail</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── OUTCOMES ────────────────────────────────────────── -->
+  <section class="outcomes" id="outcomes">
+    <div class="container">
+      <p class="section-eyebrow fade-up" style="color:var(--cyan)">Business Outcomes</p>
+      <h2 class="section-headline fade-up delay-1">Measurable impact.<br>Across every insurance function.</h2>
+      <p class="section-body fade-up delay-2">
+        AgentsHub is designed to deliver outcomes at scale — not just feature coverage. These metrics reflect the result
+        of replacing manual, siloed processes with coordinated AI-led automation across the full insurance lifecycle.
+      </p>
+      <table class="outcomes-table fade-up delay-3">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Processing speed</td>
+            <td><span class="stat-chip">70%</span> faster submission triage</td>
+          </tr>
+          <tr>
+            <td>Underwriting efficiency</td>
+            <td><span class="stat-chip">60%</span> faster risk decisions</td>
+          </tr>
+          <tr>
+            <td>Fraud detection</td>
+            <td><span class="stat-chip">80%</span> improvement in claims fraud detection</td>
+          </tr>
+          <tr>
+            <td>Compliance</td>
+            <td><span class="stat-chip">75%</span> reduction in manual KYC/AML review</td>
+          </tr>
+          <tr>
+            <td>Operational cost</td>
+            <td><span class="stat-chip">40%</span> reduction across the lifecycle</td>
+          </tr>
+          <tr>
+            <td>Governance</td>
+            <td>100% auditable — every step, every decision</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="outcomes-note fade-up delay-4">
+        Results based on AgentsHub deployments in commercial and specialty insurance operations.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── WHY AGENTSHUB ────────────────────────────────────── -->
+  <section class="why" id="why">
+    <div class="container">
+      <p class="section-eyebrow fade-up">Why AgentsHub</p>
+      <h2 class="section-headline fade-up delay-1">Six agents. One platform. Complete insurance intelligence.</h2>
+      <p class="section-body fade-up delay-2">
+        Unlike point solutions that automate a single function, AgentsHub provides a unified AI platform — combining
+        six coordinated agents, enterprise-grade governance, and deep insurance domain intelligence into one seamless system.
+      </p>
+      <div class="why-grid">
+        <div class="why-card fade-up delay-1">
+          <div class="why-card-icon">&#127381;</div>
+          <h3>All six insurance functions</h3>
+          <p>Not one agent, not one function. AI coverage across submission, underwriting, broker, policy, claims, and compliance.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-card-icon">&#128260;</div>
+          <h3>End-to-end automation</h3>
+          <p>From submission intake to settlement — every handoff automated, every decision traceable.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-card-icon">&#9889;</div>
+          <h3>Production-grade, enterprise scale</h3>
+          <p>Not a proof of concept. Deployed in commercial and specialty insurance at production scale.</p>
+        </div>
+        <div class="why-card fade-up delay-1">
+          <div class="why-card-icon">&#128275;</div>
+          <h3>Built-in compliance &amp; governance</h3>
+          <p>Every decision auditable. Regulatory requirements validated in real time. Zero compliance debt by design.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-card-icon">&#129302;</div>
+          <h3>Multi-agent coordination</h3>
+          <p>Agents work in concert — not isolation. Shared context, coordinated decisions, no inter-system friction.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-card-icon">&#127942;</div>
+          <h3>Proven in insurance operations</h3>
+          <p>Deployed and validated in commercial and specialty insurance — delivering real outcomes, not benchmarks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ──────────────────────────────────────────────── -->
+  <section class="cta-section" id="contact" style="padding:6rem 0;">
+    <div class="container">
+      <div class="cta-inner">
+        <p class="section-eyebrow fade-up" style="color:var(--cyan);justify-content:center;display:flex;">Get Started</p>
+        <h2 class="section-headline fade-up delay-1" style="color:var(--white);text-align:center;">Transform your<br>insurance operations.</h2>
+        <p class="section-body fade-up delay-2" style="text-align:center;">
+          Carriers that modernize with AgentsHub don't just process faster — they operate smarter, with AI coordination
+          across every function and built-in governance from day one.
+        </p>
+        <div class="cta-btn-group fade-up delay-3">
+          <button class="btn-primary">Book a Demo &#8594;</button>
+          <button class="btn-secondary">Talk to Aiden AI</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Aiden <span>AI</span></div>
+        <div class="footer-info">agentshub.aeden.ai &nbsp;|&nbsp; hello@aiden.ai</div>
+        <div class="footer-links">
+          <a href="#">Platform</a>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll-triggered fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

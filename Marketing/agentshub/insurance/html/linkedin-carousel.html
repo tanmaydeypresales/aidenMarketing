@@ -1,0 +1,495 @@
+<!-- META TITLE: From Submission to Settlement — LinkedIn Carousel | AgentsHub by Aiden AI -->
+<!-- META DESCRIPTION: 10-slide LinkedIn carousel for the AI-Powered Insurance Intelligence Platform campaign. Preview each slide. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkedIn Carousel — Insurance Intelligence | AgentsHub by Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:     #073663;
+      --electric: #103EE0;
+      --cyan:     #12DBD5;
+      --midnight: #08244B;
+      --deep:     #061B39;
+      --light-blue: #E0E4FC;
+      --peri:     #BCC9FF;
+      --white:    #FFFFFF;
+      --gray:     #64748B;
+      --muted:    #D0D8E3;
+      --grad:     linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --font:     'Poppins', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font);
+      background: #0E1828;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* UI CHROME */
+    .ui-header {
+      width: 100%;
+      max-width: 900px;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .ui-brand { font-size: 1.1rem; font-weight: 800; color: var(--white); letter-spacing: -.02em; }
+    .ui-brand span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .ui-label { font-size: .8125rem; font-weight: 600; color: var(--muted); letter-spacing: .08em; }
+
+    /* NAV */
+    .nav-bar {
+      display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+      width: 100%; max-width: 900px; margin-bottom: 2rem;
+    }
+    .nav-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,.18); border: none; cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .nav-dot.active { background: var(--cyan); transform: scale(1.3); }
+    .nav-prev, .nav-next {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      color: var(--white); font-family: var(--font); font-size: .875rem; font-weight: 600;
+      padding: .5rem 1.25rem; border-radius: 6px; cursor: pointer; transition: background .2s;
+    }
+    .nav-prev { margin-left: 0; }
+    .nav-next { margin-left: auto; }
+    .nav-prev:hover, .nav-next:hover { background: rgba(255,255,255,.14); }
+    .slide-counter { font-size: .8125rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; }
+
+    /* SLIDE WRAPPER */
+    .slide-stage { width: 100%; max-width: 540px; position: relative; }
+    .slide-frame {
+      width: 100%; aspect-ratio: 1 / 1; border-radius: 20px; overflow: hidden;
+      position: relative; display: none; box-shadow: 0 32px 80px rgba(0,0,0,.55);
+    }
+    .slide-frame.active { display: flex; }
+
+    /* SLIDE */
+    .slide {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 7% 8% 8%; position: relative; overflow: hidden;
+    }
+
+    /* DARK */
+    .slide.dark { background: var(--midnight); }
+    .slide.dark::before {
+      content: ''; position: absolute; top: -30%; right: -20%;
+      width: 80%; height: 80%;
+      background: radial-gradient(ellipse, rgba(16,62,224,.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .slide.dark::after {
+      content: ''; position: absolute; bottom: -20%; left: -10%;
+      width: 60%; height: 60%;
+      background: radial-gradient(ellipse, rgba(18,219,213,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide.light-odd  { background: var(--white); }
+    .slide.light-even { background: #EDEEF4; }
+
+    /* GRID */
+    .slide-grid {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px), linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .slide.dark .slide-grid {
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    }
+
+    /* TOP BAR */
+    .slide-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--grad); }
+
+    /* WAVE SVG */
+    .slide-wave-svg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1; overflow: hidden;
+    }
+
+    /* CONTENT */
+    .slide-content { position: relative; z-index: 2; }
+    .slide-eyebrow {
+      font-size: clamp(.7rem, 2.6vw, 1rem); font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; margin-bottom: .6rem;
+    }
+    .slide.dark .slide-eyebrow { color: var(--cyan); }
+    .slide.light-odd .slide-eyebrow, .slide.light-even .slide-eyebrow { color: var(--electric); }
+
+    .slide-label {
+      display: inline-block; font-size: clamp(.65rem, 2.4vw, .9rem);
+      font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      padding: .28rem .75rem; border-radius: 4px; margin-bottom: 1rem;
+    }
+    .slide.dark .slide-label { background: rgba(255,255,255,.10); color: var(--muted); }
+    .slide.light-odd .slide-label, .slide.light-even .slide-label { background: var(--light-blue); color: var(--navy); }
+
+    .slide-headline { font-weight: 800; line-height: 1.1; letter-spacing: -.03em; margin-bottom: .75rem; }
+    .slide.dark .slide-headline { font-size: clamp(2.75rem, 14vw, 4.75rem); color: var(--white); }
+    .slide.light-odd .slide-headline,
+    .slide.light-even .slide-headline { font-size: clamp(2.5rem, 13vw, 4.25rem); color: var(--midnight); }
+
+    .slide-headline .gw {
+      background: var(--grad); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .slide-support { font-size: clamp(.875rem, 3.6vw, 1.25rem); font-weight: 500; line-height: 1.6; }
+    .slide.dark .slide-support { color: var(--peri); }
+    .slide.light-odd .slide-support, .slide.light-even .slide-support { color: var(--gray); }
+
+    /* CTA */
+    .slide-cta-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--grad); color: var(--white); font-family: var(--font);
+      font-size: clamp(.875rem, 3.4vw, 1.125rem); font-weight: 700;
+      padding: .75rem 1.75rem; border-radius: 8px; margin-top: 1.5rem;
+      box-shadow: 0 4px 24px rgba(16,62,224,.45);
+    }
+
+    /* LOGO */
+    .slide-logo {
+      position: absolute; bottom: 6%; right: 6%;
+      font-size: clamp(.7rem, 2.8vw, 1rem); font-weight: 800;
+      letter-spacing: -.01em; opacity: .5; z-index: 2;
+    }
+    .slide.dark .slide-logo { color: var(--white); }
+    .slide.light-odd .slide-logo, .slide.light-even .slide-logo { color: var(--navy); }
+    .slide-logo span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* BG NUM */
+    .slide-bg-num {
+      position: absolute; top: 4%; right: 4%;
+      font-size: clamp(7rem, 28vw, 11rem); font-weight: 800;
+      letter-spacing: -.05em; line-height: 1; z-index: 0;
+      pointer-events: none; user-select: none;
+    }
+    .slide.light-odd .slide-bg-num, .slide.light-even .slide-bg-num { color: rgba(7,54,99,.055); }
+    .slide.dark .slide-bg-num { color: rgba(255,255,255,.05); }
+
+    /* CAPTION */
+    .slide-caption { width: 100%; max-width: 540px; margin-top: 1.75rem; padding: 0 .5rem; }
+    .slide-caption h3 { font-size: .9375rem; font-weight: 700; color: var(--white); margin-bottom: .375rem; }
+    .slide-caption p { font-size: .8125rem; color: rgba(208,216,227,.6); line-height: 1.65; }
+  </style>
+</head>
+<body>
+
+  <div class="ui-header">
+    <div class="ui-brand">Aiden <span>AI</span></div>
+    <div class="ui-label">LinkedIn Carousel — Insurance Intelligence · 10 Slides</div>
+  </div>
+
+  <div class="nav-bar">
+    <button class="nav-prev" onclick="prevSlide()">&#8592; Prev</button>
+    <button class="nav-dot active" onclick="goSlide(0)"></button>
+    <button class="nav-dot" onclick="goSlide(1)"></button>
+    <button class="nav-dot" onclick="goSlide(2)"></button>
+    <button class="nav-dot" onclick="goSlide(3)"></button>
+    <button class="nav-dot" onclick="goSlide(4)"></button>
+    <button class="nav-dot" onclick="goSlide(5)"></button>
+    <button class="nav-dot" onclick="goSlide(6)"></button>
+    <button class="nav-dot" onclick="goSlide(7)"></button>
+    <button class="nav-dot" onclick="goSlide(8)"></button>
+    <button class="nav-dot" onclick="goSlide(9)"></button>
+    <span class="slide-counter" id="slideCounter">1 / 10</span>
+    <button class="nav-next" onclick="nextSlide()">Next &#8594;</button>
+  </div>
+
+  <div class="slide-stage">
+
+    <!-- SLIDE 1 — HOOK (DARK) -->
+    <div class="slide-frame active" id="s0">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <p class="slide-eyebrow">Insurance Intelligence</p>
+          <h2 class="slide-headline">From Submission<br>to Settlement —<br><span class="gw">Intelligently.</span></h2>
+          <p class="slide-support">Six AI agents. Every stage of insurance operations. One platform.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 — PROBLEM (LIGHT ODD) -->
+    <div class="slide-frame" id="s1">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Reality</span>
+          <h2 class="slide-headline">Insurance is<br>drowning in<br><span class="gw">manual</span> processes.</h2>
+          <p class="slide-support">Triage done by hand. Pricing done by intuition. Claims reviewed by committee.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 — THE SHIFT (LIGHT EVEN) -->
+    <div class="slide-frame" id="s2">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <span class="slide-label">The Platform</span>
+          <h2 class="slide-headline">AI-native insurance<br>operations,<br><span class="gw">end to end.</span></h2>
+          <p class="slide-support">AgentsHub deploys six specialized agents across your full insurance lifecycle.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 — SOLUTION 01 (LIGHT ODD) -->
+    <div class="slide-frame" id="s3">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">01</div>
+        <div class="slide-content">
+          <span class="slide-label">01 — Submission Hub</span>
+          <h2 class="slide-headline">98% accuracy.<br>70% faster<br><span class="gw">triage.</span></h2>
+          <p class="slide-support">AI-powered OCR, NLP, and ML routing —<br>every submission, every channel, 24/7.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 — SOLUTION 02 (LIGHT EVEN) -->
+    <div class="slide-frame" id="s4">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">02</div>
+        <div class="slide-content">
+          <span class="slide-label">02 — Underwriting Workbench</span>
+          <h2 class="slide-headline">Risk decisions<br>in hours,<br>not <span class="gw">days.</span></h2>
+          <p class="slide-support">Automated scoring, intelligent pricing,<br>real-time decision support. 60% faster.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 — SOLUTION 03 (LIGHT ODD) -->
+    <div class="slide-frame" id="s5">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">03</div>
+        <div class="slide-content">
+          <span class="slide-label">03 — Broker Solution</span>
+          <h2 class="slide-headline">3x faster<br>quoting.<br><span class="gw">35%</span> more revenue.</h2>
+          <p class="slide-support">Multi-carrier AI quote comparison.<br>Real-time commission. Zero friction.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 — SOLUTION 04 (LIGHT EVEN) -->
+    <div class="slide-frame" id="s6">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">04</div>
+        <div class="slide-content">
+          <span class="slide-label">04 — Policy Administration</span>
+          <h2 class="slide-headline">80% automated.<br>Zero manual<br><span class="gw">errors.</span></h2>
+          <p class="slide-support">Issuance, endorsements, renewals, cancellations —<br>fully orchestrated, real-time.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 — SOLUTION 05 (LIGHT ODD) -->
+    <div class="slide-frame" id="s7">
+      <div class="slide light-odd">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">05</div>
+        <div class="slide-content">
+          <span class="slide-label">05 — Claims Management</span>
+          <h2 class="slide-headline">65% faster<br>settlement.<br><span class="gw">80%</span> fraud caught.</h2>
+          <p class="slide-support">FNOL to settlement. Graph-network fraud detection.<br>Straight-through processing.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 — SOLUTION 06 (LIGHT EVEN) -->
+    <div class="slide-frame" id="s8">
+      <div class="slide light-even">
+        <div class="slide-top-bar"></div>
+        <div class="slide-bg-num">06</div>
+        <div class="slide-content">
+          <span class="slide-label">06 — Risk &amp; Compliance</span>
+          <h2 class="slide-headline">100% audit<br>trail.<br><span class="gw">Zero</span> gaps.</h2>
+          <p class="slide-support">KYC/AML, sanction screening, real-time regulatory validation.<br>75% less manual review.</p>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 — CTA (DARK) -->
+    <div class="slide-frame" id="s9">
+      <div class="slide dark">
+        <div class="slide-grid"></div>
+        <div class="slide-top-bar"></div>
+        <div class="slide-content">
+          <h2 class="slide-headline">Transform your<br>insurance<br><span class="gw">operations.</span></h2>
+          <p class="slide-support">Six AI agents. One platform. Submission to settlement.</p>
+          <div class="slide-cta-btn">&#8594; Book a demo</div>
+        </div>
+        <div class="slide-logo">Aiden <span>AI</span></div>
+      </div>
+    </div>
+
+  </div><!-- /slide-stage -->
+
+  <div class="slide-caption" id="slideCaption">
+    <h3>Slide 1 of 10 — Hook</h3>
+    <p>Cover slide. Dark background. Bold value statement: "From Submission to Settlement — Intelligently."</p>
+  </div>
+
+  <script>
+    /* ── WAVE ILLUSTRATION GENERATOR ────────────────────────────────────── */
+    function buildWaves(slideEl) {
+      const isDark = slideEl.classList.contains('dark');
+      const W = 540, H = 540;
+      const ns = 'http://www.w3.org/2000/svg';
+      const uid = 'wv' + (Math.random() * 1e6 | 0);
+
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('class', 'slide-wave-svg');
+
+      const defs = document.createElementNS(ns, 'defs');
+
+      const wg = document.createElementNS(ns, 'linearGradient');
+      wg.id = uid + 'g';
+      wg.setAttribute('x1','0%'); wg.setAttribute('y1','0%');
+      wg.setAttribute('x2','100%'); wg.setAttribute('y2','0%');
+      const stops = isDark
+        ? [['0%','#5B80EC'],['50%','#2BC9C3'],['100%','#12DBD5']]
+        : [['0%','#103EE0'],['55%','#1A8FD9'],['100%','#12DBD5']];
+      stops.forEach(([off, col]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off);
+        s.setAttribute('stop-color', col);
+        wg.appendChild(s);
+      });
+      defs.appendChild(wg);
+
+      const fg = document.createElementNS(ns, 'linearGradient');
+      fg.id = uid + 'f';
+      fg.setAttribute('x1','0%'); fg.setAttribute('y1','0%');
+      fg.setAttribute('x2','0%'); fg.setAttribute('y2','100%');
+      [[0,'white',1],[52,'white',1],[82,'white',0.15],[100,'white',0]].forEach(([off,col,op]) => {
+        const s = document.createElementNS(ns, 'stop');
+        s.setAttribute('offset', off+'%');
+        s.setAttribute('stop-color', col);
+        s.setAttribute('stop-opacity', op);
+        fg.appendChild(s);
+      });
+      defs.appendChild(fg);
+
+      const mask = document.createElementNS(ns, 'mask');
+      mask.id = uid + 'm';
+      const mr = document.createElementNS(ns, 'rect');
+      mr.setAttribute('width', W); mr.setAttribute('height', H);
+      mr.setAttribute('fill', `url(#${uid}f)`);
+      mask.appendChild(mr);
+      defs.appendChild(mask);
+      svg.appendChild(defs);
+
+      const g = document.createElementNS(ns, 'g');
+      g.setAttribute('mask', `url(#${uid}m)`);
+
+      const N = 32, PTS = 110;
+      for (let i = 0; i < N; i++) {
+        const t = i / (N - 1);
+        const baseY = 6 + t * 300;
+        const pinch = 0.18 + 0.82 * Math.pow(Math.abs(2 * t - 1), 0.65);
+        const freq = (2 * Math.PI) / (235 + 70 * Math.sin(i * 0.91));
+        const amp = (11 + 58 * pinch) * (0.65 + 0.35 * Math.cos(i * 1.27));
+        const phase = i * 0.68 + Math.sin(i * 0.37) * 0.4;
+        const pts = [];
+        for (let j = 0; j <= PTS; j++) {
+          const x = -15 + (W + 30) * (j / PTS);
+          const xEnv = 0.72 + 0.28 * Math.max(0, (W * 0.5 - x) / (W * 0.5));
+          const y = baseY + amp * xEnv * Math.sin(freq * x + phase);
+          pts.push([x, y]);
+        }
+        let d = `M${pts[0][0].toFixed(1)},${pts[0][1].toFixed(1)}`;
+        for (let k = 1; k < pts.length - 1; k++) {
+          const mx = ((pts[k][0] + pts[k+1][0]) / 2).toFixed(1);
+          const my = ((pts[k][1] + pts[k+1][1]) / 2).toFixed(1);
+          d += ` Q${pts[k][0].toFixed(1)},${pts[k][1].toFixed(1)} ${mx},${my}`;
+        }
+        const last = pts[pts.length - 1];
+        d += ` L${last[0].toFixed(1)},${last[1].toFixed(1)}`;
+
+        const path = document.createElementNS(ns, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('stroke', `url(#${uid}g)`);
+        path.setAttribute('stroke-width', isDark ? '0.7' : '0.6');
+        path.setAttribute('fill', 'none');
+        const op = isDark
+          ? (0.22 + 0.32 * pinch).toFixed(2)
+          : (0.14 + 0.26 * pinch).toFixed(2);
+        path.setAttribute('opacity', op);
+        g.appendChild(path);
+      }
+      svg.appendChild(g);
+      slideEl.insertBefore(svg, slideEl.firstChild);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.slide').forEach(buildWaves);
+    });
+
+    /* ── CAROUSEL NAV ─────────────────────────────────────────────────── */
+    const captions = [
+      { title: 'Slide 1 of 10 — Hook (Cover)', desc: 'Dark. Value statement: "From Submission to Settlement — Intelligently." Six agents, one platform.' },
+      { title: 'Slide 2 of 10 — The Reality', desc: 'Light. Names the pain: manual triage, intuition-based pricing, committee-reviewed claims.' },
+      { title: 'Slide 3 of 10 — The Platform', desc: 'Light. Pivots to solution: AI-native insurance operations, end to end with AgentsHub.' },
+      { title: 'Slide 4 of 10 — Agent 01: Submission Hub', desc: 'Light. 98% OCR accuracy, 70% faster triage, 24/7 intake across all channels.' },
+      { title: 'Slide 5 of 10 — Agent 02: Underwriting Workbench', desc: 'Light. Automated risk scoring and intelligent pricing — 60% faster decisions.' },
+      { title: 'Slide 6 of 10 — Agent 03: Broker Solution', desc: 'Light. 3x faster quoting, 35% revenue growth, 100% commission accuracy.' },
+      { title: 'Slide 7 of 10 — Agent 04: Policy Administration', desc: 'Light. 80% automation rate, real-time processing, zero manual errors.' },
+      { title: 'Slide 8 of 10 — Agent 05: Claims Management', desc: 'Light. 65% faster settlement, 80% fraud detection, STP for low-complexity claims.' },
+      { title: 'Slide 9 of 10 — Agent 06: Risk & Compliance', desc: 'Light. 75% less manual review, real-time sanction screening, 100% audit trail.' },
+      { title: 'Slide 10 of 10 — CTA', desc: 'Dark. Clean close: "Transform your insurance operations." Book a demo.' }
+    ];
+
+    let current = 0;
+    const total = 10;
+
+    function updateSlide() {
+      document.querySelectorAll('.slide-frame').forEach((f, i) => f.classList.toggle('active', i === current));
+      document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      document.getElementById('slideCounter').textContent = `${current + 1} / ${total}`;
+      const cap = captions[current];
+      document.getElementById('slideCaption').innerHTML = `<h3>${cap.title}</h3><p>${cap.desc}</p>`;
+    }
+
+    function nextSlide() { current = (current + 1) % total; updateSlide(); }
+    function prevSlide() { current = (current - 1 + total) % total; updateSlide(); }
+    function goSlide(n) { current = n; updateSlide(); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   prevSlide();
+    });
+  </script>
+</body>
+</html>
