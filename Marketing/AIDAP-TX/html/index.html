@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=794px, initial-scale=1.0">
+  <!-- Meta Title: AIDAP-TX | AI-Powered Testing Platform | Aiden AI -->
+  <!-- Meta Description: AIDAP-TX brings intelligence to enterprise testing by understanding requirements, processes, and system behavior before automation begins — reducing effort, SME dependency, and transformation risk. -->
+  <title>AIDAP-TX | AI-Powered Testing Platform | Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:       #073663;
+      --dark-navy:  #08244B;
+      --electric:   #103EE0;
+      --cyan:       #12DBD5;
+      --light-blue: #E0E4FC;
+      --white:      #FFFFFF;
+      --grad:       linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --text-body:  #1a2744;
+      --text-muted: #4a5a7a;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #edf1f7;
+      display: flex;
+      justify-content: center;
+      padding: 32px 0 48px;
+      min-height: 100vh;
+    }
+
+    .page {
+      width: 794px;
+      background: #ffffff;
+      box-shadow: 0 8px 48px rgba(7, 54, 99, 0.18), 0 2px 8px rgba(7, 54, 99, 0.08);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       HEADER
+    ───────────────────────────────────────────────────────────────────────── */
+    .header {
+      background: var(--dark-navy);
+      padding: 44px 52px 42px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Atmospheric radial glows */
+    .header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 88% 15%, rgba(18, 219, 213, 0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 5%  85%, rgba(16, 62,  224, 0.12) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Subtle dot-grid texture */
+    .header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .header-inner { position: relative; z-index: 1; }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .product-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(18, 219, 213, 0.30);
+      padding: 4px 13px 4px 10px;
+      border-radius: 2px;
+      background: rgba(18, 219, 213, 0.05);
+    }
+
+    .label-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(18, 219, 213, 0.6);
+    }
+
+    .product-label-text {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .aiden-brand {
+      font-size: 9px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.38);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .product-name {
+      font-size: 78px;
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    .product-name .accent {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.65);
+      letter-spacing: 0.01em;
+      max-width: 580px;
+    }
+
+    .tagline em {
+      font-style: normal;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    /* Horizontal rule below tagline */
+    .header-rule {
+      margin-top: 28px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(18, 219, 213, 0.35) 0%, rgba(16, 62, 224, 0.15) 50%, transparent 100%);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       BODY WRAPPER
+    ───────────────────────────────────────────────────────────────────────── */
+    .body { padding: 0 52px; }
+
+    /* Section divider */
+    .divider { border: none; border-top: 1px solid #e4eaf4; }
+
+    /* Shared section label */
+    .section-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--electric);
+      margin-bottom: 14px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       INTRO
+    ───────────────────────────────────────────────────────────────────────── */
+    .intro {
+      padding: 28px 0 26px;
+    }
+
+    .intro p {
+      font-size: 11.5px;
+      line-height: 1.78;
+      color: var(--text-body);
+      font-weight: 400;
+    }
+
+    .intro p strong {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       THREE PILLARS
+    ───────────────────────────────────────────────────────────────────────── */
+    .pillars {
+      padding: 24px 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .pillar {
+      padding: 18px 16px 20px;
+      background: #f6f9fd;
+      border-top: 2.5px solid transparent;
+      border-image: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%) 1;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+
+    .pillar:hover {
+      background: #eef3fb;
+      box-shadow: 0 3px 12px rgba(16, 62, 224, 0.09);
+    }
+
+    .pillar-num {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 9px;
+    }
+
+    .pillar-heading {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 7px;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
+
+    .pillar-body {
+      font-size: 10px;
+      line-height: 1.68;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       DIFFERENTIATOR
+    ───────────────────────────────────────────────────────────────────────── */
+    .differentiator {
+      padding: 24px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .diff-left {}
+
+    .diff-heading {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--dark-navy);
+      letter-spacing: -0.025em;
+      line-height: 1.18;
+      margin-bottom: 13px;
+    }
+
+    .diff-body {
+      font-size: 10.5px;
+      line-height: 1.75;
+      color: var(--text-body);
+    }
+
+    .pull-quote {
+      background: var(--dark-navy);
+      border-left: 3px solid var(--cyan);
+      padding: 20px 22px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .pull-quote-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    .quote-mark {
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 0;
+      vertical-align: -10px;
+      display: inline-block;
+      margin-right: 2px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       BUSINESS OUTCOMES
+    ───────────────────────────────────────────────────────────────────────── */
+    .outcomes {
+      padding: 22px 0;
+    }
+
+    .outcome-pills {
+      display: flex;
+      gap: 10px;
+    }
+
+    .outcome-pill {
+      flex: 1;
+      padding: 11px 14px;
+      border: 1.5px solid;
+      border-image: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%) 1;
+      background: linear-gradient(135deg, rgba(16, 62, 224, 0.04) 0%, rgba(18, 219, 213, 0.04) 100%);
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       CORE CAPABILITIES
+    ───────────────────────────────────────────────────────────────────────── */
+    .capabilities {
+      padding: 22px 0;
+    }
+
+    .cap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 36px;
+      row-gap: 0;
+    }
+
+    .cap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 10.5px;
+      color: var(--text-body);
+      line-height: 1.5;
+      font-weight: 400;
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f4fb;
+    }
+
+    .cap-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--grad);
+      flex-shrink: 0;
+      margin-top: 4px;
+      /* Square dots — architectural */
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       TECHNICAL NOTE
+    ───────────────────────────────────────────────────────────────────────── */
+    .tech-note {
+      padding: 18px 0 20px;
+      border-top: 1px solid #e4eaf4;
+    }
+
+    .tech-note-label {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #8a97b5;
+      margin-bottom: 7px;
+    }
+
+    .tech-note p {
+      font-size: 9.5px;
+      line-height: 1.72;
+      color: #7a89a8;
+      font-weight: 400;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       FOOTER CTA
+    ───────────────────────────────────────────────────────────────────────── */
+    .footer {
+      background: var(--navy);
+      padding: 32px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0; right: -40px;
+      width: 280px; height: 100%;
+      background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(18, 219, 213, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .footer-text { flex: 1; }
+
+    .footer-headline {
+      font-size: 19px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 9px;
+    }
+
+    .footer-headline .grad-word {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-body {
+      font-size: 10.5px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.6;
+      font-weight: 400;
+      max-width: 400px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      flex-shrink: 0;
+      padding: 13px 26px;
+      background: var(--grad);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 4px 16px rgba(16, 62, 224, 0.35);
+    }
+
+    .cta-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 62, 224, 0.45);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────────────
+       PRINT STYLES
+    ───────────────────────────────────────────────────────────────────────── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      body {
+        background: white;
+        padding: 0;
+        display: block;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
+      }
+
+      .page {
+        width: 210mm;
+        box-shadow: none;
+      }
+
+      .pillar:hover,
+      .cta-btn:hover {
+        background: var(--grad);
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- ── HEADER ─────────────────────────────────────────────────────────── -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="header-top">
+          <div class="product-label">
+            <div class="label-dot"></div>
+            <span class="product-label-text">AI-Powered Testing Platform</span>
+          </div>
+          <span class="aiden-brand">Aiden AI</span>
+        </div>
+
+        <h1 class="product-name">AIDAP<span class="accent">-TX</span></h1>
+
+        <p class="tagline">
+          AI-powered testing that <em>understands your application</em><br>
+          before it automates it.
+        </p>
+
+        <div class="header-rule"></div>
+      </div>
+    </header>
+
+    <!-- ── BODY ───────────────────────────────────────────────────────────── -->
+    <div class="body">
+
+      <!-- INTRO -->
+      <section class="intro">
+        <p>
+          Testing in enterprise environments requires a deep understanding of requirements, business
+          scenarios, process flows, application behavior, system dependencies, and the points where
+          human judgment still matters. <strong>AIDAP-TX is designed for this reality</strong> —
+          building a testing blueprint before automation begins, so every test is grounded in context.
+        </p>
+      </section>
+
+      <hr class="divider">
+
+      <!-- THREE PILLARS -->
+      <section class="pillars">
+        <div class="pillar">
+          <div class="pillar-num">01 &mdash; BLUEPRINT-FIRST</div>
+          <h3 class="pillar-heading">Blueprint-First</h3>
+          <p class="pillar-body">
+            AIDAP-TX interprets requirements, user journeys, scenarios, and business rules to create
+            an intelligent foundation for quality engineering before a single test script is written.
+          </p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02 &mdash; FULL-STACK TESTING</div>
+          <h3 class="pillar-heading">Full-Stack Testing</h3>
+          <p class="pillar-body">
+            From UI to backend and API validation, AIDAP-TX covers the full testing surface —
+            generating test suites, automation scripts, synthetic data, and HITL checkpoints for
+            reliable end-to-end coverage.
+          </p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03 &mdash; TRANSFORMATION-READY</div>
+          <h3 class="pillar-heading">Transformation-Ready</h3>
+          <p class="pillar-body">
+            Built for modernization and migration programs, AIDAP-TX supports parallel testing across
+            legacy and target systems, and model-based testing that compares requirements against
+            actual application behavior.
+          </p>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <!-- DIFFERENTIATOR -->
+      <section class="differentiator">
+        <div class="diff-left">
+          <div class="section-label">What Makes AIDAP-TX Different</div>
+          <h2 class="diff-heading">Built for transformation,<br>not just test execution.</h2>
+          <p class="diff-body">
+            Conventional test automation tools focus on script creation and execution — they assume
+            you already understand the application. AIDAP-TX starts earlier, building that
+            understanding first. By interpreting requirements, crawling application screens and
+            workflows, mapping dependencies, and identifying decision points, it generates more
+            accurate tests, better data, and more reliable validation strategies across UI, backend,
+            and API layers.
+          </p>
+        </div>
+        <div class="pull-quote">
+          <p class="pull-quote-text">
+            <span class="quote-mark">&#8220;</span>AIDAP-TX doesn&rsquo;t just automate testing.
+            It understands what needs to be tested &mdash; and&nbsp;why.
+          </p>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <!-- BUSINESS OUTCOMES -->
+      <section class="outcomes">
+        <div class="section-label">Business Outcomes</div>
+        <div class="outcome-pills">
+          <div class="outcome-pill">Reduced testing effort<br>and SME dependency</div>
+          <div class="outcome-pill">Faster delivery<br>with higher accuracy</div>
+          <div class="outcome-pill">Lower transformation risk<br>with full traceability</div>
+        </div>
+      </section>
+
+      <hr class="divider">
+
+      <!-- CORE CAPABILITIES -->
+      <section class="capabilities">
+        <div class="section-label">Core Capabilities</div>
+        <div class="cap-grid">
+          <div class="cap-item"><div class="cap-dot"></div><span>AI-driven requirement and scenario understanding</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Synthetic test data generation</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Intelligent testing blueprint creation</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Human-in-the-loop validation for critical decisions</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Application crawling across screens, workflows, and rules</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Parallel testing across existing and target environments</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Automated generation of test suites and scripts</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Model-based testing against requirements or legacy assets</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>End-to-end traceability from requirement to validation</span></div>
+          <div class="cap-item"><div class="cap-dot"></div><span>Support across UI, API, and backend testing</span></div>
+        </div>
+      </section>
+
+      <!-- TECHNICAL NOTE -->
+      <section class="tech-note">
+        <div class="tech-note-label">Technical Differentiator</div>
+        <p>
+          AIDAP-TX creates an AI-driven understanding of requirements, scenarios, process flows,
+          decision points, and business rules before automation begins. Using this blueprint, it
+          crawls complex applications, maps dependencies, and generates test scripts, synthetic data,
+          and HITL checkpoints. The same intelligence applies to backend and API testing through
+          parallel validation and model-based comparison of requirements against target behavior —
+          delivering faster, more accurate testing with lower SME dependency and reduced overall
+          program complexity.
+        </p>
+      </section>
+
+    </div><!-- /body -->
+
+    <!-- ── FOOTER CTA ──────────────────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-text">
+          <h2 class="footer-headline">
+            Test <span class="grad-word">smarter.</span> Reduce risk.<br>Accelerate transformation.
+          </h2>
+          <p class="footer-body">
+            Connect with us to explore how AIDAP-TX can support your modernization,
+            migration, or quality engineering program.
+          </p>
+        </div>
+        <a href="mailto:hello@aidenai.com" class="cta-btn">Request a Discussion</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
