@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDAP-TX LinkedIn Carousel — Aiden AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #073663;
+      --dark-navy:   #08244B;
+      --electric:    #103EE0;
+      --cyan:        #12DBD5;
+      --light-blue:  #E0E4FC;
+      --white:       #FFFFFF;
+      --off-white:   #EDEEF4;
+      --grad:        linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --text-body:   #0e1f3d;
+      --text-muted:  #4a5a7a;
+      --slide-size:  1080px;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: #050d1a;
+      overflow: hidden;
+    }
+
+    /* ─── VIEWER SHELL ─────────────────────────────────────────── */
+    .viewer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Atmospheric background for viewer */
+    .viewer::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 15% 20%, rgba(16,62,224,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 85% 80%, rgba(18,219,213,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 35% at 60% 10%, rgba(16,62,224,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .slide-frame {
+      position: relative;
+      width: var(--slide-size);
+      height: var(--slide-size);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 24px 80px rgba(0,0,0,0.65),
+        0 8px 24px rgba(0,0,0,0.4);
+      flex-shrink: 0;
+    }
+
+    /* Scale down for viewport */
+    @media (max-height: 1200px) {
+      .slide-frame { transform: scale(0.82); transform-origin: center center; }
+      .viewer { height: 100vh; }
+    }
+    @media (max-height: 960px) {
+      .slide-frame { transform: scale(0.72); }
+    }
+    @media (max-height: 800px) {
+      .slide-frame { transform: scale(0.60); }
+    }
+    @media (max-height: 650px) {
+      .slide-frame { transform: scale(0.50); }
+    }
+
+    /* ─── SLIDE CONTAINER ─────────────────────────────────────── */
+    .slides-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(40px);
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    /* ─── NAV BUTTONS ─────────────────────────────────────────── */
+    .nav-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(7, 54, 99, 0.85);
+      border: 1px solid rgba(18, 219, 213, 0.3);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .nav-btn:hover {
+      background: rgba(16, 62, 224, 0.9);
+      border-color: rgba(18, 219, 213, 0.7);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .nav-btn:active { transform: translateY(-50%) scale(0.96); }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .nav-btn:disabled:hover { background: rgba(7, 54, 99, 0.85); border-color: rgba(18, 219, 213, 0.3); transform: translateY(-50%); }
+
+    .nav-prev { left: calc(50% - 620px); }
+    .nav-next { right: calc(50% - 620px); }
+
+    /* ─── DOT INDICATORS ─────────────────────────────────────── */
+    .dots {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: background 0.25s, transform 0.25s, width 0.25s;
+      border: none;
+    }
+
+    .dot.active {
+      background: var(--cyan);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    /* ─── KEYBOARD HINT ──────────────────────────────────────── */
+    .key-hint {
+      position: fixed;
+      bottom: 52px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.25);
+      font-size: 11px;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE INTERNALS — shared utilities
+    ═══════════════════════════════════════════════════════════ */
+
+    /* Gradient text utility */
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Bottom bar shared */
+    .slide-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 52px;
+    }
+
+    .wordmark {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      opacity: 0.55;
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE 1 — COVER (dark #08244B)
+    ═══════════════════════════════════════════════════════════ */
+    .slide-1 {
+      background: var(--dark-navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 72px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot-grid texture */
+    .slide-1::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Radial glows */
+    .slide-1::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 60% at 90% 10%, rgba(18,219,213,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 65% at 5% 90%, rgba(16,62,224,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(16,62,224,0.05) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-1-inner {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-1 .eyebrow {
+      color: var(--cyan);
+      font-size: 13px;
+      margin-bottom: 36px;
+    }
+
+    .slide-1 .headline {
+      font-size: 58px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.10;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      max-width: 760px;
+    }
+
+    .slide-1 .support {
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* Decorative accent line */
+    .slide-1 .accent-line {
+      width: 64px;
+      height: 3px;
+      background: var(--grad);
+      border-radius: 2px;
+      margin-bottom: 36px;
+    }
+
+    .slide-1 .slide-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .slide-1 .wordmark { color: rgba(255,255,255,0.5); }
+    .slide-1 .slide-counter { color: rgba(255,255,255,0.4); }
+
+    /* TX chip in background */
+    .slide-1 .bg-tx {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 260px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.025);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE 2 — PROBLEM (light #FFFFFF)
+    ═══════════════════════════════════════════════════════════ */
+    .slide-2 {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 80px 80px 104px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Left border accent */
+    .slide-2::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 80px;
+      bottom: 80px;
+      width: 5px;
+      background: var(--grad);
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* Subtle background geometric */
+    .slide-2::after {
+      content: '';
+      position: absolute;
+      right: -80px;
+      bottom: -80px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(16,62,224,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-2 .eyebrow { color: var(--electric); }
+
+    .slide-2 .headline {
+      font-size: 50px;
+      font-weight: 800;
+      color: var(--dark-navy);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+      max-width: 820px;
+    }
+
+    .slide-2 .support {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 740px;
+    }
+
+    /* Problem pills */
+    .problem-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 40px;
+    }
+
+    .problem-tag {
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(16,62,224,0.18);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      background: rgba(16,62,224,0.04);
+      letter-spacing: 0.02em;
+    }
+
+    .slide-2 .slide-bottom {
+      border-top: 1px solid rgba(7,54,99,0.08);
+    }
+    .slide-2 .wordmark { color: rgba(7,54,99,0.3); }
+    .slide-2 .slide-counter { color: rgba(7,54,99,0.3); }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE 3 — SOLUTION (light #EDEEF4)
+    ═══════════════════════════════════════════════════════════ */
+    .slide-3 {
+      background: var(--off-white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 72px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-3::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(16,62,224,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-3 .eyebrow { color: var(--electric); }
+
+    .slide-3 .headline {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--dark-navy);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .slide-3 .support {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 780px;
+      margin-bottom: 52px;
+    }
+
+    /* 3-step flow diagram */
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .flow-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: var(--dark-navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 24px rgba(8,36,75,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flow-icon::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--grad);
+      opacity: 0.15;
+    }
+
+    .flow-label {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .flow-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.4;
+      max-width: 140px;
+    }
+
+    /* Gradient arrow between steps */
+    .flow-arrow {
+      flex: 0 0 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 44px;
+      position: relative;
+    }
+
+    .flow-arrow-line {
+      width: 60px;
+      height: 2px;
+      background: var(--grad);
+      position: relative;
+    }
+
+    .flow-arrow-line::after {
+      content: '';
+      position: absolute;
+      right: -1px;
+      top: -5px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid var(--cyan);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+
+    .slide-3 .slide-bottom { border-top: 1px solid rgba(7,54,99,0.08); }
+    .slide-3 .wordmark { color: rgba(7,54,99,0.3); }
+    .slide-3 .slide-counter { color: rgba(7,54,99,0.3); }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE 4 — THREE MODES (light #FFFFFF)
+    ═══════════════════════════════════════════════════════════ */
+    .slide-4 {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 64px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-4::before {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(18,219,213,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-4 .eyebrow { color: var(--electric); }
+
+    .slide-4 .headline {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--dark-navy);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    /* Three cards */
+    .mode-cards {
+      display: flex;
+      gap: 24px;
+    }
+
+    .mode-card {
+      flex: 1;
+      background: var(--off-white);
+      border-radius: 16px;
+      padding: 32px 28px 28px;
+      position: relative;
+      overflow: hidden;
+      border: 1.5px solid rgba(7,54,99,0.06);
+    }
+
+    /* Gradient top border */
+    .mode-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--grad);
+    }
+
+    .mode-card-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .mode-card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .mode-card-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .mode-card-tag {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(16,62,224,0.08);
+      color: var(--electric);
+    }
+
+    .slide-4 .slide-bottom { border-top: 1px solid rgba(7,54,99,0.08); }
+    .slide-4 .wordmark { color: rgba(7,54,99,0.3); }
+    .slide-4 .slide-counter { color: rgba(7,54,99,0.3); }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE 5 — OUTCOMES (light #EDEEF4)
+    ═══════════════════════════════════════════════════════════ */
+    .slide-5 {
+      background: var(--off-white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 80px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-5::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(16,62,224,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-5 .eyebrow { color: var(--electric); }
+
+    .slide-5 .headline {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--dark-navy);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    .outcome-list {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .outcome-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .outcome-bullet {
+      flex-shrink: 0;
+      width: 10px;
+      height: 10px;
+      background: var(--cyan);
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+
+    .outcome-text {
+      flex: 1;
+    }
+
+    .outcome-label {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 4px;
+    }
+
+    .outcome-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Divider line between outcomes */
+    .outcome-item + .outcome-item {
+      padding-top: 28px;
+      border-top: 1px solid rgba(7,54,99,0.08);
+      margin-top: -28px;
+    }
+
+    /* Actually remove the extra margin since gap handles it */
+    .outcome-item + .outcome-item {
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .slide-5 .slide-bottom { border-top: 1px solid rgba(7,54,99,0.08); }
+    .slide-5 .wordmark { color: rgba(7,54,99,0.3); }
+    .slide-5 .slide-counter { color: rgba(7,54,99,0.3); }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE 6 — TRANSFORMATION (light #FFFFFF)
+    ═══════════════════════════════════════════════════════════ */
+    .slide-6 {
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 72px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-6::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(16,62,224,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-6 .eyebrow { color: var(--electric); }
+
+    .slide-6 .headline {
+      font-size: 46px;
+      font-weight: 800;
+      color: var(--dark-navy);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .slide-6 .support {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 760px;
+      margin-bottom: 52px;
+    }
+
+    /* Parallel tracks diagram */
+    .parallel-diagram {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .parallel-track {
+      flex: 1;
+      border-radius: 14px;
+      padding: 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .track-legacy {
+      background: rgba(7,54,99,0.06);
+      border: 1.5px solid rgba(7,54,99,0.14);
+      border-right: none;
+      border-radius: 14px 0 0 14px;
+    }
+
+    .track-target {
+      background: rgba(16,62,224,0.06);
+      border: 1.5px solid rgba(16,62,224,0.18);
+      border-left: none;
+      border-radius: 0 14px 14px 0;
+    }
+
+    .track-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+
+    .track-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark-navy);
+      margin-bottom: 8px;
+    }
+
+    .track-items {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .track-item {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .track-item::before {
+      content: '─';
+      color: rgba(7,54,99,0.3);
+      font-size: 10px;
+    }
+
+    .track-bridge {
+      flex: 0 0 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .bridge-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 6px 20px rgba(16,62,224,0.35);
+    }
+
+    .bridge-lines {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(7,54,99,0.14) 0%, rgba(16,62,224,0.22) 50%, rgba(7,54,99,0.14) 100%);
+      z-index: 0;
+    }
+
+    .bridge-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--electric);
+      text-align: center;
+      letter-spacing: 0.06em;
+    }
+
+    .slide-6 .slide-bottom { border-top: 1px solid rgba(7,54,99,0.08); }
+    .slide-6 .wordmark { color: rgba(7,54,99,0.3); }
+    .slide-6 .slide-counter { color: rgba(7,54,99,0.3); }
+
+    /* ═══════════════════════════════════════════════════════════
+       SLIDE 7 — CTA (dark #073663)
+    ═══════════════════════════════════════════════════════════ */
+    .slide-7 {
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot-grid */
+    .slide-7::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Radial glows */
+    .slide-7::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 15%, rgba(18,219,213,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 70% at 15% 85%, rgba(16,62,224,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 45% 45% at 50% 50%, rgba(16,62,224,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide-7-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Decorative top bar */
+    .slide-7 .top-bar {
+      width: 64px;
+      height: 3px;
+      background: var(--grad);
+      border-radius: 2px;
+      margin-bottom: 44px;
+    }
+
+    .slide-7 .headline {
+      font-size: 54px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.10;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      max-width: 820px;
+    }
+
+    .slide-7 .support {
+      font-size: 18px;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.65;
+      max-width: 680px;
+      margin-bottom: 52px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 44px;
+      border-radius: 100px;
+      background: var(--grad);
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(16,62,224,0.45), 0 2px 8px rgba(0,0,0,0.2);
+      cursor: default;
+    }
+
+    .slide-7 .slide-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .slide-7 .slide-bottom-center {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .slide-7 .wordmark-centered {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .slide-7 .counter-centered {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+
+    .slide-7 .wordmark-sep {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+    }
+  </style>
+</head>
+<body>
+
+<div class="viewer">
+  <div class="slide-frame">
+    <div class="slides-wrapper" id="slidesWrapper">
+
+      <!-- ══════════════ SLIDE 1 — COVER ══════════════ -->
+      <div class="slide slide-1 active" data-slide="1">
+        <div class="bg-tx">TX</div>
+        <div class="slide-1-inner">
+          <div class="eyebrow">AI-Powered Testing &nbsp;|&nbsp; Aiden AI</div>
+          <div class="accent-line"></div>
+          <div class="headline">Your test tool assumes you know the app.</div>
+          <div class="support grad-text">AIDAP-TX doesn't.</div>
+        </div>
+        <div class="slide-bottom">
+          <div class="wordmark" style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AIDAP-TX</div>
+          <div class="slide-counter" style="color:rgba(255,255,255,0.35);">1 / 7</div>
+        </div>
+      </div>
+
+      <!-- ══════════════ SLIDE 2 — PROBLEM ══════════════ -->
+      <div class="slide slide-2" data-slide="2">
+        <div class="eyebrow">The Problem</div>
+        <div class="headline">Testing is not a scripting problem.</div>
+        <div class="support">Enterprise testing requires understanding requirements, process flows, dependencies, and where human judgment matters — before a single test is written.</div>
+        <div class="problem-tags">
+          <span class="problem-tag">Disconnected requirements</span>
+          <span class="problem-tag">Brittle scripts</span>
+          <span class="problem-tag">Heavy SME dependency</span>
+          <span class="problem-tag">Late defect discovery</span>
+          <span class="problem-tag">Poor traceability</span>
+        </div>
+        <div class="slide-bottom">
+          <div class="wordmark" style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AIDAP-TX</div>
+          <div class="slide-counter">2 / 7</div>
+        </div>
+      </div>
+
+      <!-- ══════════════ SLIDE 3 — SOLUTION ══════════════ -->
+      <div class="slide slide-3" data-slide="3">
+        <div class="eyebrow">The Approach</div>
+        <div class="headline">Build a <span class="grad-text">blueprint</span>. Then automate.</div>
+        <div class="support">AIDAP-TX interprets requirements, crawls your application, and maps dependencies before generating tests — so every test is grounded in context.</div>
+
+        <div class="flow-diagram">
+          <div class="flow-step">
+            <div class="flow-icon">🔍</div>
+            <div class="flow-label">Understand</div>
+            <div class="flow-sub">Requirements, flows &amp; system context</div>
+          </div>
+          <div class="flow-arrow">
+            <div class="bridge-lines"></div>
+            <div class="flow-arrow-line"></div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">🗺️</div>
+            <div class="flow-label">Blueprint</div>
+            <div class="flow-sub">Map dependencies &amp; generate test design</div>
+          </div>
+          <div class="flow-arrow">
+            <div class="bridge-lines"></div>
+            <div class="flow-arrow-line"></div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-icon">✅</div>
+            <div class="flow-label">Validate</div>
+            <div class="flow-sub">Execute, trace, and confirm confidence</div>
+          </div>
+        </div>
+
+        <div class="slide-bottom">
+          <div class="wordmark" style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AIDAP-TX</div>
+          <div class="slide-counter">3 / 7</div>
+        </div>
+      </div>
+
+      <!-- ══════════════ SLIDE 4 — THREE MODES ══════════════ -->
+      <div class="slide slide-4" data-slide="4">
+        <div class="eyebrow">Full Coverage</div>
+        <div class="headline">UI. API. Backend. One platform.</div>
+        <div class="mode-cards">
+          <div class="mode-card">
+            <span class="mode-card-icon">🖥️</span>
+            <div class="mode-card-title">UI Testing</div>
+            <div class="mode-card-desc">Screens, workflows, and end-to-end user journeys validated against expected behavior.</div>
+            <span class="mode-card-tag">Front-end</span>
+          </div>
+          <div class="mode-card">
+            <span class="mode-card-icon">⚙️</span>
+            <div class="mode-card-title">API Testing</div>
+            <div class="mode-card-desc">Service contracts, integration validation, and response schema verification across services.</div>
+            <span class="mode-card-tag">Integration</span>
+          </div>
+          <div class="mode-card">
+            <span class="mode-card-icon">🗄️</span>
+            <div class="mode-card-title">Backend Testing</div>
+            <div class="mode-card-desc">Data integrity, business rules, and parallel system comparison for migration assurance.</div>
+            <span class="mode-card-tag">Data Layer</span>
+          </div>
+        </div>
+        <div class="slide-bottom">
+          <div class="wordmark" style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AIDAP-TX</div>
+          <div class="slide-counter">4 / 7</div>
+        </div>
+      </div>
+
+      <!-- ══════════════ SLIDE 5 — OUTCOMES ══════════════ -->
+      <div class="slide slide-5" data-slide="5">
+        <div class="eyebrow">Business Impact</div>
+        <div class="headline">Less effort. Higher accuracy. <span class="grad-text">Lower risk.</span></div>
+        <div class="outcome-list">
+          <div class="outcome-item">
+            <div class="outcome-bullet"></div>
+            <div class="outcome-text">
+              <div class="outcome-label">Reduced SME dependency</div>
+              <div class="outcome-desc">AI interprets requirements and designs test cases — your domain experts focus on exceptions, not scripts.</div>
+            </div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-bullet"></div>
+            <div class="outcome-text">
+              <div class="outcome-label">Faster delivery</div>
+              <div class="outcome-desc">Blueprint-driven automation cuts test cycle time by eliminating the manual test design phase entirely.</div>
+            </div>
+          </div>
+          <div class="outcome-item">
+            <div class="outcome-bullet"></div>
+            <div class="outcome-text">
+              <div class="outcome-label">Full traceability</div>
+              <div class="outcome-desc">Requirement to execution, every step is auditable — built for compliance-sensitive programs.</div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-bottom">
+          <div class="wordmark" style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AIDAP-TX</div>
+          <div class="slide-counter">5 / 7</div>
+        </div>
+      </div>
+
+      <!-- ══════════════ SLIDE 6 — TRANSFORMATION ══════════════ -->
+      <div class="slide slide-6" data-slide="6">
+        <div class="eyebrow">Built for Modernization</div>
+        <div class="headline">Parallel testing.<br>Model-based validation.</div>
+        <div class="support">Compare legacy and target systems side by side. Test behavior against requirements and intent. AIDAP-TX is built for programs where accuracy and confidence matter as much as speed.</div>
+
+        <div class="parallel-diagram">
+          <div class="parallel-track track-legacy">
+            <div class="track-label">Legacy System</div>
+            <div class="track-title">Source Environment</div>
+            <div class="track-items">
+              <div class="track-item">Existing business logic</div>
+              <div class="track-item">Historical data patterns</div>
+              <div class="track-item">Known behaviors &amp; edge cases</div>
+              <div class="track-item">Baseline output capture</div>
+            </div>
+          </div>
+          <div class="track-bridge">
+            <div class="bridge-lines"></div>
+            <div class="bridge-icon">⚖️</div>
+            <div class="bridge-label" style="position:relative;z-index:1;margin-top:8px;">Validate</div>
+          </div>
+          <div class="parallel-track track-target">
+            <div class="track-label">Target System</div>
+            <div class="track-title">Modern Environment</div>
+            <div class="track-items">
+              <div class="track-item">Rebuilt logic verification</div>
+              <div class="track-item">Output parity confirmation</div>
+              <div class="track-item">Regression surface mapping</div>
+              <div class="track-item">Confidence scoring</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-bottom">
+          <div class="wordmark" style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">AIDAP-TX</div>
+          <div class="slide-counter">6 / 7</div>
+        </div>
+      </div>
+
+      <!-- ══════════════ SLIDE 7 — CTA ══════════════ -->
+      <div class="slide slide-7" data-slide="7">
+        <div class="slide-7-inner">
+          <div class="top-bar"></div>
+          <div class="headline">Test <span class="grad-text">smarter</span>.<br>Accelerate transformation.</div>
+          <div class="support">Connect with Aiden AI to explore AIDAP-TX for your modernization, migration, or quality engineering program.</div>
+          <div class="cta-button">Request a Discussion &nbsp;→</div>
+        </div>
+        <div class="slide-bottom-center" style="border-top: 1px solid rgba(255,255,255,0.08);">
+          <div class="wordmark-centered">AIDAP-TX</div>
+          <div class="wordmark-sep"></div>
+          <div class="wordmark-centered">Aiden AI</div>
+          <div class="wordmark-sep"></div>
+          <div class="counter-centered">7 / 7</div>
+        </div>
+      </div>
+
+    </div><!-- /slides-wrapper -->
+  </div><!-- /slide-frame -->
+</div><!-- /viewer -->
+
+<!-- NAV BUTTONS -->
+<button class="nav-btn nav-prev" id="prevBtn" aria-label="Previous slide">&#8592;</button>
+<button class="nav-btn nav-next" id="nextBtn" aria-label="Next slide">&#8594;</button>
+
+<!-- DOT INDICATORS -->
+<div class="dots" id="dots" aria-label="Slide indicators"></div>
+
+<!-- KEYBOARD HINT -->
+<div class="key-hint">← → arrow keys to navigate</div>
+
+<script>
+  (function() {
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+    let isAnimating = false;
+    const TOTAL = slides.length;
+
+    // Build dots
+    for (let i = 0; i < TOTAL; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateDots(idx) {
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+    }
+
+    function updateButtons(idx) {
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === TOTAL - 1;
+    }
+
+    function goTo(idx) {
+      if (isAnimating || idx === current || idx < 0 || idx >= TOTAL) return;
+      isAnimating = true;
+
+      const direction = idx > current ? 1 : -1;
+      const outgoing = slides[current];
+      const incoming = slides[idx];
+
+      // Set incoming start position
+      incoming.style.transform = direction > 0 ? 'translateX(40px)' : 'translateX(-40px)';
+      incoming.style.opacity = '0';
+      incoming.style.transition = 'none';
+
+      // Force reflow
+      incoming.getBoundingClientRect();
+
+      // Exit outgoing
+      outgoing.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      outgoing.style.opacity = '0';
+      outgoing.style.transform = direction > 0 ? 'translateX(-40px)' : 'translateX(40px)';
+
+      // Enter incoming
+      incoming.style.transition = 'opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      incoming.style.opacity = '1';
+      incoming.style.transform = 'translateX(0)';
+
+      // After transition
+      setTimeout(() => {
+        outgoing.classList.remove('active');
+        outgoing.style.transform = 'translateX(40px)';
+        outgoing.style.opacity = '0';
+        outgoing.style.transition = '';
+        incoming.classList.add('active');
+        incoming.style.transition = '';
+        current = idx;
+        updateDots(current);
+        updateButtons(current);
+        isAnimating = false;
+      }, 420);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+    });
+
+    // Touch / swipe support
+    let touchStartX = 0;
+    const frame = document.querySelector('.slide-frame');
+    frame.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    frame.addEventListener('touchend',   (e) => {
+      const delta = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(delta) > 40) goTo(delta > 0 ? current + 1 : current - 1);
+    }, { passive: true });
+
+    updateButtons(0);
+  })();
+</script>
+</body>
+</html>

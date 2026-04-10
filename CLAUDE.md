@@ -68,6 +68,10 @@ Always load and apply the following skills when relevant:
 - **File**: `Skills/url-shortener-SKILL.md`
 - **When to use**: After deploying any marketing campaign to GitHub Pages or any public URL. Triggers: "shorten the URLs", "create short links", "links for external sharing", or automatically after any GitHub Pages deployment. Uses TinyURL public API (no auth required). Saves results to `Marketing/<campaign-name>/short-links.md` and commits to the repo.
 
+### Stock Analysis Skill
+- **File**: `Skills/stock-analysis-SKILL.md`
+- **When to use**: When the user wants a stock analysis report, value picks during market corrections, index performance screening (Nifty 50, Sensex, any index), or fundamental buy/sell recommendations. Covers 8-section DOCX report structure, standard screening filters (ROE >15%, PE <35, market leader), verdict definitions (STRONG BUY → AVOID), python-docx code patterns, and data sources. Reference implementation at `RFP/Stock_Analysis/generate_stock_report.py`. Output to `RFP/Stock_Analysis/`.
+
 ## File Organization
 
 - `RFP/` — All RFP-related files organized by client name
