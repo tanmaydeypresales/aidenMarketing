@@ -15,9 +15,19 @@
       --grad:linear-gradient(89deg,#103EE0 27.33%,#12DBD5 83.11%);
     }
     body{font-family:'Poppins',sans-serif;background:#edf1f7;color:var(--text);line-height:1.55;min-height:100vh;display:flex;flex-direction:column}
+    nav.fixed-menu{
+      position:fixed;top:0;left:0;right:0;height:64px;background:rgba(8,36,75,0.95);
+      backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;
+      justify-content:center;gap:32px;border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+    nav.fixed-menu a{
+      color:#fff;text-decoration:none;font-weight:600;font-size:14px;opacity:0.8;
+      transition:opacity 0.2s, color 0.2s;
+    }
+    nav.fixed-menu a:hover, nav.fixed-menu a.active{opacity:1;color:var(--cyan);}
     header.hero{
       background:linear-gradient(135deg,var(--dark-navy) 0%,var(--navy) 60%,var(--electric) 100%);
-      color:#fff;padding:80px 32px 96px;text-align:center;position:relative;overflow:hidden
+      color:#fff;padding:120px 32px 96px;text-align:center;position:relative;overflow:hidden
     }
     header.hero::after{
       content:"";position:absolute;inset:auto 0 -1px 0;height:40px;
@@ -26,7 +36,7 @@
     .tag{display:inline-block;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
     h1{font-size:48px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px}
     .sub{font-size:19px;opacity:.85;max-width:720px;margin:0 auto}
-    .user-bar{position:absolute;top:20px;right:28px;font-size:13px;display:flex;gap:14px;align-items:center}
+    .user-bar{position:absolute;top:76px;right:28px;font-size:13px;display:flex;gap:14px;align-items:center}
     .user-bar a{color:#fff;text-decoration:none;opacity:.85}
     .user-bar a:hover{opacity:1}
     .user-bar #who{opacity:.7}
@@ -42,10 +52,16 @@
     .card h2{font-size:24px;font-weight:700;color:var(--dark-navy)}
     .card p{color:var(--muted);font-size:14px}
     .card .open{color:var(--electric);font-weight:600;font-size:14px;margin-top:auto}
-    footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px;border-top:1px solid #e4ebf5;background:#fff}
+    footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px;border-top:1px solid #e4ebf5;background:#white}
   </style>
 </head>
 <body>
+  <nav class="fixed-menu">
+    <a href="index.html" class="active">Home</a>
+    <a href="commands.html">Commands</a>
+    <a href="marketing-output.html">Marketing Hub</a>
+    <a href="ba-guide/">BA Guide</a>
+  </nav>
   <header class="hero">
     <div class="user-bar">
       <span id="who"></span>
@@ -57,11 +73,17 @@
   </header>
   <main>
     <section class="grid">
-      <a class="card" href="/marketing/index.html">
+      <a class="card" href="marketing-output.html">
         <div class="icon">M</div>
         <h2>Marketing Assets</h2>
         <p>Campaign landing pages, LinkedIn carousels, one-pagers, email copy, and blog articles across all active Aiden AI campaigns.</p>
         <span class="open">Open Marketing Hub &rarr;</span>
+      </a>
+      <a class="card" href="commands.html">
+        <div class="icon">CMD</div>
+        <h2>Commands Guide</h2>
+        <p>Master reference for all 50+ agentic AI commands across RFP Response, Business Analysis, and Marketing workflows.</p>
+        <span class="open">Open Commands Guide &rarr;</span>
       </a>
       <a class="card" href="/ba-guide/">
         <div class="icon">BA</div>
