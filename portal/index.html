@@ -49,7 +49,7 @@
   <header class="hero">
     <div class="user-bar">
       <span id="who"></span>
-      <a href="/logout">Sign out</a>
+      <a href="/cdn-cgi/access/logout">Sign out</a>
     </div>
     <span class="tag">Aiden AI Portal</span>
     <h1>Welcome</h1>
@@ -73,12 +73,11 @@
   </main>
   <footer>
     &copy; Aiden AI Private Limited &middot; Authorized users only &middot;
-    <a href="/logout" style="color:var(--electric);text-decoration:none">Sign out</a>
+    <a href="/cdn-cgi/access/logout" style="color:var(--electric);text-decoration:none">Sign out</a>
   </footer>
   <script>
-    fetch('/.auth/me').then(r=>r.json()).then(d=>{
-      const p=d&&d.clientPrincipal;
-      if(p&&p.userDetails){document.getElementById('who').textContent=p.userDetails;}
+    fetch('/cdn-cgi/access/get-identity').then(r=>r.json()).then(d=>{
+      if(d&&d.email){document.getElementById('who').textContent=d.email;}
     }).catch(()=>{});
   </script>
 </body>
