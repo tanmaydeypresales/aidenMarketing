@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Meta title: Mainframe Modernisation Without the Knowledge Black Hole | Aiden AI -->
+  <!-- Meta description: AIDAP's 7 AI agents extract decades of buried business logic in hours — pricing rules, eligibility controls, system dependencies — so you can migrate with confidence, layer by layer. -->
+  <title>Mainframe Modernisation Without the Knowledge Black Hole | Aiden AI</title>
+  <meta name="description" content="AIDAP's 7 AI agents extract decades of buried business logic in hours — pricing rules, eligibility controls, system dependencies — so you can migrate with confidence, layer by layer.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy-deep:  #03091A;
+      --navy:       #083663;
+      --navy-mid:   #0D2A4E;
+      --cyan:       #41B5E1;
+      --teal:       #2193C2;
+      --gold:       #FFC000;
+      --white:      #E8EDF4;
+      --white-dim:  #8FA4BE;
+      --mono:       'JetBrains Mono', monospace;
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --sans:       'Barlow', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--navy-deep);
+      color: var(--white);
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Subtle dot-grid texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(65,181,225,0.07) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      height: 64px;
+      background: rgba(3, 9, 26, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(65, 181, 225, 0.1);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .nav-logo span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .nav-cta {
+      font-family: var(--mono) !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.10em !important;
+      text-transform: uppercase !important;
+      color: var(--navy-deep) !important;
+      background: var(--gold) !important;
+      padding: 8px 20px !important;
+      text-decoration: none !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: #FFD340 !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 55% 45%;
+      align-items: center;
+      padding: 120px 56px 80px;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: -5%;
+      width: 60%;
+      height: 120%;
+      background: radial-gradient(ellipse at 60% 40%, rgba(8,54,99,0.55) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-right: 40px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(46px, 5.2vw, 78px);
+      font-weight: 600;
+      line-height: 1.06;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 28px;
+      min-height: 1.2em;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.82em;
+      background: var(--gold);
+      margin-left: 3px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    .hero-sub {
+      font-size: clamp(17px, 1.8vw, 22px);
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--white-dim);
+      margin-bottom: 48px;
+      max-width: 500px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--navy-deep);
+      background: var(--gold);
+      padding: 15px 32px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #FFD340; transform: translateY(-2px); }
+
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: transparent;
+      padding: 15px 32px;
+      text-decoration: none;
+      border: 1px solid rgba(65, 181, 225, 0.28);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover {
+      border-color: var(--cyan);
+      background: rgba(65, 181, 225, 0.05);
+    }
+
+    /* ── Hero SVG ── */
+    .hero-visual {
+      position: relative;
+      z-index: 2;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual svg { width: 100%; height: 100%; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.72s ease, transform 0.72s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.10s; }
+    .reveal-d2 { transition-delay: 0.22s; }
+    .reveal-d3 { transition-delay: 0.34s; }
+    .reveal-d4 { transition-delay: 0.46s; }
+
+    /* ── SECTION COMMON ── */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    /* ── PROBLEM ── */
+    .problem {
+      padding: 128px 0;
+      background: linear-gradient(180deg, var(--navy-deep) 0%, #060F20 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: start;
+    }
+
+    .problem-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.2vw, 50px);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+
+    .problem-text p {
+      font-size: 16.5px;
+      font-weight: 300;
+      line-height: 1.88;
+      color: var(--white-dim);
+      margin-bottom: 20px;
+    }
+
+    .problem-text p em {
+      color: var(--white);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .callout-line {
+      margin-top: 36px;
+      padding: 18px 22px;
+      border-left: 2px solid var(--gold);
+      background: rgba(255, 192, 0, 0.04);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+    }
+
+    /* Week counter */
+    .week-block {
+      margin-bottom: 44px;
+    }
+    .week-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      margin-bottom: 10px;
+    }
+    .week-display {
+      font-family: var(--serif);
+      font-size: clamp(80px, 9vw, 118px);
+      font-weight: 700;
+      line-height: 1;
+      color: rgba(65, 181, 225, 0.12);
+      position: relative;
+      display: flex;
+      align-items: baseline;
+      gap: 0.12em;
+    }
+    .week-display .week-word {
+      font-size: 0.44em;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: rgba(65, 181, 225, 0.25);
+      text-transform: uppercase;
+    }
+    .week-num-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .week-num-ghost { color: rgba(65, 181, 225, 0.14); }
+    .week-num-fill {
+      position: absolute;
+      left: 0; top: 0;
+      color: var(--cyan);
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .week-num-fill.revealed { clip-path: inset(0 0% 0 0); }
+
+    /* Stall list */
+    .stall-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .stall-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 13px 18px;
+      background: rgba(8, 54, 99, 0.25);
+      border: 1px solid rgba(65, 181, 225, 0.08);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      color: var(--white-dim);
+      transition: border-color 0.2s;
+    }
+    .stall-item:hover { border-color: rgba(65, 181, 225, 0.22); }
+    .stall-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--teal);
+    }
+    .stall-item.hot .stall-dot { background: #E05050; }
+    .stall-item.hot { border-color: rgba(224, 80, 80, 0.12); }
+
+    /* ── SOLUTION ── */
+    .solution {
+      padding: 128px 0;
+      background: linear-gradient(180deg, #060F20 0%, #071830 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .solution-head {
+      margin-bottom: 72px;
+    }
+    .solution-head h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 3.2vw, 50px);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--white);
+      max-width: 580px;
+    }
+
+    .sol-card {
+      display: grid;
+      grid-template-columns: 108px 1fr;
+      gap: 0;
+      padding: 52px 0;
+      border-top: 1px solid rgba(65, 181, 225, 0.1);
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .sol-card:last-child { border-bottom: 1px solid rgba(65, 181, 225, 0.1); }
+    .sol-card:hover { background: rgba(65, 181, 225, 0.015); }
+
+    .sol-num {
+      font-family: var(--mono);
+      font-size: 52px;
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(65, 181, 225, 0.18);
+      line-height: 1;
+      padding-top: 6px;
+      transition: -webkit-text-stroke-color 0.3s;
+    }
+    .sol-card:hover .sol-num {
+      -webkit-text-stroke-color: rgba(65, 181, 225, 0.45);
+    }
+
+    .sol-body h3 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .sol-body p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--white-dim);
+      max-width: 600px;
+    }
+    .sol-tag {
+      display: inline-block;
+      margin-top: 22px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      padding: 6px 13px;
+      border: 1px solid rgba(65, 181, 225, 0.25);
+    }
+
+    /* ── PROOF ── */
+    .proof {
+      padding: 128px 0;
+      background: linear-gradient(180deg, #071830 0%, var(--navy) 100%);
+      position: relative;
+      z-index: 1;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: start;
+    }
+
+    .proof-text h2 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 3vw, 44px);
+      font-weight: 600;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 26px;
+    }
+    .proof-text p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--white-dim);
+      margin-bottom: 32px;
+    }
+
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tech-chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+      padding: 6px 13px;
+      border: 1px solid rgba(65, 181, 225, 0.2);
+      background: rgba(65, 181, 225, 0.04);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .tech-chip:hover {
+      border-color: rgba(65, 181, 225, 0.45);
+      background: rgba(65, 181, 225, 0.08);
+    }
+
+    .stat-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .stat-card {
+      padding: 30px 28px 30px 34px;
+      border: 1px solid rgba(65, 181, 225, 0.1);
+      background: rgba(3, 9, 26, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--gold);
+    }
+    .stat-value {
+      font-family: var(--serif);
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .stat-desc {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--white-dim);
+      line-height: 1.55;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      padding: 140px 0;
+      background: linear-gradient(135deg, var(--navy-deep) 0%, #071226 50%, var(--navy-deep) 100%);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(65,181,225,0.05) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .final-cta h2 {
+      font-family: var(--serif);
+      font-size: clamp(34px, 4.2vw, 62px);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .final-cta h2 .gold { color: var(--gold); }
+
+    .final-cta .lead {
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--white-dim);
+      max-width: 520px;
+      margin: 0 auto 52px;
+      position: relative;
+    }
+
+    .final-cta .btn-primary {
+      font-size: 13px;
+      padding: 17px 40px;
+      position: relative;
+    }
+
+    .no-commitment {
+      margin-top: 22px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: rgba(143, 164, 190, 0.45);
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 56px;
+      border-top: 1px solid rgba(65, 181, 225, 0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+    .footer-logo span { color: var(--cyan); }
+    .footer-legal {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(143, 164, 190, 0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 110px 24px 60px;
+      }
+      .hero-content { padding-right: 0; }
+      .hero-visual { display: none; }
+
+      .container { padding: 0 24px; }
+
+      .problem-grid,
+      .proof-grid {
+        grid-template-columns: 1fr;
+        gap: 56px;
+      }
+
+      .sol-card { grid-template-columns: 72px 1fr; }
+      .sol-num { font-size: 36px; }
+
+      footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 24px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-logo">Aiden<span>AI</span></div>
+    <ul class="nav-links">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#solution">AIDAP</a></li>
+      <li><a href="#proof">Capabilities</a></li>
+      <li><a href="#cta" class="nav-cta">Request Session</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <div class="hero-eyebrow">AIDAP &nbsp;·&nbsp; Mainframe Modernisation</div>
+      <h1 class="hero-h1">
+        <span id="typewriter-text"></span><span class="cursor" id="cursor"></span>
+      </h1>
+      <p class="hero-sub">AIDAP makes your mainframe legible — before you move a line.</p>
+      <div class="hero-ctas">
+        <a href="#cta" class="btn-primary">Request a discovery session</a>
+        <a href="#solution" class="btn-ghost">See how it works</a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="gHub" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#41B5E1" stop-opacity="0.25"/>
+            <stop offset="100%" stop-color="#41B5E1" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Background connection web -->
+        <g stroke="#41B5E1" stroke-width="0.5" opacity="0.15">
+          <line x1="240" y1="240" x2="120" y2="96"/>
+          <line x1="240" y1="240" x2="364" y2="96"/>
+          <line x1="240" y1="240" x2="76"  y2="278"/>
+          <line x1="240" y1="240" x2="404" y2="278"/>
+          <line x1="240" y1="240" x2="196" y2="388"/>
+          <line x1="240" y1="240" x2="344" y2="388"/>
+          <line x1="120" y1="96"  x2="76"  y2="278" stroke-dasharray="3 6"/>
+          <line x1="364" y1="96"  x2="404" y2="278" stroke-dasharray="3 6"/>
+          <line x1="76"  y1="278" x2="196" y2="388" stroke-dasharray="3 6"/>
+          <line x1="404" y1="278" x2="344" y2="388" stroke-dasharray="3 6"/>
+          <line x1="120" y1="96"  x2="196" y2="52"/>
+          <line x1="364" y1="96"  x2="304" y2="52"/>
+          <line x1="36"  y1="180" x2="120" y2="96"/>
+          <line x1="444" y1="180" x2="364" y2="96"/>
+        </g>
+
+        <!-- Animated data pulses -->
+        <circle r="3" fill="#41B5E1" opacity="0.9">
+          <animateMotion dur="2.8s" repeatCount="indefinite" path="M240,240 L120,96"/>
+        </circle>
+        <circle r="2.5" fill="#FFC000" opacity="0.7">
+          <animateMotion dur="3.8s" repeatCount="indefinite" begin="1.2s" path="M240,240 L404,278"/>
+        </circle>
+        <circle r="2" fill="#41B5E1" opacity="0.5">
+          <animateMotion dur="3.2s" repeatCount="indefinite" begin="0.6s" path="M76,278 L196,388"/>
+        </circle>
+        <circle r="2" fill="#2193C2" opacity="0.65">
+          <animateMotion dur="4.5s" repeatCount="indefinite" begin="2.1s" path="M364,96 L404,278"/>
+        </circle>
+        <circle r="1.5" fill="#FFC000" opacity="0.5">
+          <animateMotion dur="5s" repeatCount="indefinite" begin="0.3s" path="M196,388 L344,388"/>
+        </circle>
+
+        <!-- Central AIDAP node -->
+        <circle cx="240" cy="240" r="36" fill="url(#gHub)"/>
+        <circle cx="240" cy="240" r="24" fill="#0D2A4E" stroke="#41B5E1" stroke-width="1.2" filter="url(#glow)"/>
+        <text x="240" y="237" text-anchor="middle" font-family="'JetBrains Mono'" font-size="8" fill="#41B5E1" font-weight="700">AIDAP</text>
+        <text x="240" y="249" text-anchor="middle" font-family="'JetBrains Mono'" font-size="6" fill="#8FA4BE" letter-spacing="0.1em">AGENTS</text>
+
+        <!-- Satellite nodes -->
+        <g font-family="'JetBrains Mono'" text-anchor="middle">
+          <!-- COBOL -->
+          <circle cx="120" cy="96" r="15" fill="#03091A" stroke="rgba(65,181,225,0.35)" stroke-width="1"/>
+          <text x="120" y="93" font-size="6.5" fill="#8FA4BE">COBOL</text>
+          <text x="120" y="103" font-size="5" fill="rgba(143,164,190,0.4)">rules</text>
+
+          <!-- JCL -->
+          <circle cx="364" cy="96" r="15" fill="#03091A" stroke="rgba(65,181,225,0.35)" stroke-width="1"/>
+          <text x="364" y="93" font-size="7" fill="#8FA4BE">JCL</text>
+          <text x="364" y="103" font-size="5" fill="rgba(143,164,190,0.4)">jobs</text>
+
+          <!-- Workflows -->
+          <circle cx="76" cy="278" r="17" fill="#03091A" stroke="rgba(65,181,225,0.22)" stroke-width="1"/>
+          <text x="76" y="275" font-size="5.5" fill="#8FA4BE">WORK</text>
+          <text x="76" y="285" font-size="5" fill="rgba(143,164,190,0.4)">flows</text>
+
+          <!-- APIs -->
+          <circle cx="404" cy="278" r="17" fill="#03091A" stroke="rgba(65,181,225,0.22)" stroke-width="1"/>
+          <text x="404" y="275" font-size="6.5" fill="#8FA4BE">APIs</text>
+          <text x="404" y="285" font-size="5" fill="rgba(143,164,190,0.4)">integ.</text>
+
+          <!-- Pricing logic -->
+          <circle cx="196" cy="388" r="15" fill="#03091A" stroke="rgba(255,192,0,0.28)" stroke-width="1"/>
+          <text x="196" y="385" font-size="5" fill="#FFC000">PRICE</text>
+          <text x="196" y="395" font-size="5" fill="rgba(255,192,0,0.35)">logic</text>
+
+          <!-- Eligibility -->
+          <circle cx="344" cy="388" r="15" fill="#03091A" stroke="rgba(255,192,0,0.28)" stroke-width="1"/>
+          <text x="344" y="385" font-size="5" fill="#FFC000">ELIG.</text>
+          <text x="344" y="395" font-size="5" fill="rgba(255,192,0,0.35)">rules</text>
+
+          <!-- Outer dim nodes -->
+          <circle cx="196" cy="52" r="10" fill="#03091A" stroke="rgba(65,181,225,0.12)" stroke-width="1"/>
+          <text x="196" y="55" font-size="5" fill="rgba(143,164,190,0.35)">DB2</text>
+
+          <circle cx="304" cy="52" r="10" fill="#03091A" stroke="rgba(65,181,225,0.12)" stroke-width="1"/>
+          <text x="304" y="55" font-size="5" fill="rgba(143,164,190,0.35)">RPG</text>
+
+          <circle cx="36" cy="180" r="10" fill="#03091A" stroke="rgba(65,181,225,0.08)" stroke-width="1"/>
+          <text x="36" y="183" font-size="5" fill="rgba(143,164,190,0.25)">MQ</text>
+
+          <circle cx="444" cy="180" r="10" fill="#03091A" stroke="rgba(65,181,225,0.08)" stroke-width="1"/>
+          <text x="444" y="183" font-size="4.5" fill="rgba(143,164,190,0.25)">CICS</text>
+        </g>
+
+        <!-- Scanning rings -->
+        <circle cx="240" cy="240" r="55" fill="none" stroke="rgba(65,181,225,0.08)" stroke-width="1" stroke-dasharray="4 5">
+          <animateTransform attributeName="transform" type="rotate" from="0 240 240" to="360 240 240" dur="14s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="240" cy="240" r="90" fill="none" stroke="rgba(65,181,225,0.04)" stroke-width="1" stroke-dasharray="2 9">
+          <animateTransform attributeName="transform" type="rotate" from="360 240 240" to="0 240 240" dur="22s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ── PROBLEM ── -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+
+        <div class="reveal">
+          <div class="section-label">The Problem</div>
+          <h2>The modernisation programme that never moves</h2>
+          <p>Every bank and insurer has one. It sits in the roadmap. It gets a budget. A team assembles. Workshops happen.</p>
+          <p>Then, 8–12 weeks in, the programme stalls. Not because the technology isn't ready. Not because the team isn't capable.</p>
+          <p>Because nobody can answer the most fundamental question: <em>What is actually in this system — and what will break if we touch it?</em></p>
+          <p>Decades of business rules are embedded in legacy code, workflow engines, and integration layers. Nobody documented it. The architects who built it have moved on. The institutional memory is distributed across people who are <em>one resignation away from gone.</em></p>
+          <p>So the migration decision gets deferred. Again.</p>
+          <div class="callout-line">Staying put feels conservative. It isn't. It's a compounding risk.</div>
+        </div>
+
+        <div class="reveal reveal-d2">
+          <div class="week-block">
+            <div class="week-meta">Average programme stall point</div>
+            <div class="week-display" id="weekDisplay">
+              <span class="week-word">Week</span>
+              <span class="week-num-wrap">
+                <span class="week-num-ghost">8</span>
+                <span class="week-num-fill" id="weekFill">8</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="stall-list">
+            <div class="stall-item">
+              <span class="stall-dot"></span>
+              Business rules inventory — incomplete
+            </div>
+            <div class="stall-item">
+              <span class="stall-dot"></span>
+              System dependencies — fragmented and unclear
+            </div>
+            <div class="stall-item hot">
+              <span class="stall-dot"></span>
+              Subject matter experts — unavailable or departed
+            </div>
+            <div class="stall-item hot">
+              <span class="stall-dot"></span>
+              Migration risk — unquantified
+            </div>
+            <div class="stall-item">
+              <span class="stall-dot"></span>
+              Programme decision — deferred, again
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SOLUTION ── -->
+  <section class="solution" id="solution">
+    <div class="container">
+      <div class="solution-head reveal">
+        <div class="section-label">The Solution</div>
+        <h2>AIDAP: From opaque<br>to legible in hours</h2>
+      </div>
+
+      <div>
+        <div class="sol-card reveal reveal-d1">
+          <div class="sol-num">01</div>
+          <div class="sol-body">
+            <h3>Seven specialised AI agents read your system landscape</h3>
+            <p>In hours, not months. They extract every business rule from your mainframe, COBOL, workflows, and integration layers — translated into plain English your architects, product owners, and compliance teams can actually use. No SME marathons. No manual archaeology. No guessing.</p>
+            <span class="sol-tag">7 agents &nbsp;·&nbsp; hours, not months &nbsp;·&nbsp; plain English output</span>
+          </div>
+        </div>
+
+        <div class="sol-card reveal reveal-d2">
+          <div class="sol-num">02</div>
+          <div class="sol-body">
+            <h3>A structured knowledge map you can build on</h3>
+            <p>Your pricing logic. Eligibility rules. Product controls. System dependencies. Visible, structured, and governable — for the first time. Accurate enough to plan a migration from. Auditable enough to satisfy risk and compliance.</p>
+            <span class="sol-tag">visible &nbsp;·&nbsp; governable &nbsp;·&nbsp; compliance-ready</span>
+          </div>
+        </div>
+
+        <div class="sol-card reveal reveal-d3">
+          <div class="sol-num">03</div>
+          <div class="sol-body">
+            <h3>Migrate layer by layer, with AI embedded from day one</h3>
+            <p>Not a big-bang cutover. Not a replica of your old system. A phased migration where AI intelligence is embedded at each layer — so the system you end up with is smarter, more adaptive, and faster to change than the one you left behind.</p>
+            <span class="sol-tag">phased migration &nbsp;·&nbsp; no concentrated risk &nbsp;·&nbsp; AI-native result</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROOF ── -->
+  <section class="proof" id="proof">
+    <div class="container">
+      <div class="proof-grid">
+
+        <div class="reveal">
+          <div class="section-label">Capabilities</div>
+          <h2>Built for banking and insurance</h2>
+          <p>We've seen the knowledge problem across core banking platforms, policy administration systems, and claims engines built over decades. AIDAP was engineered for exactly this landscape.</p>
+          <p>Outputs map to TOGAF-compatible documentation standards. Compliance-ready audit trail from day one.</p>
+          <div class="tech-grid">
+            <span class="tech-chip">COBOL</span>
+            <span class="tech-chip">JCL</span>
+            <span class="tech-chip">RPG</span>
+            <span class="tech-chip">Assembler</span>
+            <span class="tech-chip">CICS</span>
+            <span class="tech-chip">DB2</span>
+            <span class="tech-chip">MQ Series</span>
+            <span class="tech-chip">VSAM</span>
+            <span class="tech-chip">Legacy Workflows</span>
+            <span class="tech-chip">TOGAF</span>
+            <span class="tech-chip">SOC 2</span>
+          </div>
+        </div>
+
+        <div class="stat-cards reveal reveal-d2">
+          <div class="stat-card">
+            <div class="stat-value">7</div>
+            <div class="stat-desc">Specialised AI agents working in parallel<br>across your full system landscape</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">Hours</div>
+            <div class="stat-desc">To extract business rules that previously took<br>months of SME interviews to surface</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-desc">Integration requirements needed<br>to begin the discovery session</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ── -->
+  <section class="final-cta" id="cta">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label" style="justify-content:center; margin-bottom:28px;">Discovery Session</div>
+        <h2>See your system through AIDAP<br>in <span class="gold">48 hours</span></h2>
+        <p class="lead">A structured discovery session — your architecture team, our agents. At the end, you have a preliminary knowledge map of one system domain.</p>
+        <a href="#" class="btn-primary">Request a discovery session &nbsp;→</a>
+        <div class="no-commitment">No commitment &nbsp;·&nbsp; No integration required &nbsp;·&nbsp; Results in 48 hours</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">Aiden<span>AI</span></div>
+    <div class="footer-legal">© 2026 Aiden AI. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // ── Typewriter ──
+    const fullText = "You can't migrate\nwhat you can't see.";
+    const displayText = "You can't migrate what you can't see.";
+    const el = document.getElementById('typewriter-text');
+    const cursorEl = document.getElementById('cursor');
+    let idx = 0;
+
+    function type() {
+      if (idx < displayText.length) {
+        el.textContent += displayText[idx];
+        idx++;
+        setTimeout(type, idx < 10 ? 80 : 52);
+      } else {
+        // Keep cursor blinking after done
+      }
+    }
+    setTimeout(type, 700);
+
+    // ── Scroll Reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // ── Week fill animation ──
+    const weekFill = document.getElementById('weekFill');
+    const weekObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          setTimeout(() => weekFill.classList.add('revealed'), 300);
+          weekObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    const weekDisplay = document.getElementById('weekDisplay');
+    if (weekDisplay) weekObs.observe(weekDisplay);
+
+    // ── Subtle hero parallax ──
+    const heroEl = document.querySelector('.hero');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (heroEl && window.scrollY < window.innerHeight) {
+            heroEl.style.transform = `translateY(${window.scrollY * 0.08}px)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Carousel — Mainframe Modernisation | Aiden AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy-deep:  #03091A;
+      --navy:       #083663;
+      --navy-mid:   #0D2A4E;
+      --cyan:       #41B5E1;
+      --teal:       #2193C2;
+      --gold:       #FFC000;
+      --white:      #E8EDF4;
+      --white-dim:  #8FA4BE;
+      --red:        #E05555;
+      --mono:       'JetBrains Mono', monospace;
+      --serif:      'Cormorant Garamond', Georgia, serif;
+      --sans:       'Barlow', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--navy-deep);
+      color: var(--white);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    /* Dot grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(65,181,225,0.07) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Page title */
+    .page-title {
+      position: relative;
+      z-index: 1;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .page-title span { color: var(--cyan); }
+
+    /* Carousel wrapper */
+    .carousel-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 540px;
+    }
+
+    /* Slide container — enforces 1:1 aspect */
+    .carousel-viewport {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(65,181,225,0.08);
+    }
+
+    /* Individual slides */
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ── Controls ── */
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .arrow-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(65,181,225,0.2);
+      background: rgba(8,54,99,0.3);
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(8px);
+    }
+    .arrow-btn:hover {
+      background: rgba(65,181,225,0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .arrow-btn:active { transform: scale(0.95); }
+
+    .slide-counter {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--white-dim);
+      min-width: 60px;
+      text-align: center;
+    }
+    .slide-counter .current-num { color: var(--white); font-weight: 700; }
+
+    /* Progress dots */
+    .progress-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(143,164,190,0.3);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .dot.active {
+      background: var(--cyan);
+      box-shadow: 0 0 8px rgba(65,181,225,0.4);
+      width: 20px;
+      border-radius: 3px;
+    }
+
+    /* Swipe hint */
+    .swipe-hint {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(143,164,190,0.4);
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* ══════════════════════════════════════════════
+       SLIDE 1 — HOOK / COVER
+       ══════════════════════════════════════════════ */
+    .slide-1 {
+      background: linear-gradient(165deg, #061632 0%, var(--navy-deep) 50%, #040B1F 100%);
+      padding: 0;
+    }
+    .slide-1 .s1-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 44px;
+      position: relative;
+    }
+    /* Corner accents */
+    .slide-1 .s1-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background:
+        linear-gradient(135deg, rgba(65,181,225,0.06) 0%, transparent 40%),
+        linear-gradient(315deg, rgba(255,192,0,0.04) 0%, transparent 30%);
+      pointer-events: none;
+    }
+    /* Gold accent line */
+    .slide-1 .gold-line {
+      width: 48px;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 20px;
+    }
+    .slide-1 .s1-brand {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      margin-bottom: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-1 .s1-brand span { color: var(--cyan); }
+    .slide-1 .s1-content {
+      position: relative;
+      z-index: 1;
+    }
+    .slide-1 h1 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 7vw, 46px);
+      font-weight: 600;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .slide-1 .s1-sub {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--cyan);
+    }
+    .slide-1 .s1-footer {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: auto;
+      padding-top: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ══════════════════════════════════════════════
+       SLIDE 2 — THE PATTERN
+       ══════════════════════════════════════════════ */
+    .slide-2 {
+      background: linear-gradient(170deg, #071B3A 0%, var(--navy-deep) 100%);
+      padding: 0;
+    }
+    .slide-2 .s2-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Large ghosted "WEEK 8" text */
+    .slide-2 .week8-ghost {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      font-family: var(--serif);
+      font-size: clamp(100px, 22vw, 160px);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(65,181,225,0.08);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .slide-2 .s2-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-2 .s2-intro {
+      font-family: var(--sans);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+      line-height: 1.5;
+    }
+    .slide-2 .pain-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-2 .pain-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      margin-top: 6px;
+      box-shadow: 0 0 10px rgba(224,85,85,0.4);
+    }
+    .slide-2 .pain-text {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--white-dim);
+    }
+    .slide-2 .pain-text strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+    .slide-2 .s2-callout {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,192,0,0.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ══════════════════════════════════════════════
+       SLIDE 3 — THE REAL PROBLEM
+       ══════════════════════════════════════════════ */
+    .slide-3 {
+      background: var(--navy-deep);
+      padding: 0;
+    }
+    .slide-3 .s3-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .slide-3 .s3-top {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 44px 32px;
+      position: relative;
+    }
+    /* Subtle right panel depth effect */
+    .slide-3 .s3-top::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 35%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent 0%, rgba(13,42,78,0.4) 100%);
+      pointer-events: none;
+    }
+    .slide-3 .s3-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-3 .s3-quote {
+      font-family: var(--serif);
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.35;
+      color: var(--white);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      padding-left: 20px;
+      border-left: 3px solid rgba(65,181,225,0.25);
+    }
+    .slide-3 .s3-body {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--white-dim);
+      position: relative;
+      z-index: 1;
+    }
+    .slide-3 .s3-bottom {
+      padding: 24px 44px;
+      border-top: 1px solid rgba(255,192,0,0.12);
+    }
+    .slide-3 .s3-bottom-text {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+    }
+
+    /* ══════════════════════════════════════════════
+       SLIDE 4 — THE AIDAP FIX
+       ══════════════════════════════════════════════ */
+    .slide-4 {
+      background: linear-gradient(175deg, #061C3C 0%, var(--navy-deep) 100%);
+      padding: 0;
+    }
+    .slide-4 .s4-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 48px 44px;
+    }
+    .slide-4 .s4-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 32px;
+    }
+    .slide-4 .step {
+      display: flex;
+      gap: 18px;
+      padding: 20px 0;
+      position: relative;
+    }
+    .slide-4 .step-active {
+      padding-left: 18px;
+      border-left: 3px solid var(--gold);
+    }
+    .slide-4 .step-dim {
+      padding-left: 18px;
+      border-left: 1px solid rgba(143,164,190,0.15);
+      opacity: 0.35;
+    }
+    .slide-4 .step-num {
+      font-family: var(--mono);
+      font-size: 32px;
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 52px;
+    }
+    .slide-4 .step-dim .step-num {
+      -webkit-text-stroke-color: var(--white-dim);
+    }
+    .slide-4 .step-content h3 {
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .slide-4 .step-content p {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--white-dim);
+      margin-bottom: 10px;
+    }
+    .slide-4 .step-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(65,181,225,0.08);
+      padding: 4px 10px;
+      display: inline-block;
+    }
+    .slide-4 .step-dim h3 {
+      font-size: 14px;
+      color: var(--white-dim);
+    }
+
+    /* ══════════════════════════════════════════════
+       SLIDE 5 — THE OUTPUT
+       ══════════════════════════════════════════════ */
+    .slide-5 {
+      background: linear-gradient(170deg, #061832 0%, var(--navy-deep) 100%);
+      padding: 0;
+    }
+    .slide-5 .s5-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 44px 36px;
+    }
+    .slide-5 .s5-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 14px;
+    }
+    .slide-5 .s5-headline {
+      font-family: var(--serif);
+      font-size: clamp(24px, 5.5vw, 32px);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 28px;
+      line-height: 1.2;
+    }
+
+    /* Node map grid */
+    .node-map {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 16px;
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .node {
+      background: rgba(3,9,26,0.7);
+      border: 1px solid rgba(65,181,225,0.25);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      position: relative;
+      z-index: 2;
+      transition: border-color 0.3s;
+    }
+    .node:hover {
+      border-color: var(--gold);
+      box-shadow: 0 0 16px rgba(255,192,0,0.1);
+    }
+
+    /* SVG connections drawn behind grid */
+    .node-connections {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .node-connections line {
+      stroke: var(--gold);
+      stroke-width: 1;
+      opacity: 0.25;
+    }
+
+    .slide-5 .s5-footer {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--white-dim);
+      line-height: 1.5;
+    }
+
+    /* ══════════════════════════════════════════════
+       SLIDE 6 — CTA
+       ══════════════════════════════════════════════ */
+    .slide-6 {
+      background: var(--gold);
+      padding: 0;
+    }
+    .slide-6 .s6-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 52px 48px;
+      position: relative;
+    }
+    /* Subtle texture on gold */
+    .slide-6 .s6-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(3,9,26,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+    .slide-6 .s6-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-6 h2 {
+      font-family: var(--serif);
+      font-size: clamp(30px, 7vw, 44px);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--navy-deep);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-6 .s6-body {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--navy);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .slide-6 .cta-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--navy-deep);
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 16px 28px;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+    }
+    .slide-6 .cta-block:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(3,9,26,0.3);
+    }
+    .slide-6 .s6-url {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      color: var(--navy);
+      opacity: 0.6;
+      margin-top: auto;
+      padding-top: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 580px) {
+      body { padding: 24px 12px; }
+      .carousel-wrapper { max-width: 100%; }
+      .slide-1 .s1-inner { padding: 32px 28px; }
+      .slide-2 .s2-inner { padding: 32px 28px; }
+      .slide-3 .s3-top { padding: 32px 28px 24px; }
+      .slide-3 .s3-bottom { padding: 18px 28px; }
+      .slide-4 .s4-inner { padding: 32px 28px; }
+      .slide-5 .s5-inner { padding: 32px 24px; }
+      .slide-6 .s6-inner { padding: 36px 28px; }
+      .slide-1 h1 { font-size: 28px; }
+      .slide-6 h2 { font-size: 28px; }
+      .slide-2 .week8-ghost { font-size: 90px; }
+      .node { font-size: 9px; padding: 8px 4px; }
+      .arrow-btn { width: 40px; height: 40px; font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-title">LinkedIn Carousel Preview <span>/</span> Mainframe Modernisation</div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-viewport">
+
+      <!-- ═══ SLIDE 1 — HOOK ═══ -->
+      <div class="slide slide-1 active" data-slide="1">
+        <div class="s1-inner">
+          <div class="s1-brand">AIDAP <span>&middot;</span> Mainframe Modernisation</div>
+          <div class="s1-content">
+            <div class="gold-line"></div>
+            <h1>Why modernisation programmes stall at week&nbsp;8</h1>
+            <div class="s1-sub">And what actually fixes it</div>
+          </div>
+          <div class="s1-footer">Aiden AI</div>
+        </div>
+      </div>
+
+      <!-- ═══ SLIDE 2 — THE PATTERN ═══ -->
+      <div class="slide slide-2" data-slide="2">
+        <div class="s2-inner">
+          <div class="week8-ghost">WEEK 8</div>
+          <div class="s2-label">The Pattern</div>
+          <div class="s2-intro">Every bank. Every insurer. Same story.</div>
+          <div class="pain-item">
+            <div class="pain-dot"></div>
+            <div class="pain-text"><strong>Business rules</strong> &mdash; buried and undocumented</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-dot"></div>
+            <div class="pain-text"><strong>Dependencies</strong> &mdash; fragmented across systems</div>
+          </div>
+          <div class="pain-item">
+            <div class="pain-dot"></div>
+            <div class="pain-text"><strong>SMEs</strong> &mdash; departed or unavailable</div>
+          </div>
+          <div class="s2-callout">The programme stalls. Again.</div>
+        </div>
+      </div>
+
+      <!-- ═══ SLIDE 3 — THE REAL PROBLEM ═══ -->
+      <div class="slide slide-3" data-slide="3">
+        <div class="s3-inner">
+          <div class="s3-top">
+            <div class="s3-label">The Root Cause</div>
+            <div class="s3-quote">&ldquo;Nobody documented it. The people who built it have moved&nbsp;on.&rdquo;</div>
+            <div class="s3-body">Decades of pricing logic, eligibility rules, and product controls &mdash; embedded in systems that new teams can&rsquo;t read with confidence.</div>
+          </div>
+          <div class="s3-bottom">
+            <div class="s3-bottom-text">This is a knowledge problem.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SLIDE 4 — THE AIDAP FIX ═══ -->
+      <div class="slide slide-4" data-slide="4">
+        <div class="s4-inner">
+          <div class="s4-label">How AIDAP Solves It</div>
+          <div class="step step-active">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h3>7 AI agents read your system landscape; 1. Discovery agent 2. Rules Agent </h3>
+              <p>Hours, not months. Every COBOL rule, every JCL dependency, every workflow &mdash; extracted and translated into plain&nbsp;English.</p>
+              <span class="step-tag">hours &middot; not months</span>
+            </div>
+          </div>
+          <div class="step step-dim">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h3>Business rules surfaced as structured knowledge</h3>
+            </div>
+          </div>
+          <div class="step step-dim">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h3>Migration path generated with dependency mapping</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SLIDE 5 — THE OUTPUT ═══ -->
+      <div class="slide slide-5" data-slide="5">
+        <div class="s5-inner">
+          <div class="s5-label">The Output</div>
+          <div class="s5-headline">Your system, finally legible</div>
+          <div class="node-map" id="nodeMap">
+            <svg class="node-connections" id="nodeLines" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <!-- Connections drawn by JS -->
+            </svg>
+            <div class="node" data-node="0">Pricing Logic</div>
+            <div class="node" data-node="1">Eligibility Rules</div>
+            <div class="node" data-node="2">Product Controls</div>
+            <div class="node" data-node="3">Carrier Rules</div>
+            <div class="node" data-node="4">State DOI</div>
+            <div class="node" data-node="5">System APIs</div>
+          </div>
+          <div class="s5-footer">Visible. Structured. Governable.<br>For the first time.</div>
+        </div>
+      </div>
+
+      <!-- ═══ SLIDE 6 — CTA ═══ -->
+      <div class="slide slide-6" data-slide="6">
+        <div class="s6-inner">
+          <div class="s6-label">Aiden AI &middot; AIDAP</div>
+          <h2>See your system in 48&nbsp;hours</h2>
+          <div class="s6-body">Discovery session. Your architecture team. Our agents. One system domain mapped. No commitment.</div>
+          <a class="cta-block" href="#">&rarr;&ensp;Request a discovery session</a>
+          <div class="s6-url">aidenai.com</div>
+        </div>
+      </div>
+
+    </div><!-- /carousel-viewport -->
+
+    <!-- Controls -->
+    <div class="carousel-controls">
+      <button class="arrow-btn" id="prevBtn" aria-label="Previous slide">&#8592;</button>
+      <div class="slide-counter"><span class="current-num" id="currentNum">1</span> / <span id="totalNum">6</span></div>
+      <button class="arrow-btn" id="nextBtn" aria-label="Next slide">&#8594;</button>
+    </div>
+
+    <div class="progress-dots" id="progressDots">
+      <div class="dot active" data-dot="0"></div>
+      <div class="dot" data-dot="1"></div>
+      <div class="dot" data-dot="2"></div>
+      <div class="dot" data-dot="3"></div>
+      <div class="dot" data-dot="4"></div>
+      <div class="dot" data-dot="5"></div>
+    </div>
+
+    <div class="swipe-hint">&#8592; &ensp;Use arrows or keyboard&ensp; &#8594;</div>
+
+  </div><!-- /carousel-wrapper -->
+
+  <script>
+    (function () {
+      var slides = document.querySelectorAll('.slide');
+      var dots   = document.querySelectorAll('.dot');
+      var numEl  = document.getElementById('currentNum');
+      var total  = slides.length;
+      var current = 0;
+
+      function goTo(idx) {
+        if (idx < 0) idx = total - 1;
+        if (idx >= total) idx = 0;
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = idx;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        numEl.textContent = current + 1;
+      }
+
+      document.getElementById('prevBtn').addEventListener('click', function () { goTo(current - 1); });
+      document.getElementById('nextBtn').addEventListener('click', function () { goTo(current + 1); });
+
+      dots.forEach(function (d) {
+        d.addEventListener('click', function () {
+          goTo(parseInt(d.getAttribute('data-dot'), 10));
+        });
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft')  goTo(current - 1);
+        if (e.key === 'ArrowRight') goTo(current + 1);
+      });
+
+      // Draw node-map connections for slide 5
+      function drawLines() {
+        var map = document.getElementById('nodeMap');
+        var svg = document.getElementById('nodeLines');
+        var nodes = map.querySelectorAll('.node');
+        if (!map || !svg || nodes.length < 6) return;
+
+        var mapRect = map.getBoundingClientRect();
+        svg.setAttribute('viewBox', '0 0 ' + mapRect.width + ' ' + mapRect.height);
+
+        // Get center points of each node
+        var centers = [];
+        nodes.forEach(function (n) {
+          var r = n.getBoundingClientRect();
+          centers.push({
+            x: r.left - mapRect.left + r.width / 2,
+            y: r.top  - mapRect.top  + r.height / 2
+          });
+        });
+
+        // Define connections: pairs of node indices
+        var connections = [
+          [0, 1], [1, 2], [0, 3], [1, 4], [2, 5],
+          [3, 4], [4, 5], [0, 4], [1, 5]
+        ];
+
+        svg.innerHTML = '';
+        connections.forEach(function (pair) {
+          var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', centers[pair[0]].x);
+          line.setAttribute('y1', centers[pair[0]].y);
+          line.setAttribute('x2', centers[pair[1]].x);
+          line.setAttribute('y2', centers[pair[1]].y);
+          line.setAttribute('stroke', '#FFC000');
+          line.setAttribute('stroke-width', '1');
+          line.setAttribute('opacity', '0.2');
+          svg.appendChild(line);
+        });
+      }
+
+      // Draw after fonts load and on resize
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          setTimeout(drawLines, 100);
+        });
+      } else {
+        window.addEventListener('load', function () {
+          setTimeout(drawLines, 200);
+        });
+      }
+      window.addEventListener('resize', drawLines);
+
+      // Touch/swipe support
+      var startX = 0;
+      var viewport = document.querySelector('.carousel-viewport');
+      viewport.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      viewport.addEventListener('touchend', function (e) {
+        var diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          if (diff > 0) goTo(current + 1);
+          else goTo(current - 1);
+        }
+      }, { passive: true });
+    })();
+  </script>
+
+</body>
+</html>

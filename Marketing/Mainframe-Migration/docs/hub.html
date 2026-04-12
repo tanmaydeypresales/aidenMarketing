@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIDAP Mainframe Modernisation — Campaign Assets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #083663;
+      --navy-deep: #03091A;
+      --cyan:    #41B5E1;
+      --teal:    #2193C2;
+      --gold:    #FFC000;
+      --white:   #E8EDF4;
+      --dim:     #8FA4BE;
+    }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      padding: 48px 24px 80px;
+    }
+
+    /* dot grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #41B5E1 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+
+    header { margin-bottom: 56px; border-left: 3px solid var(--gold); padding-left: 20px; }
+    .brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    header h1 {
+      font-size: clamp(22px, 4vw, 34px);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--white);
+    }
+    header h1 strong { font-weight: 600; }
+    header p {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #0B1D34;
+      border: 1px solid rgba(65,181,225,0.15);
+      padding: 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 0;
+      background: var(--gold);
+      transition: height 0.25s;
+    }
+    .card:hover { border-color: rgba(65,181,225,0.45); transform: translateY(-2px); }
+    .card:hover::before { height: 100%; }
+
+    .card-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .card h2 { font-size: 16px; font-weight: 600; line-height: 1.35; margin-bottom: 8px; }
+    .card p  { font-size: 13px; color: var(--dim); line-height: 1.6; }
+
+    .card-arrow {
+      margin-top: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+
+    .card.pdf .card-type { color: var(--gold); }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(65,181,225,0.12);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+    }
+    footer span { color: var(--cyan); }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <header>
+      <div class="brand">Aiden AI &nbsp;·&nbsp; AIDAP &nbsp;·&nbsp; Campaign Assets</div>
+      <h1>Mainframe Modernisation<br><strong>Campaign Hub</strong></h1>
+      <p>All published assets for the AIDAP Mainframe Modernisation campaign.</p>
+    </header>
+
+    <div class="grid">
+
+      <a class="card" href="index.html">
+        <div class="card-type">Landing Page</div>
+        <h2>You can't migrate what you can't see</h2>
+        <p>Main campaign landing page. Hero, problem, solution, proof, and discovery session CTA.</p>
+        <div class="card-arrow">View page →</div>
+      </a>
+
+      <a class="card" href="blog.html">
+        <div class="card-type">Blog Article</div>
+        <h2>The Knowledge Black Hole at the Heart of Every Mainframe Programme</h2>
+        <p>~1,200-word practitioner article for SEO and thought leadership. LinkedIn and website ready.</p>
+        <div class="card-arrow">Read article →</div>
+      </a>
+
+      <a class="card" href="emails.html">
+        <div class="card-type">Email Sequence</div>
+        <h2>3-Email Outbound Cadence + Nurture</h2>
+        <p>Cold outreach, opener follow-up, final close, and event nurture — rendered as inbox preview.</p>
+        <div class="card-arrow">Preview emails →</div>
+      </a>
+
+      <a class="card" href="carousel.html">
+        <div class="card-type">LinkedIn Carousel</div>
+        <h2>Why Modernisation Programmes Stall at Week 8</h2>
+        <p>6-slide interactive carousel. Swipeable preview with keyboard + touch navigation.</p>
+        <div class="card-arrow">View carousel →</div>
+      </a>
+
+      <a class="card pdf" href="carousel.pdf" target="_blank">
+        <div class="card-type">Download PDF</div>
+        <h2>LinkedIn Carousel — Print / Upload Ready</h2>
+        <p>Pixel-perfect PDF export of the 6-slide carousel. Ready for LinkedIn document post or offline sharing.</p>
+        <div class="card-arrow">Download PDF ↓</div>
+      </a>
+
+    </div>
+
+    <footer>
+      <span>AIDAP</span> &nbsp;·&nbsp; Aiden AI Private Limited &nbsp;·&nbsp; Mainframe Modernisation Campaign &nbsp;·&nbsp; 2026
+    </footer>
+
+  </div>
+</body>
+</html>

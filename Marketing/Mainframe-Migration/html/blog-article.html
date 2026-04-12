@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Mainframe Modernisation Programmes Stall — And What Actually Fixes It | Aiden AI</title>
+    <meta name="description" content="Most modernisation programmes fail before they start. The problem isn't technology — it's buried knowledge. Here's what changes when you extract first and migrate second.">
+    <meta property="og:title" content="Why Mainframe Modernisation Programmes Stall — And What Actually Fixes It | Aiden AI">
+    <meta property="og:description" content="Most modernisation programmes fail before they start. The problem isn't technology — it's buried knowledge. Here's what changes when you extract first and migrate second.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #03091A;
+            --navy-mid: #083663;
+            --cyan: #41B5E1;
+            --gold: #FFC000;
+            --white: #E8EDF4;
+            --muted: #8FA4BE;
+            --card-bg: #0A1628;
+            --border-subtle: rgba(65, 181, 225, 0.15);
+        }
+
+        body {
+            background-color: var(--navy);
+            color: var(--white);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 1.9;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Dot-grid texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, rgba(65, 181, 225, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Sticky nav */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(3, 9, 26, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 0 24px;
+        }
+
+        .nav-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-logo span {
+            color: var(--cyan);
+        }
+
+        .nav-cta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--navy);
+            background: var(--gold);
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background 0.25s ease, transform 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            background: #e6ad00;
+            transform: translateY(-1px);
+        }
+
+        /* Article container */
+        .article-container {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px 120px;
+        }
+
+        /* Article header */
+        .article-category {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 24px;
+        }
+
+        .article-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: clamp(36px, 5.5vw, 54px);
+            line-height: 1.15;
+            color: var(--white);
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .article-meta .separator {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--muted);
+        }
+
+        .article-divider {
+            width: 64px;
+            height: 2px;
+            background: var(--cyan);
+            margin: 48px 0;
+            opacity: 0.6;
+        }
+
+        /* Section headings */
+        .article-container h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 32px;
+            line-height: 1.3;
+            color: var(--white);
+            margin-top: 56px;
+            margin-bottom: 24px;
+        }
+
+        /* Body paragraphs */
+        .article-container p {
+            margin-bottom: 24px;
+            color: var(--white);
+            opacity: 0.92;
+        }
+
+        /* Pull quotes */
+        .pull-quote {
+            border-left: 3px solid var(--gold);
+            padding: 8px 0 8px 28px;
+            margin: 48px 0;
+        }
+
+        .pull-quote p {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 26px;
+            line-height: 1.5;
+            color: var(--white);
+            opacity: 1;
+            margin-bottom: 0;
+        }
+
+        /* Callout / stat boxes */
+        .callout-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--cyan);
+            padding: 24px 28px;
+            margin: 36px 0;
+        }
+
+        .callout-box .callout-stat {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .callout-box p {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 0;
+            color: var(--muted);
+        }
+
+        /* Strong text */
+        .article-container strong {
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        /* Links in body */
+        .article-container a {
+            color: var(--cyan);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s ease;
+        }
+
+        .article-container a:hover {
+            color: var(--gold);
+        }
+
+        /* Bottom CTA block */
+        .cta-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border-subtle);
+            padding: 56px 48px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .cta-block h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 28px;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .cta-block p {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 480px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--navy);
+            background: var(--gold);
+            border: none;
+            padding: 16px 36px;
+            text-decoration: none;
+            transition: background 0.25s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: #e6ad00;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .footer-logo span {
+            color: var(--cyan);
+        }
+
+        .footer-copy {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            opacity: 0.5;
+        }
+
+        /* Fade-in animation */
+        .fade-section {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .article-container {
+                padding: 48px 20px 80px;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .pull-quote p {
+                font-size: 22px;
+            }
+
+            .cta-block {
+                padding: 40px 24px;
+            }
+
+            .article-meta {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .article-meta .separator {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sticky Nav -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="https://aidenai.com" class="nav-logo">AIDEN <span>AI</span></a>
+            <a href="https://aidenai.com/contact" class="nav-cta">Request Discovery Session</a>
+        </div>
+    </nav>
+
+    <!-- Article -->
+    <article class="article-container">
+
+        <!-- Header -->
+        <header class="fade-section">
+            <div class="article-category">Mainframe Modernisation</div>
+            <h1 class="article-title">Why Every Mainframe Modernisation Programme Stalls — And What Actually Fixes It</h1>
+            <div class="article-meta">
+                <span>Aiden AI</span>
+                <span class="separator"></span>
+                <span>7 min read</span>
+            </div>
+            <div class="article-divider"></div>
+        </header>
+
+        <!-- Section 1: The Pattern -->
+        <section class="fade-section">
+            <h2>The Pattern Nobody Wants to Talk About</h2>
+
+            <p>You have seen the slide deck. The one with the three-phase arrow, the 18-month timeline, and the confident assertion that by Q4 next year, the legacy estate will be rationalised. The board approved it. The programme got funded. A systems integrator was engaged.</p>
+
+            <p>And then it stalled.</p>
+
+            <p>Not spectacularly. Not with a dramatic failure or a headline-making write-off. It stalled the way most modernisation programmes stall: quietly, in phases, through a slow accumulation of missed milestones, expanded discovery windows, and a growing suspicion that nobody fully understands what the mainframe actually does. By month six, the steering committee is asking harder questions. By month nine, the programme is "re-baselined." By month fourteen, it is shelved until the next budget cycle.</p>
+
+            <div class="callout-box">
+                <div class="callout-stat">Industry benchmark</div>
+                <p>Gartner estimates that 70% of large-scale modernisation efforts either stall or fail to deliver their intended outcomes.</p>
+            </div>
+
+            <p>This is not an occasional failure mode. It is the dominant one. If you have led technology strategy at a bank or insurance carrier for any length of time, you have either lived through this pattern or inherited the consequences of someone else's attempt.</p>
+        </section>
+
+        <!-- Section 2: The Real Problem -->
+        <section class="fade-section">
+            <h2>The Real Problem Is Not Technology</h2>
+
+            <p>The instinct, when a modernisation programme is first proposed, is to start with the target architecture. Pick the cloud. Choose the languages. Design the microservices. This feels productive because it generates artefacts — diagrams, proofs of concept, vendor evaluations. But it skips the hardest question: what does the existing system actually do, in full, including everything that was never documented?</p>
+
+            <p>Mainframe applications at scale are not monoliths in the simple sense. They are decades-old accumulations of business logic, embedded across COBOL programmes, JCL job streams, copybooks, control cards, and in many cases RPG and Assembler modules that predate the current workforce. The people who wrote them are retired or gone. The documentation, where it exists, describes the system as it was designed in 1997, not as it behaves today after 25 years of production patches.</p>
+
+            <div class="pull-quote">
+                <p>The business rules that determine how a claim is adjudicated, how a premium is rated, how a settlement is calculated — they live inside the code, not beside it.</p>
+            </div>
+
+            <p>This is the knowledge problem. Those rules are not captured in any requirements document. They are not in the heads of current staff, because current staff learned the system through observation and tribal knowledge, not through a spec. When a programme team tries to rebuild these capabilities on a modern stack, they discover that they are reverse-engineering logic they do not fully understand, from artefacts they cannot fully read, against a timeline that assumed the hard part was writing new code.</p>
+
+            <p>The compounding risk makes this worse every year. Each quarter the mainframe stays in production, more institutional knowledge leaves the organisation. The people who understood the edge cases retire. The consultants who ran the last assessment move on. The gap between what the system does and what the organisation knows about what it does widens. Modernisation does not get easier with time. It gets harder.</p>
+        </section>
+
+        <!-- Section 3: Why Traditional Approaches Fail -->
+        <section class="fade-section">
+            <h2>Why Traditional Approaches Keep Failing</h2>
+
+            <p>The standard response to the knowledge gap is a discovery phase. Bring in consultants. Run workshops. Interview SMEs. Produce a 400-page assessment document. This takes three to six months, costs seven figures, and delivers a portrait of the system as understood by the people in the room — which is not the same thing as how the system actually works.</p>
+
+            <p>Workshops are particularly unreliable for this purpose. Subject matter experts describe what they believe the system does, filtered through years of workarounds and assumptions. They cannot describe the exception-handling logic buried in a nested EVALUATE statement in a programme they have never opened. They cannot recall the batch job dependency that only matters during year-end processing. The output of workshops is a consensus narrative, not a technical specification.</p>
+
+            <div class="callout-box">
+                <div class="callout-stat">The documentation trap</div>
+                <p>Documenting a mainframe estate with 15,000 programmes, 4,000 JCL jobs, and 800 copybooks is a multi-year effort. By the time it is half complete, the first sections are already out of date.</p>
+            </div>
+
+            <p>Documentation-led approaches fail for exactly that reason: they never finish. Vendor-led assessments, meanwhile, tend to be shallow by design — they are scoped to justify a migration tool, not to surface the buried logic that will derail the programme six months in.</p>
+        </section>
+
+        <!-- Section 4: The Different Approach -->
+        <section class="fade-section">
+            <h2>What a Different Approach Looks Like</h2>
+
+            <p>The pattern that works — and it is not theoretical; it has been applied in production — reverses the sequence. You do not start with the target architecture. You do not start with workshops. You start with knowledge extraction.</p>
+
+            <p>This means pointing automated analysis at the actual codebase. Not sampling it. Not summarising it. Parsing every programme, every job, every data definition, and extracting the embedded business rules, data flows, dependencies, and dead code into structured, readable output. The goal is to produce, in hours rather than months, a complete map of what the system does — expressed in plain English that architects, business analysts, and product teams can actually use.</p>
+
+            <div class="callout-box">
+                <div class="callout-stat">7 specialised AI agents working in concert</div>
+                <p>Scanning COBOL, JCL, RPG, and Assembler. Extracting business rules into natural-language specifications. Mapping data lineage and job dependencies. Identifying dead code. Producing TOGAF-compatible output with a full compliance audit trail.</p>
+            </div>
+
+            <p>This is the approach that Aiden AI built its mainframe modernisation practice around, using AIDAP — a platform that deploys those specialised agents against the legacy estate. The output is not a summary deck. It is the migration specification itself — structured, traceable, and detailed enough to drive implementation.</p>
+
+            <p>The difference this makes to programme timelines is not incremental. A discovery phase that traditionally takes four to six months collapses to days. More importantly, the output is comprehensive in a way that human-led discovery cannot be, because it is derived from what the code actually does rather than what people remember about it. Every extracted rule carries a compliance audit trail back to the source, which matters enormously in regulated industries where you need to prove that the migrated system preserves the behaviour of the original.</p>
+        </section>
+
+        <!-- Section 5: Migrate Without Concentrated Risk -->
+        <section class="fade-section">
+            <h2>How to Migrate Without Concentrated Risk</h2>
+
+            <p>Once the knowledge is extracted, the migration itself follows a layer-by-layer model rather than a monolithic cutover. This is critical. The programmes that fail most visibly are the ones that attempt to rebuild an entire estate in a single phase — a two-year programme with a single go-live date and catastrophic consequences if anything is wrong.</p>
+
+            <p>The layer-by-layer approach separates the migration into discrete, testable increments. Data layer first, then business logic, then integration, then presentation. Each layer is validated against the extracted specification before the next begins. Intelligence is embedded as you go — not as a bolt-on after the fact, but as a native capability of the new architecture. The goal is not to produce a cloud-hosted replica of your 1990s system. It is to produce a modern platform where the business logic is visible, testable, and changeable, rather than buried in 30-year-old procedural code.</p>
+
+            <div class="pull-quote">
+                <p>The goal is not a replica of your old system. It is a modern platform where the business logic is visible, testable, and changeable.</p>
+            </div>
+
+            <p>AIDAP's structured output feeds directly into this model. Because the extracted rules and dependencies are machine-readable as well as human-readable, they become the acceptance criteria for each migration layer. The architects know what to build. The testers know what to validate. The regulators can trace every rule from source to target.</p>
+        </section>
+
+        <!-- Section 6: Closing -->
+        <section class="fade-section">
+            <h2>The Window Is Closing</h2>
+
+            <p>The risk of doing nothing is not static. It compounds. Every year, the talent pool for mainframe languages shrinks. Every year, the operational risk of running critical business processes on undocumented logic increases. Every year, the cost of the eventual migration — because it will happen, one way or another — goes up.</p>
+
+            <p>The organisations that move first are not the ones with the biggest budgets. They are the ones that recognised the problem is knowledge, not technology, and acted on that insight before the knowledge gap became unbridgeable. If you are evaluating whether to start a modernisation programme, the most valuable thing you can do is not commission another assessment or run another vendor bake-off. It is to extract what your mainframe actually does, get it into a format your teams can work with, and use that as the foundation for every decision that follows.</p>
+
+            <p>Aiden AI runs a 48-hour discovery session that does exactly this — no integration required, no multi-month onboarding, no commitment beyond seeing what your estate contains. If the output is useful, you have a foundation. If it is not, you have lost two days. That is a materially different risk profile from a six-month discovery phase that may or may not produce something actionable.</p>
+
+            <p><strong>The starting point is not a migration programme. It is a conversation about what you actually have.</strong></p>
+        </section>
+
+        <!-- Bottom CTA -->
+        <div class="cta-block fade-section">
+            <h3>See what your mainframe actually contains</h3>
+            <p>48-hour discovery session. No integration required. Plain-English output your architects can use immediately.</p>
+            <a href="https://aidenai.com/contact" class="cta-button">Request a discovery session &rarr;</a>
+        </div>
+
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">AIDEN <span>AI</span></div>
+        <div class="footer-copy">&copy; 2026 Aiden AI Private Limited. All rights reserved.</div>
+    </footer>
+
+    <!-- Scroll-triggered fade-in -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.fade-section');
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
+            sections.forEach(function (section) {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>

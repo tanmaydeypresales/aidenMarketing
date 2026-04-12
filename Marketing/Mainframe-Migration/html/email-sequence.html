@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Sequence Preview — Mainframe Modernisation | Aiden AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy-deep: #03091A;
+      --navy:      #083663;
+      --cyan:      #41B5E1;
+      --teal:      #2193C2;
+      --gold:      #FFC000;
+      --white:     #E8EDF4;
+      --white-dim: #8FA4BE;
+      --mono:      'JetBrains Mono', monospace;
+      --serif:     'Cormorant Garamond', Georgia, serif;
+      --sans:      'Barlow', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--navy-deep);
+      color: var(--white);
+      font-family: var(--sans);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(65,181,225,0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Page layout ── */
+    .page-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      background: rgba(3,9,26,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(65,181,225,0.1);
+    }
+
+    .page-logo {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .page-logo span { color: var(--cyan); }
+
+    .page-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+
+    .main {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 56px 48px 80px;
+    }
+
+    .campaign-meta {
+      margin-bottom: 56px;
+    }
+
+    .campaign-meta .label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .campaign-meta .label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--cyan);
+    }
+
+    .campaign-meta h1 {
+      font-family: var(--serif);
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .campaign-meta p {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--white-dim);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Tab nav ── */
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      margin-bottom: 40px;
+      border-bottom: 1px solid rgba(65,181,225,0.12);
+    }
+
+    .tab-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--white); }
+    .tab-btn.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    /* ── Email card ── */
+    .email-pane { display: none; }
+    .email-pane.active { display: block; }
+
+    .send-meta {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .meta-chip {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--white-dim);
+      padding: 5px 12px;
+      border: 1px solid rgba(65,181,225,0.15);
+      background: rgba(65,181,225,0.04);
+    }
+    .meta-chip strong { color: var(--cyan); }
+
+    /* ── Email frame (simulated inbox) ── */
+    .email-frame {
+      background: #FAFBFC;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    }
+
+    .email-chrome {
+      background: #F0F2F5;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #DDE1E8;
+    }
+    .chrome-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .chrome-dot:nth-child(1) { background: #FF5F56; }
+    .chrome-dot:nth-child(2) { background: #FFBD2E; }
+    .chrome-dot:nth-child(3) { background: #27C93F; }
+    .chrome-label {
+      margin-left: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 0.06em;
+    }
+
+    .email-header {
+      padding: 24px 32px 20px;
+      border-bottom: 1px solid #E8EAED;
+      background: #FAFBFC;
+    }
+    .email-subject {
+      font-family: 'Barlow', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1A1A2E;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .email-from {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 0.04em;
+    }
+    .email-from strong { color: #333; }
+
+    .email-body {
+      padding: 36px 32px 40px;
+      background: #FFFFFF;
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.85;
+      color: #2A2A3A;
+      max-width: 100%;
+    }
+
+    .email-body p { margin-bottom: 18px; }
+    .email-body p:last-child { margin-bottom: 0; }
+
+    .email-body hr {
+      border: none;
+      border-top: 1px solid #E8EAED;
+      margin: 28px 0;
+    }
+
+    .email-body .divider-line {
+      border: none;
+      border-top: 1px solid #E8EAED;
+      margin: 28px 0;
+    }
+
+    .email-cta {
+      display: inline-block;
+      margin: 8px 0 20px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #03091A;
+      background: #FFC000;
+      padding: 13px 28px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .email-body strong {
+      font-weight: 600;
+      color: #1A1A2E;
+    }
+
+    .email-body .highlight-block {
+      background: #F4F7FF;
+      border-left: 3px solid #083663;
+      padding: 16px 20px;
+      margin: 24px 0;
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: #333;
+    }
+
+    .email-body ol {
+      padding-left: 20px;
+      margin: 16px 0 24px;
+    }
+    .email-body ol li {
+      margin-bottom: 12px;
+      padding-left: 8px;
+    }
+
+    .email-sig {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #E8EAED;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+    .email-sig strong { color: #333; font-size: 14px; }
+    .email-sig .company {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #083663;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ── Sequence timeline ── */
+    .sequence-timeline {
+      display: flex;
+      gap: 0;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .sequence-timeline::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: rgba(65,181,225,0.15);
+    }
+
+    .seq-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .seq-dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(8,54,99,0.6);
+      border: 1px solid rgba(65,181,225,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--white-dim);
+      position: relative;
+      z-index: 1;
+      transition: all 0.2s;
+    }
+    .seq-step.active .seq-dot {
+      background: var(--navy);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .seq-step:hover .seq-dot {
+      border-color: rgba(65,181,225,0.5);
+      color: var(--white);
+    }
+    .seq-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      text-align: center;
+    }
+    .seq-step.active .seq-label { color: var(--cyan); }
+    .seq-timing {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: rgba(143,164,190,0.5);
+      text-align: center;
+    }
+
+    @media (max-width: 680px) {
+      .page-header { padding: 0 20px; }
+      .main { padding: 40px 20px 60px; }
+      .email-header { padding: 20px; }
+      .email-body { padding: 24px 20px; }
+      .tab-btn { padding: 12px 14px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <div class="page-logo">Aiden<span>AI</span></div>
+    <div class="page-label">Email Sequence Preview · Mainframe Migration</div>
+  </header>
+
+  <main class="main">
+
+    <div class="campaign-meta">
+      <div class="label">Outbound Email Campaign</div>
+      <h1>Mainframe Modernisation<br>Email Sequence</h1>
+      <p>3-email cadence + nurture · CTOs, CIOs, Heads of Architecture · Banking &amp; Insurance</p>
+    </div>
+
+    <!-- Sequence timeline -->
+    <div class="sequence-timeline" id="seqTimeline">
+      <div class="seq-step active" onclick="switchEmail(0)">
+        <div class="seq-dot">01</div>
+        <div class="seq-label">Cold Outreach</div>
+        <div class="seq-timing">Day 1</div>
+      </div>
+      <div class="seq-step" onclick="switchEmail(1)">
+        <div class="seq-dot">02</div>
+        <div class="seq-label">Follow-Up</div>
+        <div class="seq-timing">Day 5</div>
+      </div>
+      <div class="seq-step" onclick="switchEmail(2)">
+        <div class="seq-dot">03</div>
+        <div class="seq-label">Final</div>
+        <div class="seq-timing">Day 10</div>
+      </div>
+      <div class="seq-step" onclick="switchEmail(3)">
+        <div class="seq-dot">N</div>
+        <div class="seq-label">Nurture</div>
+        <div class="seq-timing">Event stream</div>
+      </div>
+    </div>
+
+    <!-- Tab nav -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchEmail(0)">Email 1 — Cold</button>
+      <button class="tab-btn" onclick="switchEmail(1)">Email 2 — Follow-Up</button>
+      <button class="tab-btn" onclick="switchEmail(2)">Email 3 — Final</button>
+      <button class="tab-btn" onclick="switchEmail(3)">Nurture</button>
+    </nav>
+
+    <!-- ── EMAIL 1 ── -->
+    <div class="email-pane active" id="email-0">
+      <div class="send-meta">
+        <div class="meta-chip"><strong>Trigger:</strong> Send to full prospect list</div>
+        <div class="meta-chip"><strong>Day:</strong> 1</div>
+        <div class="meta-chip"><strong>Audience:</strong> CTO / CIO / Head of Architecture</div>
+      </div>
+
+      <div class="email-frame">
+        <div class="email-chrome">
+          <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
+          <span class="chrome-label">Inbox preview</span>
+        </div>
+        <div class="email-header">
+          <div class="email-subject">Why modernisation programmes stall at week 8 (and what fixes it)</div>
+          <div class="email-from"><strong>From:</strong> [Sender Name] · Aiden AI &nbsp;&nbsp; <strong>To:</strong> [First Name] &nbsp;&nbsp; <strong>Subject:</strong> See above</div>
+        </div>
+        <div class="email-body">
+          <p>Every mainframe modernisation programme hits the same wall.</p>
+          <p>Eight to twelve weeks in — teams still don't know what they're actually migrating.</p>
+          <p>The rules are buried. The dependencies are fragmented. The logic is split across systems, workflows, and integrations built over decades. Nobody documented it. The people who made those decisions have moved on.</p>
+          <p>This isn't a project management failure. It's a knowledge problem.</p>
+          <p>And until it's solved, the migration decision keeps getting deferred — because nobody can answer the most basic question: <strong>what exactly are we moving, and what will break if we do?</strong></p>
+          <hr>
+          <p>We've built AIDAP specifically for this moment.</p>
+          <p>Seven specialised AI agents read your system landscape in hours — not months. They extract every business rule in plain English: your pricing logic, eligibility rules, product controls, system dependencies. The kind of knowledge that currently lives in the heads of three people who may not be there next year.</p>
+          <p>The output is a structured knowledge map — your full business logic, visible and governable for the first time. Accurate enough to build a migration plan on. Auditable enough to satisfy compliance.</p>
+          <p>Then you migrate layer by layer. No concentrated risk event. No big-bang cutover. Embed AI intelligence as you go — so the system you end up with is smarter than the one you left.</p>
+          <hr>
+          <p>If your programme has stalled — or you're about to start one — I'd like to show you how this works in practice.</p>
+          <a class="email-cta" href="#">See how AIDAP maps your system in 48 hours →</a>
+          <div class="email-sig">
+            <strong>[Sender Name]</strong><br>
+            [Title]<br>
+            <div class="company">Aiden AI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EMAIL 2 ── -->
+    <div class="email-pane" id="email-1">
+      <div class="send-meta">
+        <div class="meta-chip"><strong>Trigger:</strong> Opened Email 1, no reply</div>
+        <div class="meta-chip"><strong>Day:</strong> 5</div>
+        <div class="meta-chip"><strong>Goal:</strong> Surface the knowledge angle more deeply</div>
+      </div>
+
+      <div class="email-frame">
+        <div class="email-chrome">
+          <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
+          <span class="chrome-label">Inbox preview</span>
+        </div>
+        <div class="email-header">
+          <div class="email-subject">The knowledge your mainframe holds — that no one can access</div>
+          <div class="email-from"><strong>From:</strong> [Sender Name] · Aiden AI &nbsp;&nbsp; <strong>To:</strong> [First Name]</div>
+        </div>
+        <div class="email-body">
+          <p>Following up from my note earlier this week.</p>
+          <p>Most of the CTOs and architecture leads I speak with aren't blocked by technology. They're blocked by something simpler and harder: <strong>they can't get a reliable picture of what their systems actually do.</strong></p>
+          <p>Not the high-level view. The granular one — the pricing rules written in 1998, the eligibility logic that was amended six times and never fully documented, the integration that two systems depend on but nobody owns.</p>
+          <p>That knowledge exists. It's in the system. It's just not accessible.</p>
+          <p>Which is why most modernisation plans are built on assumption stacks: we think these are the rules, we believe these are the dependencies, we hope nothing critical is missed.</p>
+          <p>That's not a plan. It's a controlled gamble.</p>
+          <hr>
+          <p>What AIDAP does differently is extract that knowledge before any migration decisions are made.</p>
+          <p>Seven AI agents read your system landscape in hours — COBOL, JCL, RPG, legacy workflow engines — and produce a structured knowledge map in plain English. Your pricing logic. Your eligibility rules. Your product controls. Your dependencies. Documented and auditable for the first time.</p>
+          <p>That map becomes the foundation of your migration plan — not an assumption, a specification.</p>
+          <hr>
+          <p>I'd like to show you what this looks like with a real system.</p>
+          <p>We run a structured 48-hour discovery session — your architecture team connects with our agents, and you walk away with a preliminary knowledge map of one domain. No integration required to start. No commitment beyond the session.</p>
+          <p>Would a 30-minute call this week make sense?</p>
+          <a class="email-cta" href="#">Book a time →</a>
+          <div class="email-sig">
+            <strong>[Sender Name]</strong><br>
+            [Title]<br>
+            <div class="company">Aiden AI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EMAIL 3 ── -->
+    <div class="email-pane" id="email-2">
+      <div class="send-meta">
+        <div class="meta-chip"><strong>Trigger:</strong> No response to Email 1 or 2</div>
+        <div class="meta-chip"><strong>Day:</strong> 10</div>
+        <div class="meta-chip"><strong>Goal:</strong> Close the sequence, leave door open</div>
+      </div>
+
+      <div class="email-frame">
+        <div class="email-chrome">
+          <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
+          <span class="chrome-label">Inbox preview</span>
+        </div>
+        <div class="email-header">
+          <div class="email-subject">Last note on this — then I'll leave you alone</div>
+          <div class="email-from"><strong>From:</strong> [Sender Name] · Aiden AI &nbsp;&nbsp; <strong>To:</strong> [First Name]</div>
+        </div>
+        <div class="email-body">
+          <p>One final note before I stop following up.</p>
+          <p>I won't try to convince you that your mainframe modernisation programme should move faster. You know your constraints better than I do.</p>
+          <p>What I will say is this: the one thing that consistently delays these programmes — in banking, in insurance, across every client I've worked with — isn't technical complexity.</p>
+          <p><strong>It's the inability to answer, with confidence: what does this system actually do?</strong></p>
+          <p>When that answer takes months to assemble — or never arrives cleanly — everything else stalls. Teams wait. Budgets get questioned. Decisions get deferred.</p>
+          <div class="highlight-block">
+            AIDAP was built to answer that question in hours.<br><br>
+            Forty-eight hours. One domain. Your team. No commitment.
+          </div>
+          <p>If that's a problem you're sitting on right now, I'd like to show you how it works. If the timing isn't right, no problem at all — I'll leave it here.</p>
+          <a class="email-cta" href="#">Request a discovery session →</a>
+          <div class="email-sig">
+            <strong>[Sender Name]</strong><br>
+            [Title]<br>
+            <div class="company">Aiden AI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NURTURE ── -->
+    <div class="email-pane" id="email-3">
+      <div class="send-meta">
+        <div class="meta-chip"><strong>Trigger:</strong> Webinar / event attendee</div>
+        <div class="meta-chip"><strong>Day:</strong> Send within 24h of event</div>
+        <div class="meta-chip"><strong>Goal:</strong> Convert warm leads to discovery sessions</div>
+      </div>
+
+      <div class="email-frame">
+        <div class="email-chrome">
+          <div class="chrome-dot"></div><div class="chrome-dot"></div><div class="chrome-dot"></div>
+          <span class="chrome-label">Inbox preview</span>
+        </div>
+        <div class="email-header">
+          <div class="email-subject">What we covered — and where to go next</div>
+          <div class="email-from"><strong>From:</strong> [Sender Name] · Aiden AI &nbsp;&nbsp; <strong>To:</strong> [First Name]</div>
+        </div>
+        <div class="email-body">
+          <p>Thanks for joining us [at the event / on the call].</p>
+          <p>The core message I hope landed: mainframe modernisation doesn't have to start with a migration plan. It should start with a knowledge extraction. Know what you have before you decide what to move.</p>
+          <p>For anyone who wants to see this in practice — we run a 48-hour discovery session using AIDAP's agent suite. Your architecture team connects with our platform, and you walk away with a preliminary knowledge map of one system domain. No integration required to start.</p>
+          <p>Three things worth knowing before you decide:</p>
+          <ol>
+            <li>The session covers one domain — enough to validate the approach and see the output quality before committing to anything larger.</li>
+            <li>The output is structured, plain-English documentation of your business logic — something your architects, product owners, and compliance teams can all work from.</li>
+            <li>There's no prerequisite. No API keys, no data export, no vendor onboarding. We work directly with your system access.</li>
+          </ol>
+          <p>If this is something you'd like to explore, reply here or use the link below.</p>
+          <a class="email-cta" href="#">Request a discovery session →</a>
+          <div class="email-sig">
+            <strong>[Sender Name]</strong><br>
+            [Title]<br>
+            <div class="company">Aiden AI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function switchEmail(idx) {
+      // Update panes
+      document.querySelectorAll('.email-pane').forEach((p, i) => {
+        p.classList.toggle('active', i === idx);
+      });
+      // Update tabs
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+      });
+      // Update timeline steps
+      document.querySelectorAll('.seq-step').forEach((s, i) => {
+        s.classList.toggle('active', i === idx);
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn Carousel — Mainframe Modernisation | Aiden AI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ══════════════════════════════════════════
+       BRAND TOKENS (aiden-ai-branding-guidelines)
+       ══════════════════════════════════════════ */
+    :root {
+      --navy:        #073663;
+      --electric:    #103EE0;
+      --cyan:        #12DBD5;
+      --midnight:    #08244B;
+      --navy-dark:   #093B81;
+      --light-blue:  #E0E4FC;
+      --periwinkle:  #BCC9FF;
+      --off-white:   #EDEEF4;   /* even slide bg */
+      --white:       #FFFFFF;   /* odd slide bg  */
+      --headline:    #08244B;   /* all headline text */
+      --body:        #64748B;   /* supporting copy */
+      --muted:       #D0D8E3;   /* captions on dark */
+      --grad: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+      --font: 'Poppins', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #F0F4F8;
+      font-family: var(--font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .page-title {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #94A3B8;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    /* ── Carousel shell ── */
+    .carousel-wrapper { width: 100%; max-width: 480px; }
+
+    .carousel-viewport {
+      position: relative;
+      width: 100%;
+      padding-bottom: 125%;   /* 4:5 portrait */
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(8,36,75,0.22);
+    }
+
+    /* ── Slide base ── */
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      overflow: hidden;               /* hard clip — nothing escapes */
+      display: flex;
+      flex-direction: column;
+    }
+    .slide.active { opacity: 1; visibility: visible; }
+
+    /* ── Light slide backgrounds ── */
+    .slide-light-1  { background: var(--white); }
+    .slide-light-2  { background: var(--off-white); }
+
+    /* ── Dark slide background ── */
+    .slide-dark { background: var(--midnight); }
+
+    /* ══════════════════════════════════════════
+       CONTENT AREA (flex column, grows)
+       ══════════════════════════════════════════ */
+    .s-content {
+      flex: 1 1 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 7.5% 9% 3% 9%;
+      overflow: hidden;
+    }
+
+    /* Top row: label + arrow */
+    .s-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5%;
+      flex-shrink: 0;
+    }
+    .s-label {
+      font-size: 1.15vw;
+      font-weight: 500;
+      color: var(--body);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .s-arrow { font-size: 1.1vw; color: #CBD5E1; }
+
+    /* Headline — ExtraBold 800 */
+    .s-headline {
+      font-size: 4.6vw;
+      font-weight: 800;
+      line-height: 1.12;
+      color: var(--headline);
+      letter-spacing: -0.02em;
+      margin-bottom: 3.5%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    /* Key-word gradient (ONE per slide) */
+    .gw {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Supporting copy */
+    .s-sub {
+      font-size: 1.55vw;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--body);
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .s-sub b, .s-sub strong { font-weight: 700; color: var(--headline); }
+
+    /* Eyebrow / stat (large number, dark slides) */
+    .s-stat {
+      font-size: 9vw;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      flex-shrink: 0;
+    }
+
+    /* Separator */
+    .s-sep { width: 100%; height: 1px; background: #E2E8F0; margin: 3.5% 0; flex-shrink: 0; }
+
+    /* Sparkle bullet row */
+    .s-bullet {
+      display: flex;
+      gap: 2%;
+      align-items: flex-start;
+      margin-top: 3%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .s-bullet .spark { flex-shrink: 0; width: 1.8vw; height: 1.8vw; margin-top: 0.2vw; }
+    .s-bullet span { font-size: 1.45vw; font-weight: 400; color: var(--headline); line-height: 1.5; }
+    .s-bullet span b { font-weight: 700; }
+
+    /* Tech stack line */
+    .s-stack {
+      font-size: 1.3vw;
+      font-weight: 500;
+      color: var(--body);
+      line-height: 1.7;
+      margin-top: 2.5%;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    /* CTA button (dark slides) */
+    .s-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--grad);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 1.4vw;
+      font-weight: 600;
+      padding: 1.2% 3.2%;
+      border-radius: 3px;
+      text-decoration: none;
+      margin-top: 5%;
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      width: fit-content;
+    }
+
+    /* Dark slide headline override */
+    .slide-dark .s-headline { color: var(--white); }
+    .slide-dark .s-sub { color: var(--muted); }
+    .slide-dark .s-label { color: var(--muted); }
+    .slide-dark .s-arrow { color: rgba(208,216,227,0.4); }
+    .slide-dark .s-sep { background: rgba(255,255,255,0.1); }
+
+    /* ══════════════════════════════════════════
+       WAVE FOOTER
+       ══════════════════════════════════════════ */
+    .s-wave {
+      flex-shrink: 0;
+      position: relative;
+      width: 100%;
+      height: 30%;
+      overflow: hidden;
+    }
+    .s-wave svg { display: block; width: 100%; height: 100%; }
+
+    /* Logo — BOTTOM RIGHT per brand guidelines */
+    .s-logo {
+      position: absolute;
+      bottom: 6%;
+      right: 6%;
+      z-index: 5;
+    }
+    .s-logo svg.aiden-logo { height: 1.8vw; width: auto; }
+
+    /* Dark slide — white logo paths */
+    .slide-dark .s-logo svg.aiden-logo path { fill: #FFFFFF !important; }
+
+    /* ── Controls ── */
+    .carousel-controls {
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px; margin-top: 18px;
+    }
+    .arrow-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid #E2E8F0; background: white;
+      color: #374151; font-size: 17px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+    .arrow-btn:hover { border-color: var(--electric); color: var(--electric); }
+    .slide-counter { font-size: 12px; font-weight: 600; color: #94A3B8; min-width: 44px; text-align: center; }
+    .slide-counter .cur { color: var(--midnight); }
+    .progress-dots { display: flex; gap: 6px; justify-content: center; margin-top: 12px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: #CBD5E1; cursor: pointer; transition: all 0.3s; }
+    .dot.active { background: var(--electric); width: 18px; border-radius: 3px; }
+
+    /* ── Responsive fallback ── */
+    @media (max-width: 420px) {
+      .carousel-wrapper { max-width: 100%; }
+      .s-headline  { font-size: 22px; }
+      .s-sub       { font-size: 12px; }
+      .s-label     { font-size: 10px; }
+      .s-stat      { font-size: 44px; }
+      .s-cta-btn   { font-size: 12px; }
+      .s-bullet span { font-size: 11px; }
+      .s-stack     { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Logo symbol (referenced by each slide) ── -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aiLogoGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%"   stop-color="#103EE0"/>
+      <stop offset="100%" stop-color="#12DBD5"/>
+    </linearGradient>
+    <symbol id="aiLogoSym" viewBox="0 0 157 36" fill="none">
+      <path d="M12.4799 11.5623C5.58744 11.5623 0 17.0327 0 23.7811C0 30.5295 5.58744 35.9994 12.4799 35.9994C12.6815 35.9994 12.8824 35.9942 13.0824 35.9854V31.3142C12.8829 31.3298 12.6829 31.3441 12.4799 31.3441C8.21344 31.3441 4.75463 27.958 4.75463 23.7811C4.75463 19.6042 8.21344 16.2179 12.4799 16.2179C16.7461 16.2179 20.2049 19.6042 20.2049 23.7811V33.3739V35.9994H24.9601V23.7811C24.9601 17.0327 19.3726 11.5623 12.4799 11.5623Z" fill="url(#aiLogoGrad)"/>
+      <path d="M46.6774 35.9995C39.7847 35.9995 34.1973 30.5296 34.1973 23.7809C34.1973 17.0327 39.7847 11.5623 46.6774 11.5623C46.8791 11.5623 47.0799 11.5678 47.2799 11.5774V16.2478C47.0799 16.2322 46.8804 16.2179 46.6774 16.2179C42.411 16.2179 38.9522 19.604 38.9522 23.7809C38.9522 27.9577 42.411 31.3441 46.6774 31.3441C50.9436 31.3441 54.4024 27.9577 54.4024 23.7809V14.1881V0H59.1571V23.7809C59.1571 30.5296 53.5699 35.9995 46.6774 35.9995Z" fill="url(#aiLogoGrad)"/>
+      <path d="M31.9561 11.5625H27.2012V35.9997H31.9561V11.5625Z" fill="url(#aiLogoGrad)"/>
+      <path d="M31.9561 5.01562H27.2012V9.67124H31.9561V5.01562Z" fill="url(#aiLogoGrad)"/>
+      <path d="M137.523 11.5625C130.63 11.5625 125.043 17.0329 125.043 23.7814C125.043 30.5298 130.63 35.9997 137.523 35.9997C137.725 35.9997 137.925 35.9944 138.125 35.9857V31.3144C137.926 31.3301 137.726 31.3443 137.523 31.3443C133.257 31.3443 129.798 27.9582 129.798 23.7814C129.798 19.6045 133.257 16.2181 137.523 16.2181C141.789 16.2181 145.248 19.6045 145.248 23.7814V33.3742V35.9997H150.003V23.7814C150.003 17.0329 144.416 11.5625 137.523 11.5625Z" fill="url(#aiLogoGrad)"/>
+      <path d="M157 11.5625H152.244V35.9997H157V11.5625Z" fill="url(#aiLogoGrad)"/>
+      <path d="M157 5.01562H152.244V9.67124H157V5.01562Z" fill="url(#aiLogoGrad)"/>
+      <path d="M86.8817 23.7816C86.8817 17.0329 81.2942 11.5625 74.4018 11.5625C67.509 11.5625 61.9219 17.0329 61.9219 23.7816C61.9219 30.53 67.509 36.0005 74.4018 36.0005C74.5926 36.0005 74.7824 35.9949 74.9713 35.9859V31.3163C74.7824 31.3295 74.594 31.3443 74.4018 31.3443C70.1358 31.3443 66.677 27.9582 66.677 23.7814C66.677 19.6042 70.1358 16.2181 74.4018 16.2181C78.0619 16.2181 81.1204 18.7132 81.9176 22.0588H73.3087V26.7147H81.5237H86.5176H86.882V24.1908L86.8698 24.1767C86.8733 24.0452 86.8817 23.9142 86.8817 23.7816Z" fill="url(#aiLogoGrad)"/>
+      <path d="M101.603 11.5625C94.7105 11.5625 89.123 17.0329 89.123 23.7814V31.3163H93.8782V23.7814C93.8782 19.6045 97.3367 16.2181 101.603 16.2181C105.869 16.2181 109.328 19.6045 109.328 23.7814V35.9997H114.083V23.7824V23.7814C114.083 17.0329 108.496 11.5625 101.603 11.5625Z" fill="url(#aiLogoGrad)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page-title">LinkedIn Carousel · Mainframe Modernisation · Aiden AI</div>
+
+<div class="carousel-wrapper">
+  <div class="carousel-viewport" id="vp">
+
+    <!-- ════════════════════════════════════════
+         SLIDE 1 — HOOK  (DARK)
+         Odd/even: dark cover
+         ════════════════════════════════════════ -->
+    <div class="slide slide-dark active" data-slide="1">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">Mainframe Modernisation</div>
+        </div>
+
+        <div class="s-headline">
+          Most enterprises<br>
+          aren't <span class="gw">modernising</span>.
+        </div>
+
+        <div class="s-sub">
+          They're adding to them. Patching around them.<br>
+          Hoping they hold.
+        </div>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv1" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SLIDE 2 — PROBLEM  (WHITE — 1st light)
+         ════════════════════════════════════════ -->
+    <div class="slide slide-light-1" data-slide="2">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">The Pattern</div>
+          <div class="s-arrow">&#8594;</div>
+        </div>
+
+        <div class="s-stat" style="color:var(--midnight)">
+          <span class="gw">8–12</span>
+        </div>
+
+        <div class="s-headline" style="font-size:3.6vw; margin-top:1%">
+          weeks in — teams still<br>
+          don't know what they're migrating.
+        </div>
+
+        <div class="s-sub">
+          The rules are buried. The logic is fragmented.<br>
+          <b>Nobody documented it.</b>
+        </div>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv2" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SLIDE 3 — REALITY  (OFF-WHITE — 2nd light)
+         ════════════════════════════════════════ -->
+    <div class="slide slide-light-2" data-slide="3">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">The Reality</div>
+          <div class="s-arrow">&#8594;</div>
+        </div>
+
+        <div class="s-headline">
+          Nobody documented<br>
+          <span class="gw">the rules</span>.
+        </div>
+
+        <div class="s-sub">
+          The people who built these systems have moved on.<br>
+          New teams can't access that knowledge with confidence.
+        </div>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv3" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SLIDE 4 — REAL RISK  (WHITE — 3rd light)
+         ════════════════════════════════════════ -->
+    <div class="slide slide-light-1" data-slide="4">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">The Real Risk</div>
+          <div class="s-arrow">&#8594;</div>
+        </div>
+
+        <div class="s-headline">
+          Staying put isn't<br>
+          <span class="gw">conservative</span>.
+        </div>
+
+        <div class="s-sub">
+          Every year you defer,<br>
+          <b>the risk compounds quietly.</b>
+        </div>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv4" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SLIDE 5 — HOW AIDAP WORKS  (OFF-WHITE — 4th light)
+         ════════════════════════════════════════ -->
+    <div class="slide slide-light-2" data-slide="5">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">How AIDAP Works</div>
+          <div class="s-arrow">&#8594;</div>
+        </div>
+
+        <div class="s-headline">
+          Seven <span class="gw">specialised</span><br>
+          AI agents.
+        </div>
+
+        <div class="s-sub" style="margin-bottom:0">Hours, not months.</div>
+
+        <div class="s-sep"></div>
+
+        <div class="s-bullet">
+          <svg class="spark" viewBox="0 0 20 20" fill="none">
+            <path d="M10 2L11.8 8.2L18 10L11.8 11.8L10 18L8.2 11.8L2 10L8.2 8.2L10 2Z" fill="url(#sparkG)"/>
+            <defs><linearGradient id="sparkG" x1="2" y1="2" x2="18" y2="18"><stop stop-color="#103EE0"/><stop offset="1" stop-color="#12DBD5"/></linearGradient></defs>
+          </svg>
+          <span>Every business rule in <b>plain English</b> — every dependency mapped. SME reliance removed.</span>
+        </div>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv5" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SLIDE 6 — THE OUTPUT  (WHITE — 5th light)
+         ════════════════════════════════════════ -->
+    <div class="slide slide-light-1" data-slide="6">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">The Output</div>
+          <div class="s-arrow">&#8594;</div>
+        </div>
+
+        <div class="s-headline">
+          Your logic.<br>
+          <span class="gw">Visible</span> for the first time.
+        </div>
+
+        <div class="s-sub">
+          Pricing rules, eligibility, product controls —<br>
+          <b>structured and governed.</b>
+        </div>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv6" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SLIDE 7 — THE APPROACH  (OFF-WHITE — 6th light)
+         ════════════════════════════════════════ -->
+    <div class="slide slide-light-2" data-slide="7">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">The Approach</div>
+          <div class="s-arrow">&#8594;</div>
+        </div>
+
+        <div class="s-headline">
+          Migrate <span class="gw">layer by layer</span>.
+        </div>
+
+        <div class="s-sub" style="margin-bottom:0">
+          No big-bang cutover. Build a smarter system —<br>
+          <b>not a replica.</b>
+        </div>
+
+        <div class="s-stack">
+          Green Screens &#8594; React &nbsp;·&nbsp;
+          JCL &#8594; Springboot<br>
+          Batch &#8594; Spring Batch &nbsp;·&nbsp;
+          Rules &#8594; Policy Admin
+        </div>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv7" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════════
+         SLIDE 8 — CTA  (DARK)
+         ════════════════════════════════════════ -->
+    <div class="slide slide-dark" data-slide="8">
+      <div class="s-content">
+        <div class="s-top">
+          <div class="s-label">Let's Connect</div>
+        </div>
+
+        <div class="s-headline">
+          See your system<br>
+          in <span class="gw">48 hours</span>.
+        </div>
+
+        <div class="s-sub">
+          Discovery session. Your architecture team, our agents.<br>
+          One domain mapped. <b style="color:white">No commitment.</b>
+        </div>
+
+        <a class="s-cta-btn" href="#">&#8594;&ensp;Request a discovery session</a>
+      </div>
+
+      <div class="s-wave">
+        <svg id="wv8" viewBox="0 0 480 180" preserveAspectRatio="none"></svg>
+        <div class="s-logo">
+          <svg class="aiden-logo" viewBox="0 0 157 36" xmlns="http://www.w3.org/2000/svg">
+            <use href="#aiLogoSym"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /carousel-viewport -->
+
+  <div class="carousel-controls">
+    <button class="arrow-btn" id="prevBtn">&#8592;</button>
+    <div class="slide-counter"><span class="cur" id="curNum">1</span> / 8</div>
+    <button class="arrow-btn" id="nextBtn">&#8594;</button>
+  </div>
+
+  <div class="progress-dots" id="dots">
+    <div class="dot active" data-dot="0"></div>
+    <div class="dot" data-dot="1"></div>
+    <div class="dot" data-dot="2"></div>
+    <div class="dot" data-dot="3"></div>
+    <div class="dot" data-dot="4"></div>
+    <div class="dot" data-dot="5"></div>
+    <div class="dot" data-dot="6"></div>
+    <div class="dot" data-dot="7"></div>
+  </div>
+</div><!-- /carousel-wrapper -->
+
+<script>
+// ══════════════════════════════════════════════
+// WAVE GENERATOR
+// Colors: Electric Blue #103EE0 → Cyan #12DBD5
+// ══════════════════════════════════════════════
+(function() {
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function buildWave(id, W, H, isDark) {
+    var svg = document.getElementById(id);
+    if (!svg) return;
+
+    var N = 24;
+    var spread = 70;
+
+    // Brand colors: #103EE0 → #12DBD5
+    var r0=16,  g0=62,  b0=224;   // #103EE0
+    var r1=18,  g1=219, b1=213;   // #12DBD5
+
+    for (var i = 0; i < N; i++) {
+      var p   = i / (N - 1);
+      var off = (p - 0.5) * spread;
+      var R   = Math.round(lerp(r0, r1, p));
+      var G   = Math.round(lerp(g0, g1, p));
+      var B   = Math.round(lerp(b0, b1, p));
+      var col = 'rgb(' + R + ',' + G + ',' + B + ')';
+      var op  = isDark ? 0.55 : 0.75;
+
+      // S-curve sweeping left→right across wave area
+      var x0 = -8;
+      var y0 = H * 0.55 + off * 0.5;
+      var cx1 = W * 0.30;
+      var cy1 = H * 1.35 + off * 0.5;
+      var cx2 = W * 0.70;
+      var cy2 = H * -0.35 + off * 0.5;
+      var x3 = W + 8;
+      var y3 = H * 0.45 + off * 0.5;
+
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d',
+        'M ' + x0 + ',' + y0 +
+        ' C ' + cx1 + ',' + cy1 +
+        ' '   + cx2 + ',' + cy2 +
+        ' '   + x3  + ',' + y3
+      );
+      path.setAttribute('stroke', col);
+      path.setAttribute('stroke-width', '0.9');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('opacity', op);
+      svg.appendChild(path);
+    }
+  }
+
+  // Light slides: standard wave; dark slides: slightly brighter
+  buildWave('wv1', 480, 180, true);
+  buildWave('wv2', 480, 180, false);
+  buildWave('wv3', 480, 180, false);
+  buildWave('wv4', 480, 180, false);
+  buildWave('wv5', 480, 180, false);
+  buildWave('wv6', 480, 180, false);
+  buildWave('wv7', 480, 180, false);
+  buildWave('wv8', 480, 180, true);
+})();
+
+// ══════════════════════════════════════════════
+// CAROUSEL LOGIC
+// ══════════════════════════════════════════════
+(function() {
+  var slides  = document.querySelectorAll('.slide');
+  var dots    = document.querySelectorAll('.dot');
+  var curEl   = document.getElementById('curNum');
+  var total   = slides.length;
+  var current = 0;
+
+  function goTo(idx) {
+    if (idx < 0) idx = total - 1;
+    if (idx >= total) idx = 0;
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = idx;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+    curEl.textContent = current + 1;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', function() { goTo(current - 1); });
+  document.getElementById('nextBtn').addEventListener('click', function() { goTo(current + 1); });
+
+  dots.forEach(function(d) {
+    d.addEventListener('click', function() {
+      goTo(parseInt(d.getAttribute('data-dot'), 10));
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  var startX = 0;
+  var vp = document.getElementById('vp');
+  vp.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  vp.addEventListener('touchend', function(e) {
+    var diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
