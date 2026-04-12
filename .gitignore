@@ -17,6 +17,10 @@ desktop.ini
 *.xlsx
 *.pdf.tmp
 
+# Exceptions: BA portal templates must ship with the static site
+!portal/ba-guide/samples/*.xlsx
+!portal/ba-guide/samples/*.docx
+
 # Secrets
 *.key
 *.pem

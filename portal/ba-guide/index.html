@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BA Delivery Assistant — Aiden AI</title>
+<style>
+  :root {
+    --navy:    #08244B;
+    --navyMid: #073663;
+    --blue:    #103EE0;
+    --cyan:    #12DBD5;
+    --teal:    #1AB9A5;
+    --lavender:#E0E4FC;
+    --periwinkle:#BCC9FF;
+    --softBlue:#575AC5;
+    --offWhite:#F8F8F8;
+    --gray:    #DFE1E2;
+    --body:    #64748B;
+    --amber:   #F59E0B;
+    --red:     #EF4444;
+    --gradient:linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f6fb; color: var(--body); line-height: 1.6; }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    padding: 0;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 16px rgba(8,36,75,0.18);
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 32px;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-mark {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--gradient);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px; color: #fff;
+  }
+  .logo-text { color: #fff; font-size: 17px; font-weight: 700; letter-spacing: -0.3px; }
+  .logo-sub  { color: var(--periwinkle); font-size: 12px; font-weight: 400; }
+  nav { display: flex; gap: 6px; }
+  nav a {
+    color: var(--periwinkle); text-decoration: none; font-size: 13px;
+    padding: 6px 12px; border-radius: 6px; transition: all .2s;
+  }
+  nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    padding: 64px 32px 72px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(16,62,224,0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(18,219,213,0.12) 0%, transparent 50%);
+  }
+  .hero-content { position: relative; max-width: 760px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gradient); color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 44px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 16px; }
+  .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size: 17px; color: var(--periwinkle); max-width: 580px; margin: 0 auto 28px; }
+  .hero-cmd {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--cyan); font-family: 'Courier New', monospace; font-size: 18px; font-weight: 700;
+    padding: 12px 28px; border-radius: 10px;
+    letter-spacing: 1px;
+  }
+  .hero-hint { margin-top: 10px; color: rgba(255,255,255,0.4); font-size: 13px; }
+
+  /* ── LAYOUT ── */
+  .layout { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px 1fr; gap: 32px; padding: 40px 32px; }
+
+  /* ── SIDEBAR ── */
+  .sidebar { position: sticky; top: 72px; height: fit-content; }
+  .sidebar-card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    box-shadow: 0 2px 12px rgba(8,36,75,0.07);
+    border: 1px solid var(--gray);
+  }
+  .sidebar-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--navyMid); margin-bottom: 12px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--lavender);
+  }
+  .sidebar-phase { margin-bottom: 4px; }
+  .sidebar-phase a {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--body); text-decoration: none; font-size: 13px;
+    padding: 7px 10px; border-radius: 7px; transition: all .2s;
+  }
+  .sidebar-phase a:hover { background: var(--lavender); color: var(--navy); }
+  .phase-dot {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 800; color: #fff;
+  }
+  .p0 { background: var(--navy); }
+  .p1 { background: var(--blue); }
+  .p2 { background: var(--softBlue); }
+  .p3 { background: #8B5CF6; }
+  .p4 { background: #EC4899; }
+  .p5 { background: var(--amber); }
+  .p6 { background: var(--teal); }
+  .p7 { background: var(--red); }
+  .sidebar-divider { height: 1px; background: var(--gray); margin: 12px 0; }
+
+  /* ── MAIN ── */
+  .main { min-width: 0; }
+  .section { margin-bottom: 40px; }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--lavender);
+  }
+  .phase-badge {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800; color: #fff;
+  }
+  .section-header h2 { font-size: 22px; font-weight: 700; color: var(--navy); }
+  .section-header p { font-size: 13px; color: var(--body); margin-top: 2px; }
+
+  /* ── CARDS ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .cmd-card {
+    background: #fff; border-radius: 12px; padding: 18px 20px;
+    border: 1px solid var(--gray); border-left: 4px solid var(--blue);
+    transition: all .2s;
+  }
+  .cmd-card:hover { box-shadow: 0 4px 16px rgba(16,62,224,0.12); border-left-color: var(--cyan); transform: translateY(-1px); }
+  .cmd-card-command {
+    font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700;
+    color: var(--blue); background: var(--lavender);
+    display: inline-block; padding: 3px 10px; border-radius: 5px; margin-bottom: 8px;
+  }
+  .cmd-card h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .cmd-card p  { font-size: 12.5px; color: var(--body); line-height: 1.5; }
+  .cmd-card-meta {
+    display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+    letter-spacing: 0.3px;
+  }
+  .tag-xlsx { background: #ECFDF5; color: #065F46; }
+  .tag-docx { background: #EFF6FF; color: #1D4ED8; }
+  .tag-csv  { background: #FFF7ED; color: #92400E; }
+  .tag-md   { background: #F5F3FF; color: #5B21B6; }
+
+  /* ── KICKOFF BOX ── */
+  .kickoff-box {
+    background: var(--navy); border-radius: 16px; padding: 32px;
+    color: #fff; position: relative; overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .kickoff-box::before {
+    content: ''; position: absolute;
+    top: -40px; right: -40px; width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(18,219,213,0.15) 0%, transparent 70%);
+  }
+  .kickoff-box h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .kickoff-box p  { color: var(--periwinkle); font-size: 14px; margin-bottom: 20px; }
+  .kickoff-cmd {
+    font-family: 'Courier New', monospace; font-size: 22px; font-weight: 800;
+    background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    display: block; margin-bottom: 20px;
+  }
+  .questions { list-style: none; }
+  .questions li {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: 13px; color: rgba(255,255,255,0.8);
+  }
+  .questions li:last-child { border-bottom: none; }
+  .q-num {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    background: var(--gradient); display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #fff;
+  }
+
+  /* ── PHASE FLOW ── */
+  .phase-flow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .flow-card {
+    background: #fff; border-radius: 12px; padding: 18px 20px;
+    border: 1px solid var(--gray);
+  }
+  .flow-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .flow-card p  { font-size: 12px; color: var(--body); }
+  .flow-arrow {
+    text-align: center; padding: 6px 0; color: var(--blue); font-size: 20px;
+    grid-column: 1 / -1;
+  }
+
+  /* ── WORKFLOW TABLE ── */
+  .workflow-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .workflow-table th {
+    background: var(--lavender); color: var(--navy);
+    padding: 10px 14px; text-align: left; font-weight: 700; font-size: 12px;
+  }
+  .workflow-table td { padding: 9px 14px; border-bottom: 1px solid var(--gray); }
+  .workflow-table tr:last-child td { border-bottom: none; }
+  .workflow-table tr:nth-child(even) td { background: var(--offWhite); }
+  .workflow-table tr:hover td { background: #EEF2FF; }
+  .cmd-inline {
+    font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700;
+    color: var(--blue); background: var(--lavender);
+    padding: 2px 7px; border-radius: 4px; white-space: nowrap;
+  }
+
+  /* ── ALERT BOX ── */
+  .alert {
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 13px;
+  }
+  .alert-tip   { background: #ECFDF5; border-left: 4px solid var(--teal); color: #065F46; }
+  .alert-info  { background: #EFF6FF; border-left: 4px solid var(--blue); color: #1E40AF; }
+  .alert-warn  { background: #FFFBEB; border-left: 4px solid var(--amber); color: #92400E; }
+  .alert-icon  { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── OUTPUT PATTERN ── */
+  .output-pattern {
+    background: #0F172A; border-radius: 12px; padding: 22px 24px;
+    font-family: 'Courier New', monospace; font-size: 12.5px;
+    line-height: 1.8; color: #94A3B8;
+    margin-bottom: 16px;
+  }
+  .op-green  { color: #4ADE80; }
+  .op-yellow { color: #FACC15; }
+  .op-blue   { color: #60A5FA; }
+  .op-cyan   { color: var(--cyan); }
+  .op-white  { color: #F8FAFC; font-weight: 700; }
+
+  /* ── QUICK REF ── */
+  .quick-ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .qr-phase { background: #fff; border-radius: 12px; padding: 16px 18px; border: 1px solid var(--gray); }
+  .qr-phase-title {
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 10px; padding-bottom: 8px; border-bottom: 2px solid var(--lavender);
+  }
+  .qr-cmd {
+    font-family: 'Courier New', monospace; font-size: 11.5px;
+    color: var(--blue); display: block; padding: 3px 0;
+    border-bottom: 1px dashed #E2E8F0;
+  }
+  .qr-cmd:last-child { border-bottom: none; }
+
+  /* ── STANDARDS ── */
+  .standards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .std-card { background: #fff; border-radius: 12px; padding: 18px 20px; border: 1px solid var(--gray); }
+  .std-card h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .color-swatch { display: flex; align-items: center; gap: 10px; padding: 5px 0; font-size: 12px; }
+  .swatch { width: 22px; height: 22px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.08); flex-shrink: 0; }
+  .color-label { color: var(--navy); font-weight: 600; }
+  .color-hex   { color: var(--body); font-family: monospace; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); color: var(--periwinkle);
+    text-align: center; padding: 24px; font-size: 13px; margin-top: 48px;
+  }
+  footer span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700; }
+
+  /* ── SECTION ANCHOR SCROLL ── */
+  section[id] { scroll-margin-top: 90px; }
+
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .standards-grid, .phase-flow { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">A</div>
+      <div>
+        <div class="logo-text">Aiden AI</div>
+        <div class="logo-sub">BA Delivery Assistant</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#quickstart">Quick Start</a>
+      <a href="#phases">Workflow</a>
+      <a href="#commands">Commands</a>
+      <a href="#standards">Standards</a>
+      <a href="#quickref">Reference</a>
+      <a href="#structure">Project Structure</a>
+      <a href="#downloads">Downloads</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Business Analyst Toolkit · v2.0</div>
+    <h1>Your <span>AI-Powered</span><br>BA Delivery Assistant</h1>
+    <p>A step-by-step agentic framework that guides Business Analysts through every deliverable — from discovery to go-live.</p>
+    <div class="hero-cmd">/ba-start</div>
+    <div class="hero-hint">Type this in Claude Code to begin your guided BA workflow</div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Navigation</div>
+
+      <div class="sidebar-phase"><a href="#quickstart"><span class="phase-dot p0">0</span> Quick Start</a></div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-phase"><a href="#phase1"><span class="phase-dot p1">1</span> Foundation</a></div>
+      <div class="sidebar-phase"><a href="#phase2"><span class="phase-dot p2">2</span> Discovery</a></div>
+      <div class="sidebar-phase"><a href="#phase3"><span class="phase-dot" style="background:#8B5CF6">3</span> Requirements</a></div>
+      <div class="sidebar-phase"><a href="#phase4"><span class="phase-dot p4">4</span> Backlog</a></div>
+      <div class="sidebar-phase"><a href="#phase5"><span class="phase-dot p5">5</span> Quality Gate</a></div>
+      <div class="sidebar-phase"><a href="#phase6"><span class="phase-dot p6">6</span> Testing</a></div>
+      <div class="sidebar-phase"><a href="#phase7"><span class="phase-dot p7">7</span> Governance</a></div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-phase"><a href="#commands"><span class="phase-dot" style="background:var(--body)">⌘</span> All Commands</a></div>
+      <div class="sidebar-phase"><a href="#standards"><span class="phase-dot" style="background:var(--teal)">✓</span> Standards</a></div>
+      <div class="sidebar-phase"><a href="#quickref"><span class="phase-dot" style="background:var(--navyMid)">≡</span> Quick Ref</a></div>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-phase"><a href="#structure"><span class="phase-dot" style="background:var(--blue)">📁</span> Project Structure</a></div>
+      <div class="sidebar-phase"><a href="#downloads"><span class="phase-dot" style="background:var(--teal)">⬇</span> Downloads</a></div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- QUICK START -->
+    <section id="quickstart" class="section">
+      <div class="section-header">
+        <div class="phase-badge p0">0</div>
+        <div>
+          <h2>Quick Start — How to Begin</h2>
+          <p>Four entry points depending on where you are in the project</p>
+        </div>
+      </div>
+
+      <div class="kickoff-box">
+        <h3>🚀 Starting a New Project?</h3>
+        <p>Run this command in Claude Code. You'll be asked 8 questions, then receive a personalised BA Delivery Roadmap.</p>
+        <span class="kickoff-cmd">/ba-start</span>
+        <ul class="questions">
+          <li><span class="q-num">1</span>Project type — software, transformation, AI, product, government?</li>
+          <li><span class="q-num">2</span>Delivery stage — discovery, requirements, active sprints, UAT, change?</li>
+          <li><span class="q-num">3</span>Project / client name</li>
+          <li><span class="q-num">4</span>Key stakeholders (2–3 names and roles)</li>
+          <li><span class="q-num">5</span>Business objective — what changes in the business when delivered?</li>
+          <li><span class="q-num">6</span>System scope — what platforms or modules are in scope?</li>
+          <li><span class="q-num">7</span>Target date or key milestone</li>
+          <li><span class="q-num">8</span>Team setup — solo BA, BA + PO, BA team, embedded in squad?</li>
+        </ul>
+      </div>
+
+      <div class="card-grid" style="margin-bottom:20px;">
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-start</div>
+          <h3>New Project Kickoff</h3>
+          <p>Full context interview → personalised BA Delivery Roadmap → Phase 1 begins automatically.</p>
+          <div class="cmd-card-meta"><span class="tag tag-md">Roadmap MD</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-start-sprint</div>
+          <h3>Joining Active Sprint</h3>
+          <p>Sprint context questions → sprint readiness review with gap list and per-story fix commands.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-start-uat</div>
+          <h3>Starting UAT</h3>
+          <p>UAT context questions → UAT Plan + Schedule + Feedback Tracker produced immediately.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-start-change</div>
+          <h3>Change Request Arrived</h3>
+          <p>Change context → CR log entry + impact summary + 2 recommended options + backlog update plan.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <span class="alert-icon">💡</span>
+        <div><strong>After each command</strong>, Claude shows: ✅ what was produced · 📁 save path · ⚠️ quality gaps found · ➡️ recommended next command. You're always guided to the next step.</div>
+      </div>
+    </section>
+
+    <!-- PHASE 1 -->
+    <section id="phase1" class="section">
+      <div class="section-header">
+        <div class="phase-badge p1">1</div>
+        <div>
+          <h2>Phase 1 — Foundation</h2>
+          <p>Understand who matters, how you'll communicate, and how you'll run requirements sessions</p>
+        </div>
+      </div>
+      <div class="alert alert-tip"><span class="alert-icon">🎯</span><strong>Gate:</strong> All key stakeholders identified, communication channels agreed, first workshop planned → proceed to Phase 2.</div>
+      <div class="card-grid">
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-stakeholder-map</div>
+          <h3>Stakeholder Map</h3>
+          <p>Stakeholder Register + RACI Matrix + Power-Interest Grid. Includes engagement expectations, decision rights, escalation path.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX · 3 sheets</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-comms-plan</div>
+          <h3>Communication Plan</h3>
+          <p>Communication matrix + calendar. Defines what, to whom, when, by whom — for all project communication types.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX · 2 sheets</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-workshop-plan</div>
+          <h3>Workshop Session Plan</h3>
+          <p>Time-boxed agenda, participants, pre-read, questions to ask, decisions needed, expected outputs, facilitator and note-taker assigned.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 2 -->
+    <section id="phase2" class="section">
+      <div class="section-header">
+        <div class="phase-badge p2">2</div>
+        <div>
+          <h2>Phase 2 — Discovery</h2>
+          <p>Understand real user workflows, pain points, and future-state design</p>
+        </div>
+      </div>
+      <div class="alert alert-tip"><span class="alert-icon">🎯</span><strong>Gate:</strong> Real workflows observed (not assumed), pain points documented, future state designed → proceed to Phase 3.</div>
+      <div class="card-grid">
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-persona</div>
+          <h3>Persona Cards</h3>
+          <p>One card per user type. Goals, frustrations, behaviours, workarounds (each = a requirement), and decision influence on system design.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-journey-map</div>
+          <h3>Journey Maps</h3>
+          <p>Current-state AND future-state maps. Stages, actions, touchpoints, emotions, pain points, opportunities, KPIs. Gap = requirements backlog.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-storyboard</div>
+          <h3>Storyboard</h3>
+          <p>Future-state frame-by-frame interaction narrative. Each frame = one actor interaction with screen, decision, and outcome.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-process-flow</div>
+          <h3>Process Flows</h3>
+          <p>As-Is + To-Be flows with exception paths, decision points, pain markers, and gap analysis table. Honest modeling only — includes waiting times and workarounds.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+        <div class="cmd-card">
+          <div class="cmd-card-command">/ba-mom</div>
+          <h3>Minutes of Meeting</h3>
+          <p>Structured MoM after every discovery session. Decisions, actions, open questions, risks, assumptions — all with owners and due dates.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 3 -->
+    <section id="phase3" class="section">
+      <div class="section-header">
+        <div class="phase-badge" style="background:#8B5CF6">3</div>
+        <div>
+          <h2>Phase 3 — Requirements</h2>
+          <p>Document all FRs, NFRs, rules, data, integrations, and reports in structured, traceable formats</p>
+        </div>
+      </div>
+      <div class="alert alert-tip"><span class="alert-icon">🎯</span><strong>Gate:</strong> All FRs, NFRs, integrations, data, and rules documented and peer-reviewed → proceed to Phase 4.</div>
+      <div class="card-grid">
+        <div class="cmd-card" style="border-left-color:#8B5CF6">
+          <div class="cmd-card-command">/ba-spec</div>
+          <h3>Functional Specification</h3>
+          <p>Full BRD/FRD with business objective, scope, actors, FRs, data, validations, screen behaviour, errors, audit needs, and traceability IDs.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#8B5CF6">
+          <div class="cmd-card-command">/ba-rules-register</div>
+          <h3>Business Rules Register</h3>
+          <p>Rules with ID, statement, trigger, source, owner, linked stories, exceptions, effective date, and test coverage. Decision tables for complex logic.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#8B5CF6">
+          <div class="cmd-card-command">/ba-data-dict</div>
+          <h3>Data Dictionary</h3>
+          <p>Field-level definitions: entity, label, type, format, length, required, allowed values, validation rules, default, owner, source system, PII flag.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#8B5CF6">
+          <div class="cmd-card-command">/ba-integration</div>
+          <h3>Integration Requirements</h3>
+          <p>Source/target, direction, trigger, payload, protocol, format, auth, error handling, retry logic, reconciliation, SLA, and owner per integration.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#8B5CF6">
+          <div class="cmd-card-command">/ba-reports</div>
+          <h3>Report Requirements</h3>
+          <p>Report name, audience, metrics/KPIs, calculation logic, filters, drill-downs, refresh frequency, export formats, and access rules.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#8B5CF6">
+          <div class="cmd-card-command">/ba-nfr</div>
+          <h3>Non-Functional Requirements</h3>
+          <p>Performance, security, compliance, accessibility (WCAG 2.1 AA), availability, supportability, scalability, and data retention — all with acceptance criteria.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#8B5CF6">
+          <div class="cmd-card-command">/ba-assumptions</div>
+          <h3>Assumptions Log</h3>
+          <p>All assumptions and external dependencies with rationale, owner, impact-if-wrong, status, and linked stories.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 4 -->
+    <section id="phase4" class="section">
+      <div class="section-header">
+        <div class="phase-badge p4">4</div>
+        <div>
+          <h2>Phase 4 — Backlog Creation</h2>
+          <p>Decompose requirements into implementable epics, stories, and technical work items</p>
+        </div>
+      </div>
+      <div class="alert alert-tip"><span class="alert-icon">🎯</span><strong>Gate:</strong> Full backlog written, all stories have ≥3 acceptance criteria, business rules linked → proceed to Phase 5.</div>
+
+      <div class="alert alert-info" style="margin-bottom:16px;">
+        <span class="alert-icon">📐</span>
+        <div><strong>Decomposition hierarchy:</strong> Initiative → Capability → <strong>Epic</strong> (1–3 sprints) → <strong>Feature</strong> (logical grouping) → <strong>Story</strong> (one sprint, INVEST) → Acceptance Criteria</div>
+      </div>
+
+      <div class="card-grid">
+        <div class="cmd-card" style="border-left-color:#EC4899">
+          <div class="cmd-card-command">/ba-epics</div>
+          <h3>Epic Hierarchy</h3>
+          <p>Structured decomposition from initiative to story. Hierarchy sheet + Backlog sheet + Release Roadmap. Dependencies and priorities at every level.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX · 3 sheets</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#EC4899">
+          <div class="cmd-card-command">/ba-user-stories</div>
+          <h3>User Stories + ACs</h3>
+          <p>INVEST stories with ≥3 Given-When-Then acceptance criteria (happy + error + edge), business rules, dependencies, assumptions, and DoR checklist.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#EC4899">
+          <div class="cmd-card-command">/ba-tech-stories</div>
+          <h3>Technical Stories</h3>
+          <p>System-actor stories for APIs, scheduled jobs, audit logging, migrations, integrations, and monitoring. Full logging/security/monitoring requirements.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:#EC4899">
+          <div class="cmd-card-command">/ba-brd</div>
+          <h3>Lightweight BRD</h3>
+          <p>Modern 5–10 page BRD: problem statement, objectives, scope in/out, personas, process flows, requirements summary, constraints, risks, open questions.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px; background:#fff; border-radius:12px; padding:20px; border:1px solid var(--gray);">
+        <h4 style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:12px;">Story Format — Quick Reference</h4>
+        <div class="output-pattern">
+<span class="op-white">As a</span> <span class="op-cyan">[specific user role]</span>,<br>
+<span class="op-white">I want to</span> <span class="op-cyan">[action/capability]</span>,<br>
+<span class="op-white">So that</span> <span class="op-cyan">[measurable business outcome]</span>.<br><br>
+<span class="op-green">Acceptance Criteria:</span><br>
+  <span class="op-yellow">Given</span> [happy path context],   <span class="op-yellow">When</span> [action], <span class="op-yellow">Then</span> [expected outcome].<br>
+  <span class="op-yellow">Given</span> [error / invalid input], <span class="op-yellow">When</span> [action], <span class="op-yellow">Then</span> [error handling].<br>
+  <span class="op-yellow">Given</span> [edge case],            <span class="op-yellow">When</span> [action], <span class="op-yellow">Then</span> [edge case behavior].<br><br>
+<span class="op-blue">Business Rules:</span>  BR-001, BR-002<br>
+<span class="op-blue">Traceability:</span>    REQ-042 → EPIC-07 → US-187
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 5 -->
+    <section id="phase5" class="section">
+      <div class="section-header">
+        <div class="phase-badge p5">5</div>
+        <div>
+          <h2>Phase 5 — Quality Gate</h2>
+          <p>Trace, review, prioritise, and validate sprint readiness before any story enters delivery</p>
+        </div>
+      </div>
+      <div class="alert alert-warn"><span class="alert-icon">⚠️</span><strong>Gate:</strong> All requirements traced, backlog prioritised, every sprint story passes DoR → proceed to Phase 6.</div>
+      <div class="card-grid">
+        <div class="cmd-card" style="border-left-color:var(--amber)">
+          <div class="cmd-card-command">/ba-rtm</div>
+          <h3>Traceability Matrix</h3>
+          <p>Full chain: Objective → Requirement → Epic → Story → Rule → AC → Test → UAT → Release. Gaps flagged explicitly.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX · 2 sheets</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--amber)">
+          <div class="cmd-card-command">/ba-coverage</div>
+          <h3>Coverage Review</h3>
+          <p>Confirms every requirement is in the backlog, every rule is covered by a story, every integration and exception is handled.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--amber)">
+          <div class="cmd-card-command">/ba-prioritize</div>
+          <h3>Backlog Prioritisation</h3>
+          <p>MoSCoW + WSJF + Value vs Effort. Ranked output with rationale, dependency notes, and sprint/release placement for every story.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX · 3 sheets</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--amber)">
+          <div class="cmd-card-command">/ba-sprint-ready</div>
+          <h3>Sprint Readiness Review</h3>
+          <p>12-point DoR check per story. RAG status per criterion. NOT SPRINT READY stories get explicit gap list and remediation commands.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--amber)">
+          <div class="cmd-card-command">/ba-export-jira</div>
+          <h3>JIRA CSV Export</h3>
+          <p>Full JIRA-importable CSV. Epics first, then stories, then sub-tasks. Correct encoding (utf-8-sig), labels, date formats.</p>
+          <div class="cmd-card-meta"><span class="tag tag-csv">CSV</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--amber)">
+          <div class="cmd-card-command">/ba-dor-dod</div>
+          <h3>Definition of Ready / Done</h3>
+          <p>Agreed DoR (10 criteria) and DoD (10 criteria) — what must be true before a story enters sprint and before it can be called complete.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 6 -->
+    <section id="phase6" class="section">
+      <div class="section-header">
+        <div class="phase-badge p6">6</div>
+        <div>
+          <h2>Phase 6 — Testing Support</h2>
+          <p>Ensure test coverage, prepare testers, manage UAT, and validate before client demo</p>
+        </div>
+      </div>
+      <div class="alert alert-tip"><span class="alert-icon">🎯</span><strong>Gate:</strong> Test coverage confirmed, UAT pack distributed, smoke test passed, demos completed → proceed to Phase 7.</div>
+      <div class="card-grid">
+        <div class="cmd-card" style="border-left-color:var(--teal)">
+          <div class="cmd-card-command">/ba-test-review</div>
+          <h3>Test Cases vs Stories</h3>
+          <p>Maps every story AC to test cases. Identifies missing positive, negative, edge, rule, validation, and role-based scenarios. Gap register produced.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX · 2 sheets</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--teal)">
+          <div class="cmd-card-command">/ba-test-data</div>
+          <h3>Test Data Preparation</h3>
+          <p>Scenario-to-data matrix with valid, invalid, boundary values, role permutations, expected results, and privacy/masking rules.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--teal)">
+          <div class="cmd-card-command">/ba-smoke-test</div>
+          <h3>Smoke Test Checklist</h3>
+          <p>Critical path validation before demo/UAT. Login, navigation, core transactions, integrations, error handling. Go/No-Go summary.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--teal)">
+          <div class="cmd-card-command">/ba-uat-plan</div>
+          <h3>UAT Plan + Schedule</h3>
+          <p>UAT scope, scenarios, tester assignments, environment confirmation, defect process, entry criteria, sign-off template, tester guide.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--teal)">
+          <div class="cmd-card-command">/ba-demo-script</div>
+          <h3>Demo Script</h3>
+          <p>Step-by-step walkthrough script aligned to delivered stories. Expected outcomes, known limitations, feedback capture sheet, decisions needed.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--teal)">
+          <div class="cmd-card-command">/ba-uat-feedback</div>
+          <h3>UAT Feedback Log</h3>
+          <p>Structured capture of tester feedback: verbatim description, expected vs actual, severity, evidence, owner, retest result, sign-off status.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHASE 7 -->
+    <section id="phase7" class="section">
+      <div class="section-header">
+        <div class="phase-badge p7">7</div>
+        <div>
+          <h2>Phase 7 — Governance</h2>
+          <p>Maintain visibility, control changes, track decisions and risks, report status</p>
+        </div>
+      </div>
+      <div class="alert alert-tip"><span class="alert-icon">🎯</span><strong>Gate:</strong> All feedback traced, changes controlled, risks monitored → ready for release / go-live.</div>
+      <div class="card-grid">
+        <div class="cmd-card" style="border-left-color:var(--red)">
+          <div class="cmd-card-command">/ba-status</div>
+          <h3>Weekly Status Report</h3>
+          <p>One-page BA status: overall RAG, completed, upcoming, risks/issues, decisions needed, change summary, actions with owners and due dates.</p>
+          <div class="cmd-card-meta"><span class="tag tag-docx">DOCX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--red)">
+          <div class="cmd-card-command">/ba-feedback</div>
+          <h3>Client Feedback Log</h3>
+          <p>Verbatim client comments with category, severity, owner, response, resolution path, and traceability to backlog or CR.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--red)">
+          <div class="cmd-card-command">/ba-decisions</div>
+          <h3>Decision Log</h3>
+          <p>Project decisions with rationale, decision maker, alternatives considered, impact, and linked artifacts. Never let decisions get lost.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--red)">
+          <div class="cmd-card-command">/ba-risks</div>
+          <h3>Risk and Issue Log</h3>
+          <p>Requirements, scope, business, testing, and stakeholder risks with likelihood, impact, score, owner, mitigation, and linked stories.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--red)">
+          <div class="cmd-card-command">/ba-change-request</div>
+          <h3>Change Request Log</h3>
+          <p>CR with description, business justification, impact on scope/schedule/cost, 2 options presented, approval status, and traceability.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+        <div class="cmd-card" style="border-left-color:var(--red)">
+          <div class="cmd-card-command">/ba-backlog-update</div>
+          <h3>Backlog Update for CRs</h3>
+          <p>Delta scope tracker showing what changed: new stories, modified stories, removed stories, sprint impact, test impact, updated priorities.</p>
+          <div class="cmd-card-meta"><span class="tag tag-xlsx">XLSX</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW CLAUDE RESPONDS -->
+    <section id="commands" class="section">
+      <div class="section-header">
+        <div class="phase-badge" style="background:var(--body)">⌘</div>
+        <div>
+          <h2>How Claude Responds to Every Command</h2>
+          <p>Every BA command returns a structured output — never just raw text</p>
+        </div>
+      </div>
+      <div class="output-pattern">
+<span class="op-green">✅ DELIVERABLE PRODUCED</span><br>
+   [Name]: [brief description of what was generated]<br>
+   📁 Saved to: <span class="op-cyan">RFP/[Project]/[filename].[ext]</span><br><br>
+<span class="op-yellow">⚠️  QUALITY CHECKS</span><br>
+   Clarity:              <span class="op-white">4/5</span> ✓<br>
+   Completeness:         <span class="op-white">3/5</span> <span style="color:#EF4444">← needs improvement: missing edge cases for duplicate DOR scenario</span><br>
+   Traceability:         <span class="op-white">5/5</span> ✓<br>
+   Testability:          <span class="op-white">4/5</span> ✓<br>
+   Business Relevance:   <span class="op-white">5/5</span> ✓<br><br>
+<span class="op-blue">➡️  NEXT STEP</span><br>
+   Phase 3 · Step 3.2: <span class="op-cyan">/ba-rules-register</span><br>
+   Captures all business rules linked to the spec just produced.<br><br>
+<span style="color:#94A3B8">💡 SKIP? If not needed for your project, type /ba-skip to advance.</span>
+      </div>
+    </section>
+
+    <!-- STANDARDS -->
+    <section id="standards" class="section">
+      <div class="section-header">
+        <div class="phase-badge" style="background:var(--teal)">✓</div>
+        <div>
+          <h2>Quality Standards</h2>
+          <p>Every artifact is scored before finalising. Any dimension scoring below 4 must be improved.</p>
+        </div>
+      </div>
+
+      <div class="standards-grid">
+        <div class="std-card">
+          <h4>Quality Scoring (1–5)</h4>
+          <table class="workflow-table">
+            <thead><tr><th>Dimension</th><th>What to Check</th></tr></thead>
+            <tbody>
+              <tr><td>Clarity</td><td>Unambiguous? Readable by all audiences?</td></tr>
+              <tr><td>Completeness</td><td>All sections? All edge cases?</td></tr>
+              <tr><td>Traceability</td><td>Links upstream and downstream?</td></tr>
+              <tr><td>Testability</td><td>Can QA write a test from this?</td></tr>
+              <tr><td>Consistency</td><td>Same terminology throughout?</td></tr>
+              <tr><td>Business Relevance</td><td>Tied to measurable outcome?</td></tr>
+              <tr><td>Implementation Readiness</td><td>Can a developer build this today?</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="std-card">
+          <h4>Sprint Readiness — Definition of Ready</h4>
+          <div style="font-size:12.5px; line-height:2;">
+            ☐ Scope is unambiguous<br>
+            ☐ ≥3 Acceptance Criteria (happy + error + edge)<br>
+            ☐ Business rules referenced<br>
+            ☐ Dependencies identified and planned<br>
+            ☐ Data needs defined<br>
+            ☐ UX / process reference available<br>
+            ☐ Testability confirmed<br>
+            ☐ Estimation possible<br>
+            ☐ No blocking open questions<br>
+            ☐ Product / business approval received
+          </div>
+        </div>
+
+        <div class="std-card">
+          <h4>Aiden AI Brand Colors</h4>
+          <div class="color-swatch"><div class="swatch" style="background:#08244B"></div><span class="color-label">Deep Navy</span><span class="color-hex">#08244B · Headings</span></div>
+          <div class="color-swatch"><div class="swatch" style="background:#103EE0"></div><span class="color-label">Electric Blue</span><span class="color-hex">#103EE0 · Accent</span></div>
+          <div class="color-swatch"><div class="swatch" style="background:#12DBD5"></div><span class="color-label">Cyan</span><span class="color-hex">#12DBD5 · Gradient end</span></div>
+          <div class="color-swatch"><div class="swatch" style="background:#E0E4FC"></div><span class="color-label">Lavender</span><span class="color-hex">#E0E4FC · Table headers</span></div>
+          <div class="color-swatch"><div class="swatch" style="background:#64748B"></div><span class="color-label">Cool Gray</span><span class="color-hex">#64748B · Body text</span></div>
+          <div class="color-swatch"><div class="swatch" style="background:#1AB9A5"></div><span class="color-label">Teal</span><span class="color-hex">#1AB9A5 · Status: Complete</span></div>
+          <div class="color-swatch"><div class="swatch" style="background:#F59E0B"></div><span class="color-label">Amber</span><span class="color-hex">#F59E0B · Status: At Risk</span></div>
+          <div class="color-swatch"><div class="swatch" style="background:#EF4444"></div><span class="color-label">Red</span><span class="color-hex">#EF4444 · Status: Blocked</span></div>
+        </div>
+
+        <div class="std-card">
+          <h4>Traceability Chain</h4>
+          <div style="font-size:12px; font-family:'Courier New',monospace; line-height:2; color:var(--navy);">
+            Business Objective<br>
+            &nbsp;&nbsp;→ Stakeholder Need<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;→ Requirement (FR/NFR/INT)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Epic<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ User Story<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Business Rule<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Acceptance Criteria<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Test Case<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ UAT Feedback<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ Release / Change
+          </div>
+          <div style="margin-top:10px; font-size:11px; color:var(--red); font-weight:600;">
+            ⚠ Missing link = TRACEABILITY GAP (flagged automatically)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK REFERENCE -->
+    <section id="quickref" class="section">
+      <div class="section-header">
+        <div class="phase-badge" style="background:var(--navyMid)">≡</div>
+        <div>
+          <h2>Quick Command Reference</h2>
+          <p>All 39 commands organised by phase</p>
+        </div>
+      </div>
+      <div class="quick-ref-grid">
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:var(--navy)">Phase 0 · Kickoff</div>
+          <span class="qr-cmd">/ba-start</span>
+          <span class="qr-cmd">/ba-start-sprint</span>
+          <span class="qr-cmd">/ba-start-uat</span>
+          <span class="qr-cmd">/ba-start-change</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:var(--blue)">Phase 1 · Foundation</div>
+          <span class="qr-cmd">/ba-stakeholder-map</span>
+          <span class="qr-cmd">/ba-comms-plan</span>
+          <span class="qr-cmd">/ba-workshop-plan</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:var(--softBlue)">Phase 2 · Discovery</div>
+          <span class="qr-cmd">/ba-persona</span>
+          <span class="qr-cmd">/ba-journey-map</span>
+          <span class="qr-cmd">/ba-storyboard</span>
+          <span class="qr-cmd">/ba-process-flow</span>
+          <span class="qr-cmd">/ba-mom</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:#8B5CF6">Phase 3 · Requirements</div>
+          <span class="qr-cmd">/ba-spec</span>
+          <span class="qr-cmd">/ba-rules-register</span>
+          <span class="qr-cmd">/ba-data-dict</span>
+          <span class="qr-cmd">/ba-integration</span>
+          <span class="qr-cmd">/ba-reports</span>
+          <span class="qr-cmd">/ba-nfr</span>
+          <span class="qr-cmd">/ba-assumptions</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:#EC4899">Phase 4 · Backlog</div>
+          <span class="qr-cmd">/ba-epics</span>
+          <span class="qr-cmd">/ba-user-stories</span>
+          <span class="qr-cmd">/ba-tech-stories</span>
+          <span class="qr-cmd">/ba-brd</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:var(--amber)">Phase 5 · Quality Gate</div>
+          <span class="qr-cmd">/ba-rtm</span>
+          <span class="qr-cmd">/ba-coverage</span>
+          <span class="qr-cmd">/ba-prioritize</span>
+          <span class="qr-cmd">/ba-sprint-ready</span>
+          <span class="qr-cmd">/ba-export-jira</span>
+          <span class="qr-cmd">/ba-dor-dod</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:var(--teal)">Phase 6 · Testing</div>
+          <span class="qr-cmd">/ba-test-review</span>
+          <span class="qr-cmd">/ba-test-data</span>
+          <span class="qr-cmd">/ba-smoke-test</span>
+          <span class="qr-cmd">/ba-uat-plan</span>
+          <span class="qr-cmd">/ba-demo-script</span>
+          <span class="qr-cmd">/ba-uat-feedback</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:var(--red)">Phase 7 · Governance</div>
+          <span class="qr-cmd">/ba-status</span>
+          <span class="qr-cmd">/ba-feedback</span>
+          <span class="qr-cmd">/ba-decisions</span>
+          <span class="qr-cmd">/ba-risks</span>
+          <span class="qr-cmd">/ba-change-request</span>
+          <span class="qr-cmd">/ba-backlog-update</span>
+        </div>
+        <div class="qr-phase">
+          <div class="qr-phase-title" style="color:var(--body)">Additional</div>
+          <span class="qr-cmd">/ba-product-brief</span>
+          <span class="qr-cmd">/ba-brainstorm</span>
+          <span class="qr-cmd">/ba-skip</span>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; background:#fff; border-radius:12px; padding:20px 24px; border:1px solid var(--gray);">
+        <h4 style="font-size:13px; font-weight:700; color:var(--navy); margin-bottom:14px;">Example Starting Prompts</h4>
+        <table class="workflow-table">
+          <thead><tr><th>Situation</th><th>What to Type</th></tr></thead>
+          <tbody>
+            <tr><td>Starting a new project</td><td><span class="cmd-inline">/ba-start</span></td></tr>
+            <tr><td>Need a stakeholder map for my project</td><td><span class="cmd-inline">/ba-stakeholder-map</span> — Claude will ask you for project context</td></tr>
+            <tr><td>Write user stories for the claims intake module</td><td><span class="cmd-inline">/ba-user-stories</span> then describe the module</td></tr>
+            <tr><td>Convert these requirements into epics and stories</td><td>Paste requirements then type <span class="cmd-inline">/ba-epics</span></td></tr>
+            <tr><td>Review whether these stories are sprint ready</td><td>Paste stories then type <span class="cmd-inline">/ba-sprint-ready</span></td></tr>
+            <tr><td>Prioritise this backlog using MoSCoW</td><td>Paste backlog then type <span class="cmd-inline">/ba-prioritize</span></td></tr>
+            <tr><td>A change request just came in</td><td><span class="cmd-inline">/ba-start-change</span></td></tr>
+            <tr><td>Export all stories to JIRA</td><td><span class="cmd-inline">/ba-export-jira</span></td></tr>
+            <tr><td>Prepare for UAT next week</td><td><span class="cmd-inline">/ba-start-uat</span></td></tr>
+            <tr><td>Write the weekly status report</td><td><span class="cmd-inline">/ba-status</span> then provide this week's updates</td></tr>
+            <tr><td>Create a business rules register</td><td><span class="cmd-inline">/ba-rules-register</span> then describe the domain</td></tr>
+            <tr><td>Create traceability between requirements and tests</td><td><span class="cmd-inline">/ba-rtm</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── PROJECT STRUCTURE ───────────────────────────────────── -->
+    <section id="structure">
+      <div class="section-header">
+        <div class="section-icon">📁</div>
+        <div>
+          <h2>Project Document Structure</h2>
+          <p>Standard folder layout for every BA engagement — aligned with the Aiden AI project workspace convention.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px;">
+
+        <div style="background:#fff;border-radius:12px;padding:22px 24px;border:1px solid var(--gray);border-left:4px solid var(--blue);">
+          <h4 style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;">📂 RFP/&lt;Client-Name&gt;/BA/</h4>
+          <pre style="font-size:12px;line-height:1.8;color:var(--body);background:var(--offWhite);padding:14px;border-radius:8px;overflow-x:auto;">BA/
+├── 01-Foundation/
+│   ├── project-charter.docx
+│   ├── stakeholder-map.xlsx
+│   ├── communication-plan.docx
+│   └── workshop-plan.docx
+├── 02-Discovery/
+│   ├── current-state-assessment.docx
+│   ├── personas.docx
+│   └── journey-maps.docx
+├── 03-Requirements/
+│   ├── brd.docx
+│   ├── functional-spec.docx
+│   ├── business-rules.xlsx
+│   └── data-dictionary.xlsx
+├── 04-Backlog/
+│   ├── epics-stories.xlsx
+│   ├── rtm.xlsx
+│   ├── sprint-readiness.xlsx
+│   └── prioritization.xlsx
+├── 05-Quality/
+│   ├── definition-of-ready.docx
+│   ├── definition-of-done.docx
+│   └── nfr-register.xlsx
+├── 06-Testing/
+│   ├── uat-plan.docx
+│   ├── uat-feedback.xlsx
+│   └── test-story-map.xlsx
+└── 07-Governance/
+    ├── change-log.xlsx
+    ├── risk-log.xlsx
+    ├── mom/
+    │   └── YYYY-MM-DD-mom.docx
+    └── status-reports/
+        └── YYYY-WW-status.docx</pre>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--teal);">
+            <h4 style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">Naming Convention</h4>
+            <ul style="font-size:13px;color:var(--body);list-style:disc;padding-left:18px;line-height:1.9;">
+              <li>Phase prefix: <code style="background:var(--lavender);padding:1px 5px;border-radius:3px;font-size:11px;">01-</code> to <code style="background:var(--lavender);padding:1px 5px;border-radius:3px;font-size:11px;">07-</code></li>
+              <li>Kebab-case filenames, no spaces</li>
+              <li>Dates: <code style="background:var(--lavender);padding:1px 5px;border-radius:3px;font-size:11px;">YYYY-MM-DD</code></li>
+              <li>Versions: <code style="background:var(--lavender);padding:1px 5px;border-radius:3px;font-size:11px;">-v1.0</code> suffix on final</li>
+            </ul>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--cyan);">
+            <h4 style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">Baseline Setup Command</h4>
+            <p style="font-size:13px;color:var(--body);margin-bottom:10px;">Claude will scaffold this folder tree for you automatically:</p>
+            <code style="display:block;background:var(--navy);color:var(--cyan);padding:12px 14px;border-radius:8px;font-size:13px;">/ba-start</code>
+            <p style="font-size:12px;color:var(--body);margin-top:8px;">Claude will ask for client name, project type, and phase — then create the full folder structure and pre-populate CLAUDE.md.</p>
+          </div>
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--amber);">
+            <h4 style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;">CLAUDE.md per Project</h4>
+            <p style="font-size:13px;color:var(--body);">Each BA project gets a <code style="background:var(--lavender);padding:1px 5px;border-radius:3px;font-size:11px;">CLAUDE.md</code> in its root with: client name, project type, current phase, active sprint, stakeholder registry, and key decisions log. Download the template below.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── DOWNLOADS ────────────────────────────────────────────── -->
+    <section id="downloads">
+      <div class="section-header">
+        <div class="section-icon">⬇</div>
+        <div>
+          <h2>Sample Deliverable Downloads</h2>
+          <p>Pre-built, Aiden AI–branded templates. Open in Excel or Word — all headers, tables, and formulas included.</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-bottom:28px;">
+
+        <!-- XLSX templates -->
+        <a href="samples/01-stakeholder-map-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--blue);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(16,62,224,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">Stakeholder Map Template</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Power/interest grid, RACI matrix, engagement plan, communication preferences register.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--blue);font-weight:600;">↓ stakeholder-map-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/02-user-stories-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--blue);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(16,62,224,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">User Stories Template</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Epic / story / task hierarchy with acceptance criteria, story points, priority, and sprint assignment.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--blue);font-weight:600;">↓ user-stories-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/03-rtm-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--blue);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(16,62,224,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">RTM — Requirements Traceability</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Full trace from business objective → FR → story → test case → UAT result. Auto-status formula included.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--blue);font-weight:600;">↓ rtm-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/04-business-rules-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--blue);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(16,62,224,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">Business Rules Register</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Rule ID, domain, description, rationale, owner, effective date, and linked requirement columns.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--blue);font-weight:600;">↓ business-rules-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/05-sprint-readiness-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--teal);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(26,185,165,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">Sprint Readiness Checklist</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">INVEST criteria scoring, Definition of Ready gate, dependency flag, and sprint allocation view.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--teal);font-weight:600;">↓ sprint-readiness-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/06-uat-feedback-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--teal);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(26,185,165,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">UAT Feedback Log</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Test scenario, tester, pass/fail, defect ID, severity, resolution status, and sign-off tracking.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--teal);font-weight:600;">↓ uat-feedback-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/07-change-log-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--amber);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(245,158,11,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--amber);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">Change Log</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">CR number, impact assessment (scope/cost/time), approval chain, status, and linked story IDs.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--amber);font-weight:600;">↓ change-log-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/08-risk-log-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--amber);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(245,158,11,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--amber);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">Risk &amp; Issue Log</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Risk ID, probability × impact heat map formula, mitigation action, owner, and escalation path.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--amber);font-weight:600;">↓ risk-log-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/09-prioritization-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--blue);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(16,62,224,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">MoSCoW Prioritization</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Story-level MoSCoW buckets with value/effort scoring, dependency matrix, and release planning view.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--blue);font-weight:600;">↓ prioritization-template.xlsx</div>
+          </div>
+        </a>
+
+        <a href="samples/10-test-story-mapping-template.xlsx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--teal);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(26,185,165,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">XLSX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">Test Story Mapping</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">User journey → epic → story → test case hierarchy with coverage % formula and sprint assignment.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--teal);font-weight:600;">↓ test-story-mapping-template.xlsx</div>
+          </div>
+        </a>
+
+        <!-- DOCX templates -->
+        <a href="samples/11-mom-template.docx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--softBlue);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(87,90,197,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--softBlue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">DOCX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">Minutes of Meeting (MoM)</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Aiden AI–branded Word template with attendees table, discussion log, decisions, and action items.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--softBlue);font-weight:600;">↓ mom-template.docx</div>
+          </div>
+        </a>
+
+        <a href="samples/12-brd-template.docx" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--softBlue);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(87,90,197,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--softBlue);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">DOCX</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">BRD — Business Requirements Document</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Full BRD structure: executive summary, scope, assumptions, functional requirements, NFRs, and sign-off page.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--softBlue);font-weight:600;">↓ brd-template.docx</div>
+          </div>
+        </a>
+
+        <!-- MD template -->
+        <a href="samples/00-project-CLAUDE-template.md" download style="text-decoration:none;">
+          <div style="background:#fff;border-radius:12px;padding:18px 20px;border:1px solid var(--gray);border-left:4px solid var(--navy);cursor:pointer;transition:box-shadow .2s;" onmouseover="this.style.boxShadow='0 4px 18px rgba(8,36,75,.12)'" onmouseout="this.style.boxShadow=''">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <span style="background:var(--navy);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;">MD</span>
+              <span style="font-size:13px;font-weight:700;color:var(--navy);">CLAUDE.md Project Template</span>
+            </div>
+            <p style="font-size:12px;color:var(--body);">Per-project CLAUDE.md scaffold with client context, current phase, stakeholder registry, decisions log, and BA command cheatsheet.</p>
+            <div style="margin-top:10px;font-size:11px;color:var(--navy);font-weight:600;">↓ project-CLAUDE-template.md</div>
+          </div>
+        </a>
+
+      </div>
+
+      <div style="background:linear-gradient(135deg,var(--navy),#073663);border-radius:14px;padding:22px 28px;display:flex;align-items:center;gap:18px;">
+        <div style="font-size:32px;">💡</div>
+        <div>
+          <h4 style="color:#fff;font-size:14px;font-weight:700;margin-bottom:4px;">Generate fresh samples anytime</h4>
+          <p style="color:var(--periwinkle);font-size:13px;">Run <code style="background:rgba(255,255,255,.1);padding:2px 7px;border-radius:4px;">python scripts/generate_ba_samples.py</code> from the <code style="background:rgba(255,255,255,.1);padding:2px 7px;border-radius:4px;">BA_Framework/</code> folder to rebuild all templates with the latest Aiden AI branding.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div>Built with <span>Aiden AI</span> · BA Delivery Assistant v2.0 · For internal BA team use only</div>
+  <div style="margin-top:6px; opacity:0.5; font-size:11px;">RFP/BA_Framework/BA_Delivery_Guide.html · Skills: business-analysis-SKILL.md + business-analysis-deliverables.md</div>
+</footer>
+
+</body>
+</html>

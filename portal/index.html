@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aiden AI — Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#073663;--dark-navy:#08244B;--electric:#103EE0;--cyan:#12DBD5;
+      --light-blue:#E0E4FC;--text:#1a2744;--muted:#4a5a7a;
+      --grad:linear-gradient(89deg,#103EE0 27.33%,#12DBD5 83.11%);
+    }
+    body{font-family:'Poppins',sans-serif;background:#edf1f7;color:var(--text);line-height:1.55;min-height:100vh;display:flex;flex-direction:column}
+    header.hero{
+      background:linear-gradient(135deg,var(--dark-navy) 0%,var(--navy) 60%,var(--electric) 100%);
+      color:#fff;padding:80px 32px 96px;text-align:center;position:relative;overflow:hidden
+    }
+    header.hero::after{
+      content:"";position:absolute;inset:auto 0 -1px 0;height:40px;
+      background:radial-gradient(ellipse at top,rgba(18,219,213,.35),transparent 70%)
+    }
+    .tag{display:inline-block;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+    h1{font-size:48px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px}
+    .sub{font-size:19px;opacity:.85;max-width:720px;margin:0 auto}
+    .user-bar{position:absolute;top:20px;right:28px;font-size:13px;display:flex;gap:14px;align-items:center}
+    .user-bar a{color:#fff;text-decoration:none;opacity:.85}
+    .user-bar a:hover{opacity:1}
+    .user-bar #who{opacity:.7}
+    main{max-width:1200px;margin:-64px auto 0;padding:0 24px 64px;position:relative;z-index:2;flex:1;width:100%}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+    .card{
+      background:#fff;border-radius:20px;padding:32px 30px;
+      box-shadow:0 14px 40px rgba(8,36,75,.08);border:1px solid #e4ebf5;
+      display:flex;flex-direction:column;gap:18px;transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit
+    }
+    .card:hover{transform:translateY(-4px);box-shadow:0 22px 50px rgba(8,36,75,.14)}
+    .card .icon{width:52px;height:52px;border-radius:14px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:700}
+    .card h2{font-size:24px;font-weight:700;color:var(--dark-navy)}
+    .card p{color:var(--muted);font-size:14px}
+    .card .open{color:var(--electric);font-weight:600;font-size:14px;margin-top:auto}
+    footer{text-align:center;color:var(--muted);font-size:12px;padding:24px 16px;border-top:1px solid #e4ebf5;background:#fff}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="user-bar">
+      <span id="who"></span>
+      <a href="/logout">Sign out</a>
+    </div>
+    <span class="tag">Aiden AI Portal</span>
+    <h1>Welcome</h1>
+    <p class="sub">Internal and client-gated access to Aiden AI marketing assets, delivery frameworks, and reference material.</p>
+  </header>
+  <main>
+    <section class="grid">
+      <a class="card" href="/marketing/index.html">
+        <div class="icon">M</div>
+        <h2>Marketing Assets</h2>
+        <p>Campaign landing pages, LinkedIn carousels, one-pagers, email copy, and blog articles across all active Aiden AI campaigns.</p>
+        <span class="open">Open Marketing Hub &rarr;</span>
+      </a>
+      <a class="card" href="/ba-guide/">
+        <div class="icon">BA</div>
+        <h2>BA Delivery Guide</h2>
+        <p>Full Business Analysis framework — 7 phases, 39 commands, 35 deliverables, plus downloadable templates for every stage of the project lifecycle.</p>
+        <span class="open">Open BA Guide &rarr;</span>
+      </a>
+    </section>
+  </main>
+  <footer>
+    &copy; Aiden AI Private Limited &middot; Authorized users only &middot;
+    <a href="/logout" style="color:var(--electric);text-decoration:none">Sign out</a>
+  </footer>
+  <script>
+    fetch('/.auth/me').then(r=>r.json()).then(d=>{
+      const p=d&&d.clientPrincipal;
+      if(p&&p.userDetails){document.getElementById('who').textContent=p.userDetails;}
+    }).catch(()=>{});
+  </script>
+</body>
+</html>
