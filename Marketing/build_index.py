@@ -24,6 +24,7 @@ CAMPAIGN_BLURBS = {
     "Onboard-Agent": "AI-driven onboarding specialist designed to automate the employee and customer lifecycle with proactive orchestration.",
     "Aiden-Tech-Operations": "Enterprise AI for B2B tech operations — automating service desk, infrastructure management, and technical support.",
     "Autonomous-Partner-Onboarding": "Streamlined partner and vendor onboarding with agentic AI — reducing friction and accelerating time-to-value.",
+    "AiDAP-Operations": "Agentic operating model for enterprise operations — orchestrating hierarchical agents and semantic memory to scale business functions.",
 }
 
 

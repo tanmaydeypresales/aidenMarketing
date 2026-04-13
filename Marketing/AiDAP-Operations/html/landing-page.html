@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AiDAP Operations — The Agentic Operating Model</title>
+    <meta name="description" content="Build an intelligent operational fabric with AiDAP. Move beyond point tools to a unified agentic operating model for Finance, Sales, and Marketing operations.">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #E0E4FC;
+            --white: #FFFFFF;
+            --gray-text: #555;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-navy);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            color: var(--primary-navy);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Gradient Highlight */
+        .gradient-text {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--light-blue) 0%, #fff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-text);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--electric-blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 62, 224, 0.2);
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            padding: 2rem;
+            background: var(--light-blue);
+            border-radius: 8px;
+            border-left: 4px solid var(--electric-blue);
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            padding: 100px 0;
+            background: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .capabilities h2 {
+            color: var(--white);
+            margin-bottom: 3rem;
+        }
+
+        .capability-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .capability-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .capability-content h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-content p {
+            color: #ccc;
+        }
+
+        /* Outcomes Section */
+        .outcomes {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .outcome-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .outcome-card h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .outcome-card p {
+            font-weight: 600;
+            color: var(--gray-text);
+        }
+
+        /* CTA Footer */
+        .cta-footer {
+            padding: 80px 0;
+            background: var(--brand-gradient);
+            color: #fff;
+            text-align: center;
+        }
+
+        .cta-footer h2 {
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--electric-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .capability-item { flex-direction: column; }
+            .capability-number { margin-bottom: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="container">
+            <h1>From Fragmented Tasks to an Agentic Operating <span class="gradient-text">Model</span>.</h1>
+            <p>Stop using AI as a point tool. Build an intelligent operational fabric with AiDAP—the enterprise platform that orchestrates agents, memory, and logic to scale your business operations.</p>
+            <a href="#" class="btn">Design Your Agentic Operating Model</a>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="container">
+            <h2>The Hidden Cost of Inefficient Operations</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>Disconnected Intelligence</h3>
+                    <p>Isolated bots fail to understand end-to-end context, leading to manual rework.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Operational Amnesia</h3>
+                    <p>Teams lose millions in productivity relearning policies and prior decisions daily.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Inflexible Scaling</h3>
+                    <p>Hiring more headcount is no longer a viable path to sustainable growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="capabilities">
+        <div class="container">
+            <h2>The AiDAP Operational Fabric</h2>
+            
+            <div class="capability-item">
+                <div class="capability-number">01</div>
+                <div class="capability-content">
+                    <h3>Hierarchical Agent Orchestration</h3>
+                    <p>A Master Agent interprets goals and orchestrates specialized Deep Agents dynamically for every task.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">02</div>
+                <div class="capability-content">
+                    <h3>Large-Scale Semantic Memory</h3>
+                    <p>Ground agents in true enterprise context—policies, workflows, and prior decisions stored in a knowledge graph.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">03</div>
+                <div class="capability-content">
+                    <h3>Intelligent Inference Layer</h3>
+                    <p>Balance performance and cost by intelligently switching between low-cost and high-end reasoning models.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">04</div>
+                <div class="capability-content">
+                    <h3>Human-in-the-Loop Governance</h3>
+                    <p>Preserve human oversight for high-risk decisions while automating the routine, high-volume operational steps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="outcomes">
+        <div class="container">
+            <h2>Strategic Impact: The Outcomes That Matter</h2>
+            <div class="outcome-grid">
+                <div class="outcome-card">
+                    <h3 class="gradient-text">30-50%</h3>
+                    <p>Reduction in Manual Effort</p>
+                </div>
+                <div class="outcome-card">
+                    <h3 class="gradient-text">Minutes</h3>
+                    <p>Turnaround Cycle Time</p>
+                </div>
+                <div class="outcome-card">
+                    <h3 class="gradient-text">100%</h3>
+                    <p>Policy Compliance</p>
+                </div>
+                <div class="outcome-card">
+                    <h3 class="gradient-text">Zero</h3>
+                    <p>Decision Memory Loss</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-footer">
+        <div class="container">
+            <h2>Ready to scale your operations without scaling your headcount?</h2>
+            <a href="#" class="btn btn-white">Watch the Operations Orchestrator</a>
+            <p style="margin-top: 2rem; opacity: 0.8;">Contact us: <a href="mailto:sales@aidenai.com" style="color: #fff; font-weight: 600;">sales@aidenai.com</a></p>
+        </div>
+    </section>
+
+</body>
+</html>

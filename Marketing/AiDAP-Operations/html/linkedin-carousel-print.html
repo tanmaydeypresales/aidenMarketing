@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Carousel Print — AiDAP Operations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #EDEEF4;
+            --white: #FFFFFF;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        @page {
+            size: 1080px 1080px;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1080px;
+            height: 1080px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px;
+            box-sizing: border-box;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide:last-child {
+            page-break-after: avoid;
+        }
+
+        /* Slide Themes */
+        .slide-dark {
+            background-color: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .slide-light {
+            background-color: var(--white);
+            color: var(--primary-navy);
+        }
+
+        .slide-light-alt {
+            background-color: var(--light-blue);
+            color: var(--primary-navy);
+        }
+
+        /* Typography */
+        .eyebrow {
+            font-size: 24pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            color: var(--cyan);
+        }
+
+        .slide-light .eyebrow, .slide-light-alt .eyebrow {
+            color: var(--electric-blue);
+        }
+
+        .headline {
+            font-size: 60pt;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 60px;
+        }
+
+        .support {
+            font-size: 32pt;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .gradient-word {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            font-weight: 800;
+            font-size: 24pt;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1 -->
+    <div class="slide slide-dark">
+        <div class="eyebrow">Scaling Enterprise Operations</div>
+        <div class="headline">How to Build an Agentic <span class="gradient-word">Operating Model</span></div>
+        <div class="support">Move beyond point solutions to an intelligent operational fabric with AiDAP.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">The Scaling Crisis</div>
+        <div class="headline">Traditional ops models are <span class="gradient-word">broken</span>.</div>
+        <div class="support">Fragmented systems and manual coordination are creating a complexity ceiling.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">Introducing AiDAP</div>
+        <div class="headline">A Unified <span class="gradient-word">Operational Fabric</span>.</div>
+        <div class="support">Orchestrate agents, memory, and logic to handle routine work autonomously.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">The Agent Hierarchy</div>
+        <div class="headline">Master & Deep <span class="gradient-word">Agents</span>.</div>
+        <div class="support">A Master Agent orchestrates specialized Deep Agents dynamically for every task.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">Enterprise Memory</div>
+        <div class="headline">Grounding in <span class="gradient-word">Context</span>.</div>
+        <div class="support">Our knowledge graph ingests millions of pages to give agents "operational memory."</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">Cost-Effective Intelligence</div>
+        <div class="headline">Smart <span class="gradient-word">Inference Layer</span>.</div>
+        <div class="support">Intelligently switch between models to balance performance and operating costs.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">Trust & Control</div>
+        <div class="headline">Human-in-the-Loop <span class="gradient-word">Governance</span>.</div>
+        <div class="support">Agents handle the volume; humans govern the high-risk exceptions.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">Finance & Sales Ops</div>
+        <div class="headline">Beyond <span class="gradient-word">Automation</span>.</div>
+        <div class="support">Automate invoices, lead qualification, and CRM hygiene with agentic reasoning.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">Marketing & Back-Office</div>
+        <div class="headline">Global <span class="gradient-word">Scale</span>.</div>
+        <div class="support">Streamline campaign planning and document verification at enterprise production scale.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide slide-dark">
+        <div class="eyebrow">Next Steps</div>
+        <div class="headline">Ready to scale your <span class="gradient-word">intelligence</span>?</div>
+        <div class="support">Design your agentic operating model at aiden.ai/operations</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+</body>
+</html>

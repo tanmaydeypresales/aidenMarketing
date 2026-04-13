@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Carousel Preview — AiDAP Operations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #EDEEF4;
+            --white: #FFFFFF;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f2ef;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            box-sizing: border-box;
+            transition: transform 0.5s ease-in-out;
+            transform: translateX(100%);
+        }
+
+        .slide.active {
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        /* Slide Themes */
+        .slide-dark {
+            background-color: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .slide-light {
+            background-color: var(--white);
+            color: var(--primary-navy);
+        }
+
+        .slide-light:nth-child(even) {
+            background-color: var(--light-blue);
+        }
+
+        /* Typography */
+        .eyebrow {
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--cyan);
+        }
+
+        .slide-light .eyebrow {
+            color: var(--electric-blue);
+        }
+
+        .headline {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .support {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .gradient-word {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: var(--primary-navy);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .counter {
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .logo {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            width: 120px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="carousel-container" id="carousel">
+        <!-- Slide 1 -->
+        <div class="slide slide-dark active">
+            <div class="eyebrow">Scaling Enterprise Operations</div>
+            <div class="headline">How to Build an Agentic <span class="gradient-word">Operating Model</span></div>
+            <div class="support">Move beyond point solutions to an intelligent operational fabric with AiDAP.</div>
+            <div class="logo">AIDEN AI</div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">The Scaling Crisis</div>
+            <div class="headline">Traditional ops models are <span class="gradient-word">broken</span>.</div>
+            <div class="support">Fragmented systems and manual coordination are creating a complexity ceiling.</div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Introducing AiDAP</div>
+            <div class="headline">A Unified <span class="gradient-word">Operational Fabric</span>.</div>
+            <div class="support">Orchestrate agents, memory, and logic to handle routine work autonomously.</div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">The Agent Hierarchy</div>
+            <div class="headline">Master & Deep <span class="gradient-word">Agents</span>.</div>
+            <div class="support">A Master Agent orchestrates specialized Deep Agents dynamically for every task.</div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Enterprise Memory</div>
+            <div class="headline">Grounding in <span class="gradient-word">Context</span>.</div>
+            <div class="support">Our knowledge graph ingests millions of pages to give agents "operational memory."</div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Cost-Effective Intelligence</div>
+            <div class="headline">Smart <span class="gradient-word">Inference Layer</span>.</div>
+            <div class="support">Intelligently switch between models to balance performance and operating costs.</div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Trust & Control</div>
+            <div class="headline">Human-in-the-Loop <span class="gradient-word">Governance</span>.</div>
+            <div class="support">Agents handle the volume; humans govern the high-risk exceptions.</div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Finance & Sales Ops</div>
+            <div class="headline">Beyond <span class="gradient-word">Automation</span>.</div>
+            <div class="support">Automate invoices, lead qualification, and CRM hygiene with agentic reasoning.</div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Marketing & Back-Office</div>
+            <div class="headline">Global <span class="gradient-word">Scale</span>.</div>
+            <div class="support">Streamline campaign planning and document verification at enterprise production scale.</div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide slide-dark">
+            <div class="eyebrow">Next Steps</div>
+            <div class="headline">Ready to scale your <span class="gradient-word">intelligence</span>?</div>
+            <div class="support">Design your agentic operating model at aiden.ai/operations</div>
+            <div class="logo">AIDEN AI</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" disabled>Previous</button>
+        <span class="counter"><span id="current">1</span> / 10</span>
+        <button id="nextBtn">Next</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSpan = document.getElementById('current');
+        let currentSlide = 0;
+
+        function updateCarousel() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            currentSpan.textContent = currentSlide + 1;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateCarousel();
+            }
+        });
+    </script>
+</body>
+</html>
