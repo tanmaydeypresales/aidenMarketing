@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-Pager — Aiden AI Onboard Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #E0E4FC;
+            --white: #FFFFFF;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px;
+            width: 210mm;
+            height: 297mm;
+            box-sizing: border-box;
+            background-color: var(--white);
+            color: var(--dark-navy);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--electric-blue);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header h1 {
+            font-size: 24pt;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 18pt;
+            color: var(--primary-navy);
+        }
+
+        .gradient-text {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .overview {
+            margin-bottom: 30px;
+        }
+
+        .overview h2 {
+            font-size: 16pt;
+            margin-bottom: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            padding: 15px;
+            background: var(--light-blue);
+            border-radius: 4px;
+        }
+
+        .card h3 {
+            font-size: 12pt;
+            margin-bottom: 5px;
+            color: var(--electric-blue);
+        }
+
+        .card p {
+            font-size: 10pt;
+            margin: 0;
+        }
+
+        .outcomes-strip {
+            background: var(--dark-navy);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .outcome-item h4 {
+            font-size: 18pt;
+            margin: 0;
+            color: var(--cyan);
+        }
+
+        .outcome-item p {
+            font-size: 9pt;
+            margin: 0;
+        }
+
+        .capabilities h2 {
+            font-size: 16pt;
+            margin-bottom: 15px;
+        }
+
+        .cap-item {
+            margin-bottom: 15px;
+        }
+
+        .cap-item h3 {
+            font-size: 12pt;
+            margin: 0;
+            color: var(--primary-navy);
+        }
+
+        .cap-item p {
+            font-size: 10pt;
+            margin: 0;
+        }
+
+        .footer {
+            margin-top: auto;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-info {
+            font-size: 10pt;
+        }
+
+        .cta-box {
+            background: var(--electric-blue);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Move from New Hire to <span class="gradient-text">Expert</span>—30% Faster.</h1>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <div class="overview">
+        <h2>Strategic Onboarding Automation</h2>
+        <p>The Aiden AI Onboard Agent is an enterprise-grade agentic system designed to automate and orchestrate the entire onboarding lifecycle. From document collection to personalized learning paths, it ensures a seamless, 24/7 experience for new hires while freeing HR teams from administrative burdens.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Manual Data Entry</h3>
+            <p>Eliminates 80% of routine admin work through autonomous action.</p>
+        </div>
+        <div class="card">
+            <h3>Ramp-up Delay</h3>
+            <p>Accelerates time-to-productivity by 30% through proactive guidance.</p>
+        </div>
+        <div class="card">
+            <h3>Compliance Risk</h3>
+            <p>Automated tracking and real-time nudges ensure 100% adherence.</p>
+        </div>
+        <div class="card">
+            <h3>Support Bottlenecks</h3>
+            <p>24/7 multi-lingual support (40+ languages) across all time zones.</p>
+        </div>
+    </div>
+
+    <div class="outcomes-strip">
+        <div class="outcome-item">
+            <h4>30%</h4>
+            <p>Faster Ramp-up</p>
+        </div>
+        <div class="outcome-item">
+            <h4>80%</h4>
+            <p>Admin Reduction</p>
+        </div>
+        <div class="outcome-item">
+            <h4>100%</h4>
+            <p>Compliance Consistency</p>
+        </div>
+        <div class="outcome-item">
+            <h4>24/7</h4>
+            <p>Zero-Wait Support</p>
+        </div>
+    </div>
+
+    <div class="capabilities">
+        <h2>Strategic Capabilities</h2>
+        
+        <div class="cap-item">
+            <h3>01. Automated Workflow Orchestration</h3>
+            <p>Manages account creation, training assignments, and document collection autonomously.</p>
+        </div>
+
+        <div class="cap-item">
+            <h3>02. Personalized Learning Paths</h3>
+            <p>Tailors orientation schedules and training modules based on role, background, and preferences.</p>
+        </div>
+
+        <div class="cap-item">
+            <h3>03. Straight-Through Fulfillment</h3>
+            <p>Directly integrates with HRIS (Workday, SAP), CRM, and payroll systems for real-time sync.</p>
+        </div>
+
+        <div class="cap-item">
+            <h3>04. Human-in-the-Loop Governance</h3>
+            <p>Escalates complex issues to specialists with full context for high-touch intervention.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-info">
+            <strong>Aiden AI</strong><br>
+            The Enterprise AI Builder Platform<br>
+            aiden.ai/onboard
+        </div>
+        <div class="cta-box">
+            Book a Strategy Session
+        </div>
+    </div>
+
+</body>
+</html>

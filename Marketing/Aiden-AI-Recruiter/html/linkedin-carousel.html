@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Carousel Preview — Aiden AI Recruiter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #EDEEF4;
+            --white: #FFFFFF;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f2ef;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .carousel-container {
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            box-sizing: border-box;
+            transition: transform 0.5s ease-in-out;
+            transform: translateX(100%);
+        }
+
+        .slide.active {
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        /* Slide Themes */
+        .slide-dark {
+            background-color: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .slide-light {
+            background-color: var(--white);
+            color: var(--primary-navy);
+        }
+
+        .slide-light:nth-child(even) {
+            background-color: var(--light-blue);
+        }
+
+        /* Typography */
+        .eyebrow {
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--cyan);
+        }
+
+        .slide-light .eyebrow {
+            color: var(--electric-blue);
+        }
+
+        .headline {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .support {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .gradient-word {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: var(--primary-navy);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .counter {
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .logo {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            width: 120px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="carousel-container" id="carousel">
+        <!-- Slide 1 -->
+        <div class="slide slide-dark active">
+            <div class="eyebrow">Intelligent Talent Operations</div>
+            <div class="headline">Stop managing disconnected hiring tools. Start orchestrating <span class="gradient-word">talent</span>.</div>
+            <div class="support">Meet Aiden AI Recruiter: The Enterprise-Grade Multi-Tenant Platform.</div>
+            <div class="logo">AIDEN AI</div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">The Hiring Bottleneck</div>
+            <div class="headline">Fragmented systems are breaking your <span class="gradient-word">recruitment</span>.</div>
+            <div class="support">Manual screening and disconnected tools drain recruiter capacity and slow down hiring.</div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">A Full-Stack Platform</div>
+            <div class="headline">From Requisition to <span class="gradient-word">Offer Generation</span>.</div>
+            <div class="support">Aiden AI unifies job creation, AI screening, and interview management in one place.</div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Intelligent Screening</div>
+            <div class="headline">Go beyond simple <span class="gradient-word">keyword matching</span>.</div>
+            <div class="support">AI-driven resume-to-job similarity scoring identifies true contextual fit instantly.</div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Recruiter Intelligence</div>
+            <div class="headline">An AI assistant with <span class="gradient-word">contextual memory</span>.</div>
+            <div class="support">Support recruiters with operational guidance that learns and improves over time.</div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Interview Orchestration</div>
+            <div class="headline">Native tools + Third-party <span class="gradient-word">Integration</span>.</div>
+            <div class="support">Run structured AI assessments or connect your preferred video interview platforms.</div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Built for Scale</div>
+            <div class="headline">True <span class="gradient-word">Multi-Tenant</span> Enterprise Control.</div>
+            <div class="support">Tenant-level branding, secure data isolation, and granular access controls for complex orgs.</div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Actionable Insights</div>
+            <div class="headline">Stop guessing. Start <span class="gradient-word">tracking</span>.</div>
+            <div class="support">Real-time dashboards for pipeline efficiency, experience distribution, and geographic trends.</div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide slide-light">
+            <div class="eyebrow">Safe Adoption</div>
+            <div class="headline">Time-bound <span class="gradient-word">trial environments</span>.</div>
+            <div class="support">Evaluate the platform safely with controlled feature access and trial provisioning.</div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide slide-dark">
+            <div class="eyebrow">Transform Hiring</div>
+            <div class="headline">Ready to scale your <span class="gradient-word">intelligence</span>?</div>
+            <div class="support">Request an Aiden AI Recruiter Trial at <a href="mailto:sales@aidenai.com" style="color:var(--cyan);">sales@aidenai.com</a></div>
+            <div class="logo">AIDEN AI</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" disabled>Previous</button>
+        <span class="counter"><span id="current">1</span> / 10</span>
+        <button id="nextBtn">Next</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSpan = document.getElementById('current');
+        let currentSlide = 0;
+
+        function updateCarousel() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            currentSpan.textContent = currentSlide + 1;
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateCarousel();
+            }
+        });
+    </script>
+</body>
+</html>

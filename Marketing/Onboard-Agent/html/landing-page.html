@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiden AI Onboard Agent — Automate the Onboarding Lifecycle</title>
+    <meta name="description" content="Move from new hire to contributing expert 30% faster with the Aiden AI Onboard Agent. Enterprise-grade agentic AI for people operations.">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #E0E4FC;
+            --white: #FFFFFF;
+            --gray-text: #555;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-navy);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            color: var(--primary-navy);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Gradient Highlight */
+        .gradient-text {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--light-blue) 0%, #fff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-text);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--electric-blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 62, 224, 0.2);
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            padding: 2rem;
+            background: var(--light-blue);
+            border-radius: 8px;
+            border-left: 4px solid var(--electric-blue);
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            padding: 100px 0;
+            background: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .capabilities h2 {
+            color: var(--white);
+            margin-bottom: 3rem;
+        }
+
+        .capability-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .capability-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .capability-content h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-content p {
+            color: #ccc;
+        }
+
+        /* Outcomes Section */
+        .outcomes {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .outcome-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .outcome-card h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .outcome-card p {
+            font-weight: 600;
+            color: var(--gray-text);
+        }
+
+        /* CTA Footer */
+        .cta-footer {
+            padding: 80px 0;
+            background: var(--brand-gradient);
+            color: #fff;
+            text-align: center;
+        }
+
+        .cta-footer h2 {
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--electric-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .capability-item { flex-direction: column; }
+            .capability-number { margin-bottom: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Move from New Hire to Contributing <span class="gradient-text">Expert</span>—30% Faster.</h1>
+            <p>Automate the entire onboarding lifecycle with the Aiden AI Onboard Agent. Orchestrate every step from document collection to personalized training with enterprise-grade agentic AI.</p>
+            <a href="#" class="btn">Book a Strategy Session</a>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="container">
+            <h2>The Hidden Cost of Inefficient Onboarding</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>Ramp-up Drag</h3>
+                    <p>Weeks spent on paperwork instead of productivity cost firms millions in lost output.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Admin Burnout</h3>
+                    <p>HR teams spend 50% of their time on repetitive inquiries and manual data entry.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Compliance Risk</h3>
+                    <p>Missing signatures and incomplete training create legal and operational exposure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="capabilities">
+        <div class="container">
+            <h2>Meet Your AI Onboarding Specialist</h2>
+            
+            <div class="capability-item">
+                <div class="capability-number">01</div>
+                <div class="capability-content">
+                    <h3>Automated Workflow Orchestration</h3>
+                    <p>From account creation to role-based training assignments, the agent manages the end-to-end lifecycle without manual intervention.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">02</div>
+                <div class="capability-content">
+                    <h3>Personalized Learning Paths</h3>
+                    <p>The agent tailors orientation schedules and training modules based on the new hire's role, background, and preferences.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">03</div>
+                <div class="capability-content">
+                    <h3>Straight-Through Fulfillment</h3>
+                    <p>Seamlessly integrates with Workday, SAP, Oracle, and Slack to ensure data consistency across all systems from day one.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">04</div>
+                <div class="capability-content">
+                    <h3>Human-in-the-Loop Governance</h3>
+                    <p>Escalates complex issues to HR specialists with full context, ensuring high-touch experiences where it matters most.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="outcomes">
+        <div class="container">
+            <h2>Strategic Impact: The Outcomes That Matter</h2>
+            <div class="outcome-grid">
+                <div class="outcome-card">
+                    <h3 class="gradient-text">30%</h3>
+                    <p>Faster Time-to-Productivity</p>
+                </div>
+                <div class="outcome-card">
+                    <h3 class="gradient-text">80%</h3>
+                    <p>Reduction in Routine Admin</p>
+                </div>
+                <div class="outcome-card">
+                    <h3 class="gradient-text">100%</h3>
+                    <p>Compliance Consistency</p>
+                </div>
+                <div class="outcome-card">
+                    <h3 class="gradient-text">24/7</h3>
+                    <p>Zero-Wait Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-footer">
+        <div class="container">
+            <h2>Ready to scale your onboarding without scaling your headcount?</h2>
+            <a href="#" class="btn btn-white">Book an Onboarding Strategy Session</a>
+        </div>
+    </section>
+
+</body>
+</html>

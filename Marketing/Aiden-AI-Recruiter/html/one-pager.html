@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One-Pager — Aiden AI Recruiter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #E0E4FC;
+            --white: #FFFFFF;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 40px;
+            width: 210mm;
+            height: 297mm;
+            box-sizing: border-box;
+            background-color: var(--white);
+            color: var(--dark-navy);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--electric-blue);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header h1 {
+            font-size: 22pt;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 18pt;
+            color: var(--primary-navy);
+        }
+
+        .gradient-text {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .overview {
+            margin-bottom: 30px;
+        }
+
+        .overview h2 {
+            font-size: 16pt;
+            margin-bottom: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            padding: 15px;
+            background: var(--light-blue);
+            border-radius: 4px;
+        }
+
+        .card h3 {
+            font-size: 12pt;
+            margin-bottom: 5px;
+            color: var(--electric-blue);
+        }
+
+        .card p {
+            font-size: 10pt;
+            margin: 0;
+        }
+
+        .capabilities h2 {
+            font-size: 16pt;
+            margin-bottom: 15px;
+        }
+
+        .cap-item {
+            margin-bottom: 15px;
+        }
+
+        .cap-item h3 {
+            font-size: 12pt;
+            margin: 0;
+            color: var(--primary-navy);
+        }
+
+        .cap-item p {
+            font-size: 10pt;
+            margin: 0;
+        }
+
+        .footer {
+            margin-top: auto;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-info {
+            font-size: 10pt;
+        }
+
+        .cta-box {
+            background: var(--electric-blue);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Transform Hiring from a Fragmented Process to an Intelligent <span class="gradient-text">Operation</span>.</h1>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <div class="overview">
+        <h2>Intelligent Talent Operations</h2>
+        <p>Aiden AI Recruiter is an enterprise-grade, AI-powered recruitment platform designed to transition organizations from manual, fragmented hiring to a scalable, multi-tenant operating model. It brings together job creation, intelligent sourcing, interview orchestration, and actionable insights into one secure platform.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Fragmented Tools</h3>
+            <p>Unifies ATS, screening, and interview platforms into a single ecosystem.</p>
+        </div>
+        <div class="card">
+            <h3>Screening Inefficiency</h3>
+            <p>Replaces manual keyword searches with contextual AI similarity scoring.</p>
+        </div>
+        <div class="card">
+            <h3>Architectural Rigidity</h3>
+            <p>Solves the challenge of managing multiple brands with true multi-tenant data isolation.</p>
+        </div>
+        <div class="card">
+            <h3>Lack of Visibility</h3>
+            <p>Provides real-time pipeline tracking and actionable talent insights.</p>
+        </div>
+    </div>
+
+    <div class="capabilities">
+        <h2>Strategic Capabilities</h2>
+        
+        <div class="cap-item">
+            <h3>01. Intelligent Requisition & Sourcing</h3>
+            <p>AI-assisted job creation and deep resume parsing with contextual similarity matching.</p>
+        </div>
+
+        <div class="cap-item">
+            <h3>02. Dynamic Pipelines & Interviews</h3>
+            <p>Configurable workflows, native AI assessments, and integrations with third-party video interview platforms.</p>
+        </div>
+
+        <div class="cap-item">
+            <h3>03. Recruiter Intelligence</h3>
+            <p>An AI conversational assistant that retains workflow context and provides operational guidance.</p>
+        </div>
+
+        <div class="cap-item">
+            <h3>04. Multi-Tenant Enterprise Architecture</h3>
+            <p>Tenant-level branding, data isolation, role-based access, and time-bound trial environments for safe adoption.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-info">
+            <strong>Aiden AI</strong><br>
+            The Enterprise AI Builder Platform<br>
+            <a href="mailto:sales@aidenai.com">sales@aidenai.com</a>
+        </div>
+        <div class="cta-box">
+            Book a Platform Briefing
+        </div>
+    </div>
+
+</body>
+</html>

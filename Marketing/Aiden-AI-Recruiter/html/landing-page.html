@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiden AI Recruiter — Intelligent Talent Operations</title>
+    <meta name="description" content="Aiden AI Recruiter is an enterprise-grade, multi-tenant AI platform that unifies job creation, intelligent screening, interview orchestration, and offer generation.">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #E0E4FC;
+            --white: #FFFFFF;
+            --gray-text: #555;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-navy);
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 800;
+            color: var(--primary-navy);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Gradient Highlight */
+        .gradient-text {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: linear-gradient(180deg, var(--light-blue) 0%, #fff 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--gray-text);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--electric-blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 62, 224, 0.2);
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            padding: 2rem;
+            background: var(--light-blue);
+            border-radius: 8px;
+            border-left: 4px solid var(--electric-blue);
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            padding: 100px 0;
+            background: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .capabilities h2 {
+            color: var(--white);
+            margin-bottom: 3rem;
+        }
+
+        .capability-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .capability-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .capability-content h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-content p {
+            color: #ccc;
+        }
+
+        /* CTA Footer */
+        .cta-footer {
+            padding: 80px 0;
+            background: var(--brand-gradient);
+            color: #fff;
+            text-align: center;
+        }
+
+        .cta-footer h2 {
+            color: #fff;
+            margin-bottom: 2rem;
+        }
+
+        .btn-white {
+            background: #fff;
+            color: var(--electric-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .capability-item { flex-direction: column; }
+            .capability-number { margin-bottom: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Hiring from a Fragmented Process to an Intelligent <span class="gradient-text">Operation</span>.</h1>
+            <p>Aiden AI Recruiter is an enterprise-grade, multi-tenant AI platform that unifies job creation, intelligent screening, interview orchestration, and offer generation into one scalable solution.</p>
+            <a href="#" class="btn">Request an Aiden AI Trial</a>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="container">
+            <h2>The Fragmented Recruitment Landscape</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>Recruiter Overload</h3>
+                    <p>Too much time spent drafting requisitions and manually parsing resumes.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Architectural Rigidity</h3>
+                    <p>Single-tenant platforms cannot support multiple brands or clients effectively.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Blind Spots</h3>
+                    <p>Lack of real-time insights into pipeline bottlenecks and hiring trends.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="capabilities">
+        <div class="container">
+            <h2>A Full-Stack AI Recruitment Platform</h2>
+            
+            <div class="capability-item">
+                <div class="capability-number">01</div>
+                <div class="capability-content">
+                    <h3>Intelligent Requisition & Sourcing</h3>
+                    <p>AI-assisted job creation and deep resume parsing with contextual similarity scoring to identify the most relevant candidates instantly.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">02</div>
+                <div class="capability-content">
+                    <h3>Dynamic Pipeline & Interview Orchestration</h3>
+                    <p>Configure dynamic pipelines. Support native AI-led screening or integrate seamlessly with third-party video interview platforms.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">03</div>
+                <div class="capability-content">
+                    <h3>Recruiter Memory & Assistance</h3>
+                    <p>Empower your team with a contextual AI assistant that provides operational guidance and retains memory across interactions.</p>
+                </div>
+            </div>
+
+            <div class="capability-item">
+                <div class="capability-number">04</div>
+                <div class="capability-content">
+                    <h3>Multi-Tenant Enterprise Control</h3>
+                    <p>Scale recruitment with tenant-level branding, secure data isolation, granular access controls, and time-bound trial environments.</p>
+                </div>
+            </div>
+            
+            <div class="capability-item">
+                <div class="capability-number">05</div>
+                <div class="capability-content">
+                    <h3>Actionable Talent Insights</h3>
+                    <p>Drive strategy with real-time dashboards tracking hires, experience-level distribution, and geographic trends.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-footer">
+        <div class="container">
+            <h2>Ready to build a smarter, multi-tenant hiring ecosystem?</h2>
+            <a href="#" class="btn btn-white">Book a Platform Briefing</a>
+            <p style="margin-top: 2rem; opacity: 0.8;">Contact us: <a href="mailto:sales@aidenai.com" style="color: #fff; font-weight: 600;">sales@aidenai.com</a></p>
+        </div>
+    </section>
+
+</body>
+</html>

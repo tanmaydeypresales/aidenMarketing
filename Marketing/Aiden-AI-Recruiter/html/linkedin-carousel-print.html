@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Carousel Print — Aiden AI Recruiter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #073663;
+            --electric-blue: #103EE0;
+            --cyan: #12DBD5;
+            --dark-navy: #08244B;
+            --light-blue: #EDEEF4;
+            --white: #FFFFFF;
+            --brand-gradient: linear-gradient(89deg, #103EE0 27.33%, #12DBD5 83.11%);
+        }
+
+        @page {
+            size: 1080px 1080px;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slide {
+            width: 1080px;
+            height: 1080px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 100px;
+            box-sizing: border-box;
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide:last-child {
+            page-break-after: avoid;
+        }
+
+        /* Slide Themes */
+        .slide-dark {
+            background-color: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .slide-light {
+            background-color: var(--white);
+            color: var(--primary-navy);
+        }
+
+        .slide-light-alt {
+            background-color: var(--light-blue);
+            color: var(--primary-navy);
+        }
+
+        /* Typography */
+        .eyebrow {
+            font-size: 24pt;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            color: var(--cyan);
+        }
+
+        .slide-light .eyebrow, .slide-light-alt .eyebrow {
+            color: var(--electric-blue);
+        }
+
+        .headline {
+            font-size: 60pt;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 60px;
+        }
+
+        .support {
+            font-size: 32pt;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .gradient-word {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo {
+            position: absolute;
+            bottom: 80px;
+            right: 80px;
+            font-weight: 800;
+            font-size: 24pt;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1 -->
+    <div class="slide slide-dark">
+        <div class="eyebrow">Intelligent Talent Operations</div>
+        <div class="headline">Stop managing disconnected hiring tools. Start orchestrating <span class="gradient-word">talent</span>.</div>
+        <div class="support">Meet Aiden AI Recruiter: The Enterprise-Grade Multi-Tenant Platform.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">The Hiring Bottleneck</div>
+        <div class="headline">Fragmented systems are breaking your <span class="gradient-word">recruitment</span>.</div>
+        <div class="support">Manual screening and disconnected tools drain recruiter capacity and slow down hiring.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">A Full-Stack Platform</div>
+        <div class="headline">From Requisition to <span class="gradient-word">Offer Generation</span>.</div>
+        <div class="support">Aiden AI unifies job creation, AI screening, and interview management in one place.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">Intelligent Screening</div>
+        <div class="headline">Go beyond simple <span class="gradient-word">keyword matching</span>.</div>
+        <div class="support">AI-driven resume-to-job similarity scoring identifies true contextual fit instantly.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">Recruiter Intelligence</div>
+        <div class="headline">An AI assistant with <span class="gradient-word">contextual memory</span>.</div>
+        <div class="support">Support recruiters with operational guidance that learns and improves over time.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">Interview Orchestration</div>
+        <div class="headline">Native tools + Third-party <span class="gradient-word">Integration</span>.</div>
+        <div class="support">Run structured AI assessments or connect your preferred video interview platforms.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">Built for Scale</div>
+        <div class="headline">True <span class="gradient-word">Multi-Tenant</span> Enterprise Control.</div>
+        <div class="support">Tenant-level branding, secure data isolation, and granular access controls for complex orgs.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide slide-light">
+        <div class="eyebrow">Actionable Insights</div>
+        <div class="headline">Stop guessing. Start <span class="gradient-word">tracking</span>.</div>
+        <div class="support">Real-time dashboards for pipeline efficiency, experience distribution, and geographic trends.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide slide-light-alt">
+        <div class="eyebrow">Safe Adoption</div>
+        <div class="headline">Time-bound <span class="gradient-word">trial environments</span>.</div>
+        <div class="support">Evaluate the platform safely with controlled feature access and trial provisioning.</div>
+        <div class="logo">AIDEN AI</div>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide slide-dark">
+        <div class="eyebrow">Transform Hiring</div>
+        <div class="headline">Ready to scale your <span class="gradient-word">intelligence</span>?</div>
+        <div class="support">Request an Aiden AI Recruiter Trial at <span class="gradient-word">sales@aidenai.com</span></div>        <div class="logo">AIDEN AI</div>
+    </div>
+
+</body>
+</html>
