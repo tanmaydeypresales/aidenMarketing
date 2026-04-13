@@ -1,0 +1,105 @@
+<!--
+  Title: Autonomous Partner Onboarding — Carousel Print | AiDAP
+  Description: Print-optimised 1080x1080 carousel for PDF export via Playwright.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AiDAP · Carousel Print</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#073663;--dnavy:#08244B;--blue:#103EE0;--cyan:#12DBD5;--cream:#EDEEF4;
+        --grad:linear-gradient(89deg,#103EE0 27.33%,#12DBD5 83.11%);}
+  @page{size:1080px 1080px;margin:0}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{font-family:"Poppins",sans-serif;background:#fff}
+  .slide{width:1080px;height:1080px;padding:108px 96px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;page-break-after:always}
+  .slide:last-child{page-break-after:auto}
+  .eyebrow{font-size:18px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;margin-bottom:56px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:30px;height:1px;background:currentColor}
+  h2{font-size:82px;font-weight:800;line-height:.98;letter-spacing:-.025em;max-width:95%}
+  h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p{font-size:28px;line-height:1.4;margin-top:40px;max-width:82%;font-weight:400}
+  .logo{position:absolute;bottom:90px;right:96px;font-weight:800;font-size:26px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo::before{content:"";width:11px;height:11px;background:var(--grad);display:inline-block;transform:rotate(45deg)}
+  .num{position:absolute;top:90px;right:96px;font-size:16px;font-weight:600;letter-spacing:.2em;opacity:.55}
+
+  .dark{background:var(--dnavy);color:#fff}
+  .dark .eyebrow{color:var(--cyan)}
+  .dark p{color:rgba(255,255,255,.78)}
+  .dark::before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%),linear-gradient(0deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%);background-size:108px 108px}
+
+  .light{background:#fff;color:var(--navy)}
+  .alt{background:var(--cream);color:var(--navy)}
+  .light .eyebrow,.alt .eyebrow{color:var(--blue)}
+  .light p,.alt p{color:#3a4865}
+  .light::before,.alt::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1.5px 1.5px,rgba(7,54,99,.11) 1.5px,transparent 0);background-size:42px 42px;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 95%);mask-image:linear-gradient(180deg,#000 30%,transparent 95%)}
+
+  .wave{position:absolute;left:-120px;bottom:-240px;width:720px;opacity:.2;pointer-events:none}
+  .content{position:relative;z-index:1}
+</style>
+</head>
+<body>
+
+<section class="slide dark">
+  <svg class="wave" viewBox="0 0 600 400" fill="none"><path d="M0 300 Q150 200 300 260 T600 220" stroke="url(#g1)" stroke-width="4" fill="none"/><path d="M0 340 Q150 240 300 300 T600 260" stroke="url(#g1)" stroke-width="3" fill="none" opacity=".6"/><defs><linearGradient id="g1" x1="0" x2="600"><stop offset="0" stop-color="#103EE0"/><stop offset="1" stop-color="#12DBD5"/></linearGradient></defs></svg>
+  <span class="num">01 / 10</span>
+  <div class="content">
+    <span class="eyebrow">AiDAP · B2B Operations</span>
+    <h2>Partner onboarding, rebuilt as a <span class="grad">pipeline</span>.</h2>
+    <p>AI-led. Governed. Measurably faster every time.</p>
+  </div>
+  <span class="logo">AiDAP</span>
+</section>
+
+<section class="slide light">
+  <span class="num">02 / 10</span>
+  <div class="content"><span class="eyebrow">The Reality</span><h2>Every new partner is a <span class="grad">small project</span>.</h2><p>Documents, email threads, spreadsheets, tribal knowledge.</p></div>
+</section>
+
+<section class="slide alt">
+  <span class="num">03 / 10</span>
+  <div class="content"><span class="eyebrow">The Cost</span><h2>Weeks-to-months cycles. <span class="grad">No real SLA.</span></h2><p>Quality depends on who happens to build the map.</p></div>
+</section>
+
+<section class="slide light">
+  <span class="num">04 / 10</span>
+  <div class="content"><span class="eyebrow">The Shift</span><h2>Onboarding is a <span class="grad">pipeline</span>, not a project.</h2><p>Agents run the lifecycle. Humans govern the edges.</p></div>
+</section>
+
+<section class="slide alt">
+  <span class="num">05 / 10</span>
+  <div class="content"><span class="eyebrow">01 · Intake</span><h2>AI reads the specs. <span class="grad">Questions close the gaps.</span></h2><p>Docs, samples, email — parsed into structured intake.</p></div>
+</section>
+
+<section class="slide light">
+  <span class="num">06 / 10</span>
+  <div class="content"><span class="eyebrow">02 · Standards</span><h2>EDI, XML, JSON, CSV, APIs — <span class="grad">and every variant</span>.</h2><p>Real B2B isn't clean. AiDAP handles the exceptions.</p></div>
+</section>
+
+<section class="slide alt">
+  <span class="num">07 / 10</span>
+  <div class="content"><span class="eyebrow">03 · Mapping</span><h2>Confidence-scored maps. <span class="grad">Humans review what matters.</span></h2><p>Templates reused. Variants captured as deltas.</p></div>
+</section>
+
+<section class="slide light">
+  <span class="num">08 / 10</span>
+  <div class="content"><span class="eyebrow">04 · Connectivity</span><h2>AS2, SFTP, HTTPS, REST, SOAP — <span class="grad">one workflow</span>.</h2><p>Endpoints, credentials, acknowledgments, all governed.</p></div>
+</section>
+
+<section class="slide alt">
+  <span class="num">09 / 10</span>
+  <div class="content"><span class="eyebrow">05 · Collab · Learning</span><h2>One portal. <span class="grad">One knowledge graph.</span></h2><p>Every onboarding makes the next one faster.</p></div>
+</section>
+
+<section class="slide dark">
+  <svg class="wave" viewBox="0 0 600 400" fill="none"><path d="M0 300 Q150 200 300 260 T600 220" stroke="url(#g2)" stroke-width="4" fill="none"/><path d="M0 340 Q150 240 300 300 T600 260" stroke="url(#g2)" stroke-width="3" fill="none" opacity=".6"/><defs><linearGradient id="g2" x1="0" x2="600"><stop offset="0" stop-color="#103EE0"/><stop offset="1" stop-color="#12DBD5"/></linearGradient></defs></svg>
+  <span class="num">10 / 10</span>
+  <div class="content"><span class="eyebrow">Next Step</span><h2>Bring a real onboarding pattern. <span class="grad">See it run.</span></h2><p>30-minute walkthrough with an AiDAP architect.</p></div>
+  <span class="logo">AiDAP</span>
+</section>
+
+</body></html>

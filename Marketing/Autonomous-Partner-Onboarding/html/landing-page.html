@@ -1,0 +1,286 @@
+<!--
+  Title: Autonomous Partner Onboarding | AiDAP
+  Description: AiDAP's Onboarding Agents turn B2B partner setup into a governed, AI-led pipeline — intake, mapping, connectivity, collaboration, and go-live, with measurable throughput.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autonomous Partner Onboarding | AiDAP</title>
+<meta name="description" content="AiDAP's Onboarding Agents turn B2B partner setup into a governed, AI-led pipeline — intake, mapping, connectivity, collaboration, and go-live, with measurable throughput.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#073663; --dnavy:#08244B; --blue:#103EE0; --cyan:#12DBD5;
+    --lblue:#E0E4FC; --paper:#FFFFFF; --cream:#EDEEF4; --ink:#0A1530;
+    --grad:linear-gradient(89deg,#103EE0 27.33%,#12DBD5 83.11%);
+    --rule:rgba(7,54,99,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);font-family:"Poppins",sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.55}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 48px}
+  @media(max-width:720px){.wrap{padding:0 24px}}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--navy);display:flex;align-items:center;gap:10px}
+  .brand::before{content:"";width:10px;height:10px;background:var(--grad);display:inline-block;transform:rotate(45deg)}
+  .nav-cta{font-size:13px;font-weight:600;color:var(--navy);padding:10px 18px;border:1px solid var(--navy);border-radius:999px;transition:all .25s}
+  .nav-cta:hover{background:var(--navy);color:#fff}
+
+  /* HERO */
+  .hero{padding:120px 0 100px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(7,54,99,.08) 1px,transparent 0);background-size:28px 28px;mask-image:linear-gradient(180deg,#000 20%,transparent 90%);pointer-events:none}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:80px;align-items:end;position:relative}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:32px;display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--blue)}
+  h1.display{font-size:clamp(44px,6.2vw,88px);font-weight:800;line-height:.98;letter-spacing:-.035em;color:var(--navy)}
+  h1.display .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:19px;font-weight:400;color:#3a4865;max-width:520px;margin-top:36px}
+  .cta-row{display:flex;gap:16px;margin-top:44px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;font-weight:600;font-size:14px;letter-spacing:.01em;transition:all .3s;cursor:pointer;border:none}
+  .btn-primary{background:var(--navy);color:#fff}
+  .btn-primary:hover{background:var(--blue);transform:translateY(-2px);box-shadow:0 14px 30px -10px rgba(16,62,224,.45)}
+  .btn-ghost{background:transparent;color:var(--navy);border:1px solid var(--rule)}
+  .btn-ghost:hover{border-color:var(--navy)}
+  .btn .arrow{transition:transform .3s}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  .hero-meta{border-left:1px solid var(--rule);padding-left:40px}
+  .hero-meta .kicker{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);opacity:.55;margin-bottom:18px}
+  .hero-meta .stat{display:flex;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--rule);font-size:14px}
+  .hero-meta .stat:last-child{border-bottom:0}
+  .hero-meta .stat .label{color:#6a7793}
+  .hero-meta .stat .value{font-weight:600;color:var(--navy)}
+
+  /* SECTION PRIMITIVE */
+  section{padding:120px 0;position:relative}
+  .section-head{display:grid;grid-template-columns:minmax(0,.35fr) minmax(0,.65fr);gap:60px;margin-bottom:72px}
+  @media(max-width:900px){.section-head{grid-template-columns:1fr;gap:24px}}
+  .section-head .label{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+  .section-head h2{font-size:clamp(32px,4.2vw,56px);font-weight:800;line-height:1.02;letter-spacing:-.028em;color:var(--navy)}
+  .section-head h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* PROBLEM */
+  .problem{background:var(--cream);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .problem p{font-size:18px;color:#3a4865;max-width:720px}
+  .problem-list{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--rule)}
+  @media(max-width:720px){.problem-list{grid-template-columns:1fr}}
+  .problem-list li{list-style:none;padding:26px 32px 26px 0;border-bottom:1px solid var(--rule);font-size:15px;color:var(--navy);display:flex;gap:18px;align-items:flex-start}
+  .problem-list li:nth-child(odd){border-right:1px solid var(--rule);padding-right:32px}
+  @media(max-width:720px){.problem-list li:nth-child(odd){border-right:0}}
+  .problem-list li::before{content:"";width:6px;height:6px;background:var(--blue);margin-top:10px;flex-shrink:0}
+
+  /* SHIFT strip */
+  .shift{padding:100px 0;background:var(--navy);color:#fff;position:relative;overflow:hidden}
+  .shift::before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%),linear-gradient(0deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%);background-size:80px 80px}
+  .shift .wrap{position:relative}
+  .shift .eyebrow{color:var(--cyan)}
+  .shift .eyebrow::before{background:var(--cyan)}
+  .shift h2{font-size:clamp(36px,5vw,68px);font-weight:800;line-height:1;letter-spacing:-.03em;max-width:900px}
+  .shift h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .shift p{font-size:18px;color:rgba(255,255,255,.7);max-width:620px;margin-top:32px}
+
+  /* CAPABILITY CARDS */
+  .caps{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+  .cap{grid-column:span 6;background:#fff;padding:48px 44px;min-height:280px;position:relative;transition:background .3s}
+  .cap:hover{background:var(--cream)}
+  .cap:nth-child(1),.cap:nth-child(7){grid-column:span 12}
+  @media(max-width:900px){.cap,.cap:nth-child(1),.cap:nth-child(7){grid-column:span 12}}
+  .cap .num{font-size:12px;font-weight:600;letter-spacing:.22em;color:var(--blue);margin-bottom:24px;display:block}
+  .cap h3{font-size:26px;font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--navy);margin-bottom:16px;max-width:520px}
+  .cap p{font-size:15px;color:#4a5874;max-width:640px}
+  .cap .marker{position:absolute;top:48px;right:44px;width:40px;height:40px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--navy);font-weight:600;font-size:13px}
+
+  /* OUTCOMES */
+  .outcomes{background:var(--cream);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .out-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);background-color:var(--rule)}
+  @media(max-width:900px){.out-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.out-grid{grid-template-columns:1fr}}
+  .out-grid .cell{background:var(--paper);padding:40px 32px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}
+  .out-grid .cell .n{font-size:13px;font-weight:600;color:var(--blue);letter-spacing:.15em}
+  .out-grid .cell .t{font-size:19px;font-weight:800;color:var(--navy);line-height:1.2;letter-spacing:-.015em}
+
+  /* WHY */
+  .why-list{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--rule)}
+  .why-list li{list-style:none;display:grid;grid-template-columns:80px 1fr;gap:40px;padding:32px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+  .why-list li .idx{font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.22em}
+  .why-list li .body{font-size:18px;color:var(--navy);font-weight:500;letter-spacing:-.005em;max-width:760px}
+
+  /* CTA BLOCK */
+  .cta-block{background:var(--dnavy);color:#fff;padding:120px 0;position:relative;overflow:hidden}
+  .cta-block::before{content:"";position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(18,219,213,.18),transparent 60%);border-radius:50%}
+  .cta-block .wrap{position:relative}
+  .cta-block h2{font-size:clamp(36px,5vw,66px);font-weight:800;line-height:1;letter-spacing:-.03em;max-width:900px}
+  .cta-block h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .cta-block p{font-size:18px;color:rgba(255,255,255,.72);margin-top:28px;max-width:620px}
+  .cta-block .cta-row{margin-top:48px}
+  .cta-block .btn-primary{background:#fff;color:var(--navy)}
+  .cta-block .btn-primary:hover{background:var(--cyan);color:var(--navy)}
+  .cta-block .btn-ghost{color:#fff;border-color:rgba(255,255,255,.3)}
+  .cta-block .btn-ghost:hover{border-color:#fff}
+
+  /* FOOTER */
+  footer{padding:48px 0;border-top:1px solid var(--rule);font-size:13px;color:#6a7793;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer .brand{font-size:15px}
+
+  /* reveal */
+  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  .hero h1,.hero .lede,.hero .cta-row,.hero .eyebrow{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+  .hero .lede{animation-delay:.1s}.hero .cta-row{animation-delay:.2s}.hero .hero-meta{animation:rise 1s .3s cubic-bezier(.2,.8,.2,1) both}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="wrap nav-inner">
+  <a class="brand" href="#">AiDAP</a>
+  <a class="nav-cta" href="#cta">Book a walkthrough →</a>
+</div></nav>
+
+<header class="hero"><div class="wrap hero-grid">
+  <div>
+    <span class="eyebrow">AiDAP · Autonomous Partner Onboarding</span>
+    <h1 class="display">Partner onboarding shouldn't take <span class="grad">months</span>. Now it doesn't.</h1>
+    <p class="lede">AiDAP's Onboarding Agents turn B2B partner setup into a governed, AI-led pipeline — from intake and mapping to connectivity, collaboration, and go-live.</p>
+    <div class="cta-row">
+      <a href="#cta" class="btn btn-primary">Book a 30-minute walkthrough <span class="arrow">→</span></a>
+      <a href="#cta" class="btn btn-ghost">Download the one-pager</a>
+    </div>
+  </div>
+  <aside class="hero-meta">
+    <div class="kicker">The onboarding pipeline</div>
+    <div class="stat"><span class="label">01 — Intake</span><span class="value">AI-led</span></div>
+    <div class="stat"><span class="label">02 — Standards</span><span class="value">EDI · XML · API</span></div>
+    <div class="stat"><span class="label">03 — Mapping</span><span class="value">Confidence-scored</span></div>
+    <div class="stat"><span class="label">04 — Connectivity</span><span class="value">Governed</span></div>
+    <div class="stat"><span class="label">05 — Collab Hub</span><span class="value">Auditable</span></div>
+    <div class="stat"><span class="label">06 — SLA tracking</span><span class="value">Real-time</span></div>
+    <div class="stat"><span class="label">07 — Learning loop</span><span class="value">Continuous</span></div>
+  </aside>
+</div></header>
+
+<section class="problem"><div class="wrap">
+  <div class="section-head">
+    <div class="label">01 · The Problem</div>
+    <div>
+      <h2>Onboarding is the slowest process nobody owns.</h2>
+      <p style="margin-top:24px">In most B2B operations, onboarding a new partner is a small project every single time. A trading partner, a supplier, a carrier, a payer, a broker, a distributor — each one triggers the same cycle. The result is predictable: weeks-to-months cycle times, inconsistent quality, tribal knowledge, no real SLA, and a partner experience that sets the relationship off on the wrong foot.</p>
+    </div>
+  </div>
+  <ul class="problem-list">
+    <li>Documents and implementation guides pulled together over email</li>
+    <li>Specs interpreted by whoever happens to be free that week</li>
+    <li>Mappings built from scratch, then rebuilt when a field changes</li>
+    <li>Connectivity (AS2, SFTP, HTTPS, API, event) configured in a different tool</li>
+    <li>Business owners, EDI teams, and partners chasing each other through inboxes</li>
+    <li>Go-live delayed by a questionnaire nobody realised was still open</li>
+  </ul>
+</div></section>
+
+<section class="shift"><div class="wrap">
+  <span class="eyebrow">02 · The Shift</span>
+  <h2>Onboarding is a <span class="grad">pipeline</span>, not a project.</h2>
+  <p>AiDAP treats onboarding as a product. A coordinated set of Onboarding Agents runs the full lifecycle, orchestrated by the platform and governed by humans at the points that matter. Every new partner flows through the same pipeline. Every finished onboarding makes the next one faster.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="section-head">
+    <div class="label">03 · What The Agents Do</div>
+    <h2>Seven capabilities, one governed pipeline.</h2>
+  </div>
+  <div class="caps">
+    <div class="cap">
+      <span class="num">01 — INTAKE</span>
+      <h3>AI-led intake and requirements understanding</h3>
+      <p>Intake Agents read partner documents, implementation guides, sample payloads, spreadsheets, and email threads to extract what matters — identifiers, transaction types, formats, protocol preferences, mandatory and optional fields, code lists, and compliance requirements. Where information is missing or ambiguous, they generate context-aware questionnaires to close gaps before engineering work starts.</p>
+      <div class="marker">01</div>
+    </div>
+    <div class="cap">
+      <span class="num">02 — STANDARDS</span>
+      <h3>Every standard. Every variant.</h3>
+      <p>EDI X12, EDIFACT, XML, JSON, CSV, flat files, REST and SOAP APIs, industry canonicals, partner-specific extensions. AiDAP understands transaction sets, hierarchies, qualifiers, segments, loops, schema variants, and partner deviations — and structures them into reusable onboarding knowledge instead of tribal memory.</p>
+      <div class="marker">02</div>
+    </div>
+    <div class="cap">
+      <span class="num">03 — MAPPING</span>
+      <h3>Confidence-scored mapping, accelerated</h3>
+      <p>Mapping Agents analyse source and target structures, infer semantic relationships, recommend canonical alignment, and generate transformation rules with confidence scoring. Parent templates are reused across partners; variations are captured as structured deltas. Human review is triggered only where confidence or policy demands it.</p>
+      <div class="marker">03</div>
+    </div>
+    <div class="cap">
+      <span class="num">04 — CONNECTIVITY</span>
+      <h3>Connectivity, governed end-to-end</h3>
+      <p>AS2, SFTP, HTTPS, REST, SOAP, event streams, message queues, gateway-mediated connections — AiDAP orchestrates endpoint details, credentials, certificates, acknowledgments, retries, and operational controls as part of the same governed workflow.</p>
+      <div class="marker">04</div>
+    </div>
+    <div class="cap">
+      <span class="num">05 — COLLABORATION</span>
+      <h3>Partner Collaboration Hub</h3>
+      <p>A single, auditable, self-service portal replaces scattered email threads. Internal teams and external partners exchange documents, respond to questionnaires, validate requirements, track milestones, and approve stages in one place. Every interaction becomes part of the audit record.</p>
+      <div class="marker">05</div>
+    </div>
+    <div class="cap">
+      <span class="num">06 — PIPELINE</span>
+      <h3>Real-time milestone and SLA tracking</h3>
+      <p>Every onboarding is tracked against defined stages — intake, requirements validation, mapping readiness, connectivity setup, test execution, defect resolution, approval, production activation. Agents continuously monitor progress, identify bottlenecks, and dynamically prioritise work by partner tier, transaction criticality, and go-live urgency.</p>
+      <div class="marker">06</div>
+    </div>
+    <div class="cap">
+      <span class="num">07 — LEARNING LOOP</span>
+      <h3>Continuous learning, enterprise memory</h3>
+      <p>Outcomes from every onboarding feed AiDAP's enterprise semantic knowledge graph — partner behaviours, mapping patterns, recurring defects, document structures, connectivity preferences, approval tendencies. The platform builds organisational memory that previous tools were never designed to hold.</p>
+      <div class="marker">07</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="outcomes"><div class="wrap">
+  <div class="section-head">
+    <div class="label">04 · What Changes</div>
+    <h2>Five shifts the business can measure.</h2>
+  </div>
+  <div class="out-grid">
+    <div class="cell"><div class="n">01</div><div class="t">Cycle time compresses through parallel agent execution</div></div>
+    <div class="cell"><div class="n">02</div><div class="t">First-time-right mapping via confidence-scored templates</div></div>
+    <div class="cell"><div class="n">03</div><div class="t">Manual coordination drops — the hub replaces inbox archaeology</div></div>
+    <div class="cell"><div class="n">04</div><div class="t">Governance strengthens — every interaction is auditable by default</div></div>
+    <div class="cell"><div class="n">05</div><div class="t">Scale without proportional headcount growth</div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="section-head">
+    <div class="label">05 · Why AiDAP</div>
+    <h2>An AI builder, not an integrator bolting AI onto an old B2B gateway.</h2>
+  </div>
+  <ul class="why-list">
+    <li><span class="idx">i</span><span class="body">Agentic execution across the onboarding lifecycle — not a single-purpose copilot.</span></li>
+    <li><span class="idx">ii</span><span class="body">Works with the standards you actually have, including partner deviations.</span></li>
+    <li><span class="idx">iii</span><span class="body">Confidence-scored mappings with governed human-in-the-loop review.</span></li>
+    <li><span class="idx">iv</span><span class="body">Enterprise semantic knowledge graph as persistent memory across partners.</span></li>
+    <li><span class="idx">v</span><span class="body">Built for production, not demos — the same governance runs the rest of the AI estate.</span></li>
+  </ul>
+</div></section>
+
+<section id="cta" class="cta-block"><div class="wrap">
+  <span class="eyebrow" style="color:var(--cyan)">Next step</span>
+  <h2 style="margin-top:28px">Bring a real onboarding pattern. <span class="grad">See it run.</span></h2>
+  <p>30 minutes with an AiDAP solution architect. EDI, API, or hybrid — we'll show you exactly where agents replace manual effort, what stays human, and what the measurable pipeline looks like in your environment.</p>
+  <div class="cta-row">
+    <a href="#" class="btn btn-primary">Book the walkthrough <span class="arrow">→</span></a>
+    <a href="one-pager.pdf" class="btn btn-ghost">Download the one-pager</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap" style="display:flex;justify-content:space-between;width:100%">
+  <span class="brand">AiDAP</span>
+  <span>© Aiden AI · Autonomous Partner Onboarding</span>
+</div></footer>
+
+</body></html>
