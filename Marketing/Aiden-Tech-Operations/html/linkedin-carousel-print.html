@@ -1,0 +1,68 @@
+<!--
+  Title: Aiden Tech Operations — Carousel Print
+  Description: Print-optimised 1080x1080 carousel for PDF export.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aiden · Carousel Print</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#073663;--dnavy:#08244B;--blue:#103EE0;--cyan:#12DBD5;--cream:#EDEEF4;
+        --grad:linear-gradient(89deg,#103EE0 27.33%,#12DBD5 83.11%);}
+  @page{size:1080px 1080px;margin:0}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{font-family:"Poppins",sans-serif;background:#fff}
+  .slide{width:1080px;height:1080px;padding:108px 96px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;page-break-after:always}
+  .slide:last-child{page-break-after:auto}
+  .eyebrow{font-size:18px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;margin-bottom:56px;display:flex;align-items:center;gap:14px}
+  .eyebrow::before{content:"";width:30px;height:1px;background:currentColor}
+  h2{font-size:78px;font-weight:800;line-height:.98;letter-spacing:-.025em;max-width:95%}
+  h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p{font-size:28px;line-height:1.4;margin-top:40px;max-width:82%;font-weight:400}
+  .logo{position:absolute;bottom:90px;right:96px;font-weight:800;font-size:26px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .logo::before{content:"";width:11px;height:11px;background:var(--grad);display:inline-block;transform:rotate(45deg)}
+  .num{position:absolute;top:90px;right:96px;font-size:16px;font-weight:600;letter-spacing:.2em;opacity:.55}
+
+  .dark{background:var(--dnavy);color:#fff}
+  .dark .eyebrow{color:var(--cyan)}
+  .dark p{color:rgba(255,255,255,.78)}
+  .dark::before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%),linear-gradient(0deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%);background-size:108px 108px}
+  .light{background:#fff;color:var(--navy)}
+  .alt{background:var(--cream);color:var(--navy)}
+  .light .eyebrow,.alt .eyebrow{color:var(--blue)}
+  .light p,.alt p{color:#3a4865}
+  .light::before,.alt::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1.5px 1.5px,rgba(7,54,99,.11) 1.5px,transparent 0);background-size:42px 42px;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 95%);mask-image:linear-gradient(180deg,#000 30%,transparent 95%)}
+  .wave{position:absolute;left:-120px;bottom:-240px;width:720px;opacity:.2;pointer-events:none}
+  .content{position:relative;z-index:1}
+</style>
+</head>
+<body>
+
+<section class="slide dark">
+  <svg class="wave" viewBox="0 0 600 400" fill="none"><path d="M0 300 Q150 200 300 260 T600 220" stroke="url(#g1)" stroke-width="4" fill="none"/><path d="M0 340 Q150 240 300 300 T600 260" stroke="url(#g1)" stroke-width="3" fill="none" opacity=".6"/><defs><linearGradient id="g1" x1="0" x2="600"><stop offset="0" stop-color="#103EE0"/><stop offset="1" stop-color="#12DBD5"/></linearGradient></defs></svg>
+  <span class="num">01 / 10</span>
+  <div class="content"><span class="eyebrow">Aiden · Tech Operations</span><h2>Stop running operations. <span class="grad">Start governing them.</span></h2><p>Autonomous operating model for B2B ecosystems.</p></div>
+  <span class="logo">Aiden</span>
+</section>
+
+<section class="slide light"><span class="num">02 / 10</span><div class="content"><span class="eyebrow">The Reality</span><h2>Your best engineers are clearing <span class="grad">L1 tickets</span>.</h2><p>Not building resilience. Not optimizing the platform.</p></div></section>
+<section class="slide alt"><span class="num">03 / 10</span><div class="content"><span class="eyebrow">The Cost</span><h2>Monitoring tells you what broke. <span class="grad">Nothing more.</span></h2><p>Runbooks live in wikis. Resolution depends on who picks up.</p></div></section>
+<section class="slide light"><span class="num">04 / 10</span><div class="content"><span class="eyebrow">The Shift</span><h2>From reactive support to <span class="grad">autonomous operating model</span>.</h2><p>Agents execute. Humans govern. Leaders see ahead.</p></div></section>
+<section class="slide alt"><span class="num">05 / 10</span><div class="content"><span class="eyebrow">01 · Knowledge Graph</span><h2>Operational memory for the <span class="grad">enterprise</span>.</h2><p>Partners, transactions, incidents, SLAs — all connected.</p></div></section>
+<section class="slide light"><span class="num">06 / 10</span><div class="content"><span class="eyebrow">02 · Inference Models</span><h2>Reasoning, <span class="grad">not static rules</span>.</h2><p>Predict SLA breaches before they hit.</p></div></section>
+<section class="slide alt"><span class="num">07 / 10</span><div class="content"><span class="eyebrow">03 · Dynamic Agents</span><h2>Confidence-scored. <span class="grad">Policy-guarded.</span></h2><p>Execution prioritised by impact, not ticket queue.</p></div></section>
+<section class="slide light"><span class="num">08 / 10</span><div class="content"><span class="eyebrow">04 · Executable Runbooks</span><h2>Runbooks as <span class="grad">code</span>. Not wiki pages.</h2><p>Identify. Check. Remediate. Validate.</p></div></section>
+<section class="slide alt"><span class="num">09 / 10</span><div class="content"><span class="eyebrow">05 · Governed Escalation</span><h2>L1 autonomous. L2 supervised. <span class="grad">L3 engineering only.</span></h2><p>L3 stops absorbing L1 work.</p></div></section>
+
+<section class="slide dark">
+  <svg class="wave" viewBox="0 0 600 400" fill="none"><path d="M0 300 Q150 200 300 260 T600 220" stroke="url(#g2)" stroke-width="4" fill="none"/><path d="M0 340 Q150 240 300 300 T600 260" stroke="url(#g2)" stroke-width="3" fill="none" opacity=".6"/><defs><linearGradient id="g2" x1="0" x2="600"><stop offset="0" stop-color="#103EE0"/><stop offset="1" stop-color="#12DBD5"/></linearGradient></defs></svg>
+  <span class="num">10 / 10</span>
+  <div class="content"><span class="eyebrow">Next Step</span><h2>Bring a real operational pattern. <span class="grad">See it run.</span></h2><p>30-minute walkthrough with an Aiden architect.</p></div>
+  <span class="logo">Aiden</span>
+</section>
+
+</body></html>

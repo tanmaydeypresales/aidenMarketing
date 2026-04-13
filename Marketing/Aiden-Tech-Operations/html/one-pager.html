@@ -1,0 +1,126 @@
+<!--
+  Title: Aiden Tech Operations for B2B — One-Pager
+  Description: Executive leave-behind: 6 pillars, L1–L3 escalation, outcomes, CTA.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aiden Tech Operations for B2B — One-Pager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#073663;--dnavy:#08244B;--blue:#103EE0;--cyan:#12DBD5;--lblue:#E0E4FC;--cream:#EDEEF4;--ink:#0A1530;
+        --grad:linear-gradient(89deg,#103EE0 27.33%,#12DBD5 83.11%);--rule:rgba(7,54,99,.14);}
+  @page{size:A4;margin:0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:"Poppins",sans-serif;color:var(--ink);background:#dcdfe8;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;background:#fff;margin:0 auto;position:relative;overflow:hidden;display:flex;flex-direction:column}
+  @media print{body{background:#fff}.page{margin:0;box-shadow:none}}
+  @media screen{.page{box-shadow:0 40px 90px -30px rgba(8,36,75,.3);margin:24px auto}}
+
+  .hdr{padding:14mm 14mm 0;display:flex;justify-content:space-between;align-items:flex-start}
+  .brand{font-weight:800;font-size:13pt;letter-spacing:-.02em;color:var(--navy);display:flex;align-items:center;gap:8px}
+  .brand::before{content:"";width:9px;height:9px;background:var(--grad);display:inline-block;transform:rotate(45deg)}
+  .hdr .eyebrow{font-size:7pt;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue)}
+
+  .lead{padding:8mm 14mm 0}
+  .lead h1{font-size:26pt;font-weight:800;line-height:.97;letter-spacing:-.028em;color:var(--navy);max-width:175mm}
+  .lead h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead p{font-size:9.5pt;color:#3a4865;margin-top:4mm;max-width:175mm;line-height:1.5}
+
+  .problem{margin:6mm 14mm 0;padding:5mm 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:grid;grid-template-columns:38mm 1fr;gap:6mm}
+  .problem .lbl{font-size:7pt;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue)}
+  .problem ul{list-style:none;font-size:8.5pt;color:var(--navy);display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm}
+  .problem li{padding-left:4mm;position:relative;line-height:1.4}
+  .problem li::before{content:"";position:absolute;left:0;top:4pt;width:4px;height:4px;background:var(--blue)}
+
+  .pillars{margin:6mm 14mm 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--rule)}
+  .p{padding:5mm 4.5mm;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);min-height:36mm}
+  .p:nth-child(3n){border-right:0}
+  .p:nth-child(n+4){border-bottom:0}
+  .p .num{font-size:6.5pt;font-weight:600;letter-spacing:.2em;color:var(--blue);display:block;margin-bottom:2.5mm}
+  .p h3{font-size:10pt;font-weight:800;line-height:1.1;color:var(--navy);letter-spacing:-.015em;margin-bottom:2mm}
+  .p p{font-size:7.8pt;color:#4a5874;line-height:1.4}
+
+  .tiers{margin:6mm 14mm 0}
+  .tiers .lbl{font-size:7pt;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:3mm}
+  .tiers .row{display:grid;grid-template-columns:18mm 1fr;gap:4mm;padding:3mm 0;border-top:1px solid var(--rule);align-items:baseline}
+  .tiers .row:last-child{border-bottom:1px solid var(--rule)}
+  .tiers .row .t{font-size:15pt;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+  .tiers .row .d{font-size:8pt;color:#4a5874;line-height:1.4}
+  .tiers .row .d strong{color:var(--navy);font-weight:700}
+
+  .out{margin:6mm 14mm 0}
+  .out .lbl{font-size:7pt;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:3mm}
+  .out ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+  .out li{background:var(--cream);padding:4mm 3.5mm;font-size:7.5pt;font-weight:600;color:var(--navy);line-height:1.35;border-top:2px solid var(--blue)}
+
+  .cta{margin-top:auto;background:var(--dnavy);color:#fff;padding:8mm 14mm;display:flex;align-items:center;justify-content:space-between;gap:6mm;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(18,219,213,.25),transparent 60%);border-radius:50%}
+  .cta .txt{position:relative;max-width:128mm}
+  .cta h2{font-size:15pt;font-weight:800;line-height:1.05;letter-spacing:-.02em}
+  .cta h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .cta p{font-size:8pt;color:rgba(255,255,255,.75);margin-top:2mm;max-width:120mm}
+  .cta .btn{position:relative;background:#fff;color:var(--navy);padding:3.5mm 6.5mm;border-radius:999px;font-size:8.5pt;font-weight:600;white-space:nowrap;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <div class="brand">Aiden</div>
+    <div class="eyebrow">Tech Operations for B2B · One-Pager</div>
+  </div>
+
+  <div class="lead">
+    <h1>Stop running operations. <span class="grad">Start governing them.</span></h1>
+    <p>An AI-native operating model for B2B partner ecosystems — semantic knowledge graph, inference models, dynamic agents, executable runbooks, and a governed L1–L3 escalation framework. Agents execute at scale. Humans govern with precision. Leadership operates through predictive intelligence.</p>
+  </div>
+
+  <div class="problem">
+    <div class="lbl">The problem</div>
+    <ul>
+      <li>Senior engineers burn their days triaging L1-class tickets</li>
+      <li>Runbooks live in wikis and tribal memory; resolution depends on who picks up</li>
+      <li>Monitoring tells you what broke, not why or what to do</li>
+    </ul>
+  </div>
+
+  <div class="pillars">
+    <div class="p"><span class="num">01 · GRAPH</span><h3>Semantic knowledge graph</h3><p>Partners, transactions, mappings, incidents, SLAs, certificates, configs, remediations — connected as operational memory.</p></div>
+    <div class="p"><span class="num">02 · INFERENCE</span><h3>Reasoning, not static rules</h3><p>Inference models interpret signals across historical patterns, partner tier, and business impact. Predict SLA breaches before they hit.</p></div>
+    <div class="p"><span class="num">03 · AGENTS</span><h3>Dynamic execution</h3><p>Agents monitor, reason, and act. Prioritised by confidence, severity, and policy — not ticket arrival order.</p></div>
+    <div class="p"><span class="num">04 · RUNBOOKS</span><h3>Runbooks as code</h3><p>Identify, check, remediate, validate. Operational knowledge as governed, versioned, reusable patterns.</p></div>
+    <div class="p"><span class="num">05 · ESCALATION</span><h3>Governed L1–L3 tiers</h3><p>L1 autonomous. L2 supervised exceptions. L3 engineering and design-level work only.</p></div>
+    <div class="p"><span class="num">06 · FUTURE MODEL</span><h3>Three coordinated layers</h3><p>Autonomous Execution Fabric · Human Governance · Strategic Optimization.</p></div>
+  </div>
+
+  <div class="tiers">
+    <div class="lbl">L1–L3 escalation model</div>
+    <div class="row"><div class="t">L1</div><div class="d"><strong>Autonomous execution.</strong> Agents clear repetitive event classes — known failures, retries, duplicates, validation breaches — within policy thresholds.</div></div>
+    <div class="row"><div class="t">L2</div><div class="d"><strong>Supervised exceptions.</strong> Humans review low-confidence decisions, non-standard remediations, and policy-sensitive events. Context surfaced from the graph.</div></div>
+    <div class="row"><div class="t">L3</div><div class="d"><strong>Engineering only.</strong> Platform defects, architectural issues, unknown patterns, design-level changes. L3 stops absorbing L1 work.</div></div>
+  </div>
+
+  <div class="out">
+    <div class="lbl">Business outcomes</div>
+    <ul>
+      <li>MTTR compression on repeat classes</li>
+      <li>L1 ticket volume reduced</li>
+      <li>Senior engineer cycles recovered</li>
+      <li>SLA breaches predicted ahead of impact</li>
+    </ul>
+  </div>
+
+  <div class="cta">
+    <div class="txt">
+      <h2>Bring a real operational pattern. <span class="grad">See it run.</span></h2>
+      <p>30-minute walkthrough with an Aiden solution architect. Stuck transaction, recurring defect, certificate rotation, SLA breach — leave with a concrete view of how it runs in your environment.</p>
+    </div>
+    <a class="btn" href="#">Book the walkthrough →</a>
+  </div>
+
+</div>
+</body></html>

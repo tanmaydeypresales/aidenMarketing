@@ -1,0 +1,99 @@
+<!--
+  Title: Aiden Tech Operations for B2B — LinkedIn Carousel
+  Description: 10-slide interactive carousel preview for the Aiden Tech Operations campaign.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aiden · Tech Operations — Carousel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#073663;--dnavy:#08244B;--blue:#103EE0;--cyan:#12DBD5;--lblue:#E0E4FC;--paper:#FFFFFF;--cream:#EDEEF4;
+        --grad:linear-gradient(89deg,#103EE0 27.33%,#12DBD5 83.11%);--rule:rgba(7,54,99,.14);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Poppins",sans-serif;background:#dcdfe8;color:var(--navy);display:flex;flex-direction:column;align-items:center;padding:40px 20px;min-height:100vh}
+  .stage{position:relative;width:min(92vw,720px);aspect-ratio:1/1;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 40px 90px -30px rgba(8,36,75,.5);container-type:inline-size}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;display:flex;flex-direction:column;padding:10% 9%;justify-content:center}
+  .slide.active{opacity:1;z-index:2}
+  .slide .eyebrow{font-size:1.7cqw;font-weight:600;letter-spacing:.22em;text-transform:uppercase;margin-bottom:6%;display:flex;align-items:center;gap:12px}
+  .slide .eyebrow::before{content:"";width:22px;height:1px;background:currentColor}
+  .slide h2{font-size:6.4cqw;font-weight:800;line-height:.98;letter-spacing:-.025em;max-width:94%}
+  .slide h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .slide p{font-size:2.6cqw;line-height:1.45;margin-top:5%;max-width:85%;font-weight:400}
+  .slide .logo{position:absolute;bottom:8%;right:9%;font-weight:800;letter-spacing:-.02em;font-size:2.4cqw;display:flex;align-items:center;gap:6px}
+  .slide .logo::before{content:"";width:9px;height:9px;background:var(--grad);display:inline-block;transform:rotate(45deg)}
+  .slide .num{position:absolute;top:8%;right:9%;font-size:1.6cqw;font-weight:600;letter-spacing:.2em;opacity:.5}
+
+  .dark{background:var(--dnavy);color:#fff}
+  .dark .eyebrow{color:var(--cyan)}
+  .light{background:#fff;color:var(--navy)}
+  .alt{background:var(--cream);color:var(--navy)}
+  .dark p{color:rgba(255,255,255,.78)}
+  .light p,.alt p{color:#3a4865}
+  .light .eyebrow,.alt .eyebrow{color:var(--blue)}
+
+  .dark::before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%),linear-gradient(0deg,transparent 49.5%,rgba(255,255,255,.04) 49.5%,rgba(255,255,255,.04) 50.5%,transparent 50.5%);background-size:10% 10%;pointer-events:none}
+  .light::before,.alt::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgba(7,54,99,.1) 1px,transparent 0);background-size:28px 28px;mask-image:linear-gradient(180deg,#000 30%,transparent 95%);pointer-events:none}
+
+  .wave{position:absolute;left:-10%;bottom:-20%;width:60%;opacity:.18;pointer-events:none}
+
+  .nav{margin-top:28px;display:flex;align-items:center;gap:18px}
+  .nav button{background:#fff;border:1px solid rgba(7,54,99,.2);width:44px;height:44px;border-radius:50%;font-size:16px;color:var(--navy);cursor:pointer;transition:all .25s}
+  .nav button:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .dots{display:flex;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(7,54,99,.25);cursor:pointer;transition:all .25s}
+  .dot.active{background:var(--navy);width:24px;border-radius:4px}
+  .counter{font-size:12px;font-weight:600;color:var(--navy);letter-spacing:.15em;margin-left:12px}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <section class="slide dark active">
+    <svg class="wave" viewBox="0 0 600 400" fill="none"><path d="M0 300 Q150 200 300 260 T600 220" stroke="url(#g1)" stroke-width="3" fill="none"/><path d="M0 340 Q150 240 300 300 T600 260" stroke="url(#g1)" stroke-width="2" fill="none" opacity=".6"/><defs><linearGradient id="g1" x1="0" x2="600"><stop offset="0" stop-color="#103EE0"/><stop offset="1" stop-color="#12DBD5"/></linearGradient></defs></svg>
+    <span class="num">01 / 10</span><span class="eyebrow">Aiden · Tech Operations</span>
+    <h2>Stop running operations. <span class="grad">Start governing them.</span></h2>
+    <p>Autonomous operating model for B2B ecosystems.</p>
+    <span class="logo">Aiden</span>
+  </section>
+
+  <section class="slide light"><span class="num">02 / 10</span><span class="eyebrow">The Reality</span><h2>Your best engineers are clearing <span class="grad">L1 tickets</span>.</h2><p>Not building resilience. Not optimizing the platform.</p></section>
+  <section class="slide alt"><span class="num">03 / 10</span><span class="eyebrow">The Cost</span><h2>Monitoring tells you what broke. <span class="grad">Nothing more.</span></h2><p>Runbooks live in wikis. Resolution depends on who picks up.</p></section>
+  <section class="slide light"><span class="num">04 / 10</span><span class="eyebrow">The Shift</span><h2>From reactive support to <span class="grad">autonomous operating model</span>.</h2><p>Agents execute. Humans govern. Leaders see ahead.</p></section>
+  <section class="slide alt"><span class="num">05 / 10</span><span class="eyebrow">01 · Knowledge Graph</span><h2>Operational memory for the <span class="grad">enterprise</span>.</h2><p>Partners, transactions, incidents, SLAs — all connected.</p></section>
+  <section class="slide light"><span class="num">06 / 10</span><span class="eyebrow">02 · Inference Models</span><h2>Reasoning, <span class="grad">not static rules</span>.</h2><p>Predict SLA breaches before they hit.</p></section>
+  <section class="slide alt"><span class="num">07 / 10</span><span class="eyebrow">03 · Dynamic Agents</span><h2>Confidence-scored. <span class="grad">Policy-guarded.</span></h2><p>Execution prioritised by impact, not ticket queue.</p></section>
+  <section class="slide light"><span class="num">08 / 10</span><span class="eyebrow">04 · Executable Runbooks</span><h2>Runbooks as <span class="grad">code</span>. Not wiki pages.</h2><p>Identify. Check. Remediate. Validate.</p></section>
+  <section class="slide alt"><span class="num">09 / 10</span><span class="eyebrow">05 · Governed Escalation</span><h2>L1 autonomous. L2 supervised. <span class="grad">L3 engineering only.</span></h2><p>L3 stops absorbing L1 work.</p></section>
+
+  <section class="slide dark">
+    <svg class="wave" viewBox="0 0 600 400" fill="none"><path d="M0 300 Q150 200 300 260 T600 220" stroke="url(#g2)" stroke-width="3" fill="none"/><path d="M0 340 Q150 240 300 300 T600 260" stroke="url(#g2)" stroke-width="2" fill="none" opacity=".6"/><defs><linearGradient id="g2" x1="0" x2="600"><stop offset="0" stop-color="#103EE0"/><stop offset="1" stop-color="#12DBD5"/></linearGradient></defs></svg>
+    <span class="num">10 / 10</span><span class="eyebrow">Next Step</span>
+    <h2>Bring a real operational pattern. <span class="grad">See it run.</span></h2>
+    <p>30-minute walkthrough with an Aiden architect.</p>
+    <span class="logo">Aiden</span>
+  </section>
+</div>
+
+<div class="nav">
+  <button id="prev" aria-label="Previous">←</button>
+  <div class="dots" id="dots"></div>
+  <button id="next" aria-label="Next">→</button>
+  <span class="counter" id="counter">01 / 10</span>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots'),counter=document.getElementById('counter');
+  let i=0;
+  slides.forEach((_,k)=>{const d=document.createElement('span');d.className='dot'+(k===0?' active':'');d.onclick=()=>go(k);dots.appendChild(d)});
+  function go(n){slides[i].classList.remove('active');dots.children[i].classList.remove('active');i=(n+slides.length)%slides.length;slides[i].classList.add('active');dots.children[i].classList.add('active');counter.textContent=String(i+1).padStart(2,'0')+' / 10'}
+  document.getElementById('prev').onclick=()=>go(i-1);
+  document.getElementById('next').onclick=()=>go(i+1);
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(i-1);if(e.key==='ArrowRight')go(i+1)});
+</script>
+</body></html>
