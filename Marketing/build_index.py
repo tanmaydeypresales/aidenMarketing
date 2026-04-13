@@ -22,6 +22,8 @@ CAMPAIGN_BLURBS = {
     "agentshub": "AgentsHub — pre-built industry agents for financial services, insurance, and more.",
     "Aiden-AI-Recruiter": "Enterprise-grade, multi-tenant AI recruitment platform for intelligent talent operations from requisition to offer.",
     "Onboard-Agent": "AI-driven onboarding specialist designed to automate the employee and customer lifecycle with proactive orchestration.",
+    "Aiden-Tech-Operations": "Enterprise AI for B2B tech operations — automating service desk, infrastructure management, and technical support.",
+    "Autonomous-Partner-Onboarding": "Streamlined partner and vendor onboarding with agentic AI — reducing friction and accelerating time-to-value.",
 }
 
 
