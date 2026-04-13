@@ -20,6 +20,8 @@ CAMPAIGN_BLURBS = {
     "ai-data-migration": "AI-driven data migration — schema mapping, transformation, reconciliation, and quality at scale.",
     "Mainframe-Migration": "Mainframe modernization — COBOL/AS400 to cloud-native with AI-accelerated refactoring.",
     "agentshub": "AgentsHub — pre-built industry agents for financial services, insurance, and more.",
+    "Aiden-AI-Recruiter": "Enterprise-grade, multi-tenant AI recruitment platform for intelligent talent operations from requisition to offer.",
+    "Onboard-Agent": "AI-driven onboarding specialist designed to automate the employee and customer lifecycle with proactive orchestration.",
 }
 
 
